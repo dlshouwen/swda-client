@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- title -->
+		<title><%=htmlWebpackPlugin.options.title %></title>
+		<!-- meta -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<!-- favicon -->
+		<link rel="icon" href="<%=BASE_URL %>images/favicon.ico">
+		<!-- browser tools -->
+		<script src="<%=BASE_URL %>broswer/browser.v2.js"></script>
+		<!-- config -->
+		<script src="<%=BASE_URL %>config/config.js"></script>
+		<!-- qq map -->
+		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=ZVQBZ-SG6RX-EQM4Y-7IKT3-BBIQE-TLB7X"></script>
+		<script type="text/javascript">
+		// get browser info
+		var info = new Browser();
+		// if low browser version
+		if (info.engine === 'Trident' && (info.version === '9.0' || info.version === '8.0' || info.version === '7.0' || info.version === '6.0')) {
+			window.location = '<%=BASE_URL %>broswer/broswer.html';
+		}
+		</script>
+	</head>
+	<body>
+		<!-- app -->
+		<div id="app"></div>
+	</body>
+</html>

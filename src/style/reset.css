@@ -1,0 +1,24 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;padding: 0;border: 0;outline: 0;font-size: 100%;background: transparent;
+}
+html{font-family: Consolas, "微软雅黑", Tahoma, "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;font-size:12px;}
+body {background-color:white;overflow-y:hidden;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,
+q:before, q:after {content: '';content: none;}
+:focus {outline: 0;}
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+table {border-collapse: collapse;border-spacing: 0;}
+input[type="checkbox"] {margin: 0;}
+html, body{
+	-webkit-text-size-adjust:none;scrollbar-3dlight-color:#d0d0d0;scrollbar-darkshadow-color:#d0d0d0;scrollbar-arrow-color:#d0d0d0;
+	scrollbar-face-color:#eeeeee;scrollbar-highlight-color:#eeeeee;scrollbar-shadow-color:#eeeeee;scrollbar-track-color:#fefefe;
+}
+::-webkit-srollbar-track-piece{background:none;border-radius:0;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb:vertical{height:50px;background-color:#ddd;border-radius:0px;outline:0px solid #ffffff;border:1px solid #fff;}
+::-webkit-scrollbar-thumb:hover{height:50px;background-color:#999999;-border-radius:0px;border-radius:0px;}
+::-webkit-scrollbar-thumb:horizontal{width:50px;background-color:#ddd;border-radius:0px;outline:0px solid #ffffff;border:1px solid #fff;}

@@ -1,9 +1,0 @@
-/** link layout */
-.link-layout{font-size:12px;padding:0 2px;border:0;background:none;display:inline-block;}
-.link-layout i{margin-right:6px;height:22px;vertical-align: top;}
-.link-layout span{vertical-align: top;height:22px;}
-.link-layout:hover, .link-layout:focus{background:none;}
-
-/** btn layout */
-.btn-layout{font-size:12px;padding:4px 6px;border:0;border-radius:2px;display:inline-block;}
-.btn-layout i{margin-right:4px;}

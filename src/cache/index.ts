@@ -1,61 +1,77 @@
-import { SessionStorage, Storage } from '@/utils/storage'
-import CacheKey from '@/utils/cache/key'
-import { ITheme } from '@/store/theme/interface'
-import { themeConfig } from '@/store/theme/config'
+import { local, session } from '@/utils/storage'
+import key from '@/config/key'
+import theme from '@/config/theme'
 
-// 缓存
 class Cache {
+	
+	getAttr = (): any => {
+		return local.get(key.cache.attr)
+	}
+	
+	setAttr = (value: any) => {
+		return local.set(key.cache.attr, value)
+	}
+	
+	getDict = (): any => {
+		return local.get(key.cache.dict)
+	}
+	
+	setDict = (value: any) => {
+		return local.set(key.cache.dict, value)
+	}
+	
 	getToken = (): string => {
-		return Storage.getItem(CacheKey.TokenKey) || ''
+		return local.get(key.cache.token) || ''
 	}
 
 	setToken = (value: string) => {
-		Storage.setItem(CacheKey.TokenKey, value)
+		local.set(key.cache.token, value)
 	}
 
 	getRefreshToken = (): string => {
-		return Storage.getItem(CacheKey.RefreshTokenKey) || ''
+		return local.get(key.cache.refreshToken) || ''
 	}
 
 	setRefreshToken = (value: string) => {
-		Storage.setItem(CacheKey.RefreshTokenKey, value)
+		local.set(key.cache.refreshToken, value)
 	}
 
-	getSidebarOpened = (): boolean => {
-		return Storage.getItem(CacheKey.SidebarOpenedKey) || false
+	getSidebar = (): boolean => {
+		return local.get(key.cache.sidebar) || false
 	}
 
-	setSidebarOpened = (value: boolean) => {
-		Storage.setItem(CacheKey.SidebarOpenedKey, value)
+	setSidebar = (value: boolean) => {
+		local.set(key.cache.sidebar, value)
 	}
 
-	getLanguage = (): string => {
-		return Storage.getItem(CacheKey.LangKey) || 'zh-CN'
+	getLang = (): string => {
+		return local.get(key.cache.lang) || 'zh-cn'
 	}
 
-	setLanguage = (value: string) => {
-		Storage.setItem(CacheKey.LangKey, value)
+	setLang = (value: string) => {
+		local.set(key.cache.lang, value)
 	}
 
-	getComponentSize = (): string => {
-		return Storage.getItem(CacheKey.ComponentSizeKey) || 'default'
+	getSize = (): string => {
+		return local.get(key.cache.size) || 'default'
 	}
 
-	setComponentSize = (value: string) => {
-		Storage.setItem(CacheKey.ComponentSizeKey, value)
+	setSize= (value: string) => {
+		local.set(key.cache.size, value)
 	}
 
-	getTheme = (): ITheme => {
-		return (SessionStorage.getItem(CacheKey.ThemeKey) as ITheme) || themeConfig
+	getTheme = () => {
+		return (session.get(key.cache.theme)) || theme
 	}
 
-	setTheme = (value: ITheme) => {
-		SessionStorage.setItem(CacheKey.ThemeKey, value)
+	setTheme = (value: any) => {
+		session.set(key.cache.theme, value)
 	}
 
 	removeTheme = () => {
-		SessionStorage.removeItem(CacheKey.ThemeKey)
+		session.remove(key.cache.theme)
 	}
+
 }
 
 export default new Cache()

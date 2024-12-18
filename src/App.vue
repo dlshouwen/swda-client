@@ -1,5 +1,30 @@
 <template>
+	<el-config-provider :locale="locale" :size="size">
+		<router-view />
+	</el-config-provider>
 </template>
 
 <script setup lang="ts">
+import { computed, nextTick, onMounted, getCurrentInstance } from 'vue'
+import { RouterView } from 'vue-router'
+import { useTitle } from '@vueuse/core'
+import { useI18n } from 'vue-i18n'
+import { messages } from '@/i18n'
+import { handleThemeStyle } from '@/utils/theme'
+import { useAppStore } from '@/stores/app'
+
+const appStore = useAppStore()
+const { t } = useI18n()
+const locale = computed(()=>messages[appStore.lang].el)
+const size = computed(()=>appStore.size)
+//const attr = appStore.getAttr()
+
+//useTitle(t(attr.title))
+
+onMounted(()=>{
+	nextTick(()=>{
+		handleThemeStyle(appStore.theme)
+	})
+})
+
 </script>

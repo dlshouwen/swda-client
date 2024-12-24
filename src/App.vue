@@ -14,10 +14,10 @@ import { handleThemeStyle } from '@/utils/theme'
 import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
+
 const { t } = useI18n()
 const locale = computed(()=>messages[appStore.lang].el)
 const size = computed(()=>appStore.size)
-//const attr = appStore.getAttr()
 
 //useTitle(t(attr.title))
 

@@ -14,17 +14,17 @@ const constantRoutes: RouteRecordRaw[] = [
 		children: [
 			{
 				path: '/redirect/:path(.*)',
-				component: () => import('../views/core/Redirect.vue')
+				component: () => import('../views/core/page/Redirect.vue')
 			}
 		]
 	},
 	{
 		path: '/iframe/:query?',
-		component: () => import('../views/core/Iframe.vue')
+		component: () => import('../views/core/page/Iframe.vue')
 	},
 	{
 		path: '/login',
-		component: () => import('../views/core/Login.vue')
+		component: () => import('../views/core/login/Login.vue')
 	},
 	{
 		path: '/404',
@@ -98,6 +98,9 @@ router.beforeEach(async (to, from, next) => {
 	const userStore = useUserStore()
 	const routerStore = useRouterStore()
 	
+	await appStore.loadAttr()
+	await appStore.loadDict()
+	
 	if(userStore.token) {
 		if(to.path === '/login'){
 			next('/dashboard/workbench')
@@ -125,13 +128,13 @@ router.beforeEach(async (to, from, next) => {
 				
 				routerStore.setRoutes(constantRoutes.concat(asyncRoute))
 				
-				routeStore.setSearchMenu(keepAliveRoutes)
+				routerStore.setSearchMenus(keepAliveRoutes)
 				
 				next({...to, replace:true})
 			}
 		}
 	}else{
-		if(whites.index(to.path) > -1){
+		if(whites.indexOf(to.path) > -1){
 			next()
 		}else{
 			next('/login')
@@ -181,7 +184,7 @@ export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 			path = '/p/'+menu.id
 		}else{
 			if(isIframeUrl(menu)){
-				component = () => import('@/views/core/Iframe.vue')
+				component = () => import('@/views/core/page/Iframe.vue')
 				path = '/iframe/'+menu.id
 			}else{
 				component = getDynamicComponent(menu.url)

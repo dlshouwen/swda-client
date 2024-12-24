@@ -22,7 +22,7 @@ request.interceptors.request.use(
 			config.headers['Authorization'] = userStore.token
 		}
 		config.headers['Accept-Language'] = local.get(key.cache.lang);
-		if(config.method?.toLowwerCase() === 'get'){
+		if(config.method?.toLowerCase() === 'get'){
 			config.params = { ...config.params, t: new Date().getTime() }
 		}
 		if(Object.values(config.headers).includes('application/x-www-form-urlencoded')){
@@ -51,7 +51,8 @@ request.interceptors.response.use(
 		if(Object.prototype.toString.call(response.data)==='[object Blob]'){
 			return response
 		}
-		if(response.data.code===0){
+
+		if(response.data.code===200){
 			return response.data
 		}
 		if(response.data.code===400){

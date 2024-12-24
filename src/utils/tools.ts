@@ -18,7 +18,7 @@ export const parseUrl = (url: string): string => {
 export const formatFileSize = (size: number, precision: number = 2): string => {
 	const units = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB']
 	let index = Math.floor(Math.log(size)/Math.log(1024))
-	return (size/Math.pow(1024, index)).toFixed(precision) + '' + unit[index]
+	return (size/Math.pow(1024, index)).toFixed(precision) + '' + units[index]
 }
 
 export const uuid = (split:string='-'):string => {

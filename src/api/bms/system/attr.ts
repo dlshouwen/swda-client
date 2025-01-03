@@ -2,6 +2,10 @@ import request from '@/utils/request'
 
 const path = '/bms/system/attr';
 
-export const getAllAttrData = () => {
-	return request.get(path+'/data/all')
+export const $getAttrList = () => {
+	return request.post(path+'/list')
+}
+
+export const $saveAttrList = (attrList: any) => {
+	return request.post(path+'/save', attrList)
 }

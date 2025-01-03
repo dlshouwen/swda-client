@@ -1,3 +1,5 @@
+import { sm2 } from 'sm-crypto'
+
 import config from '@/config/config';
 
 /**
@@ -31,4 +33,13 @@ export const uuid = (split:string='-'):string => {
 		uuid += (i === 12 ? 4 : i === 16 ? (random & 3) | 8 : random).toString(16)
 	}
 	return uuid
+}
+
+/**
+ * sm2加密
+ * @param data 待加密数据
+ * @return 加密后的数据
+ */
+export const sm2Encrypt = (data: string): string => {
+	return '04' + sm2.doEncrypt(data, config.app.sm2, 1)
 }

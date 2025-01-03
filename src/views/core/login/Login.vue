@@ -17,9 +17,9 @@
 				<el-form-item prop="password">
 					<el-input v-model="accountForm.password" :prefix-icon="Lock" show-password :placeholder="$t('login.account.placeholder.password')"></el-input>
 				</el-form-item>
-				<el-form-item prop="captcha">
+				<el-form-item prop="captcha" v-if="appStore.attr.account_login_captcha_enabled=='1'">
 					<el-input v-model="accountForm.captcha" :prefix-icon="Key" :placeholder="$t('login.account.placeholder.captcha')"></el-input>
-					<img style="width:80px;height:40px;" v-if="appStore.attr.login_need_valid_code=='1'&&appStore.attr.login_valid_code_type=='2'" :src="accountCaptchaBase64" @click="loadAccountCaptcha" />
+					<img style="width:80px;height:40px;" :src="accountCaptchaBase64" @click="loadAccountCaptcha" />
 				</el-form-item>
 				<el-button @click="doAccountLogin">{{$t('login.account.button')}}</el-button>
 			</el-form>
@@ -45,14 +45,17 @@ import { useI18n } from 'vue-i18n'
 import { userCaptcha } from '@/api/bms/app/login'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
+import { sm2Encrypt } from '@/utils/tools'
 
 const appStore = useAppStore()
+
+const userStore = useUserStore()
 
 const { t } = useI18n()
 
 const loginType = ref('account')
 
-const accountFormRef = reactive()
+const accountLoginFormRef = ref()
 
 const accountCaptchaBase64 = ref()
 
@@ -75,7 +78,7 @@ const mobileForm = reactive({
 })
 
 const loadAccountCaptcha = async ()=>{
-	if(appStore.attr.login_need_valid_code=='1'&&appStore.attr.login_valid_code_type=='2'){
+	if(appStore.attr.account_login_captcha_enabled=='1'){
 		const {data} = await userCaptcha()
 		accountForm.key = data.key
 		accountCaptchaBase64.value = data.image
@@ -83,12 +86,20 @@ const loadAccountCaptcha = async ()=>{
 }
 
 const doAccountLogin = ()=>{
-	accountFormRef.validate((valid: boolean)=>{
+	accountLoginFormRef.value.validate((valid: boolean)=>{
 		if(!valid){
 			return false
 		}
-		userStore.accountLogin(accountForm).then(()=>{
-			router.push({path:''})
+		const data = {
+			username: accountForm.username,
+			password: sm2Encrypt(accountForm.password),
+			key: accountForm.key,
+			captcha: accountForm.captcha
+		}
+		userStore.accountLogin(data).then(()=>{
+			router.push({path:'/workbench'})
+		}).catch(()=>{
+			loadAccountCaptcha()
 		})
 	})
 }

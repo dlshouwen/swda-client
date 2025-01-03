@@ -8,9 +8,9 @@ export const useAppStore = defineStore('appStore', ()=>{
 	
 	const expired = {attr:0, dict:0}
 	
-	const attr = reactive({})
+	const attr: { [key:string]: string } = reactive({})
 	
-	const dict = reactive({})
+	const dict: { [key:string]: any } = reactive({})
 	
 	const sidebar = ref(cache.getSidebar())
 	
@@ -25,17 +25,21 @@ export const useAppStore = defineStore('appStore', ()=>{
 		const timestamp = new Date().getTime()
 		// if timeout
 		if(timestamp>(expired.attr+config.app.attr.expired)){
-			// get attr data
-			const data = await getAttrData()
-			// get attrs
-			const attrs = data.data
-			// for each attr
-			attrs.forEach(_attr => {
-				// set data
-				attr[_attr.attrId] = _attr.content
-			})
-			// reset expired
-			expired.attr = timestamp
+			try{
+				// get attr data
+				const data = await getAttrData()
+				// get attrs
+				const attrs = data.data
+				// for each attr
+				attrs.forEach(_attr => {
+					// set data
+					attr[_attr.attrId] = _attr.content
+				})
+				// reset expired
+				expired.attr = timestamp
+			}catch(e){
+				
+			}
 		}
 	}
 	
@@ -44,38 +48,42 @@ export const useAppStore = defineStore('appStore', ()=>{
 		const timestamp = new Date().getTime()
 		// if timeout
 		if(timestamp>(expired.dict+config.app.dict.expired)){
-			// get dict data
-			const data = await getDictData()
-			// get dict types, dicts
-			const dictTypes = data.data.dictTypeList
-			const dicts = data.data.dictList
-			// for each dict type
-			dictTypes.forEach(dictType=>{
-				// reset dict
-				dict[dictType.dict_type] = {}
-				// defined datas
-				const datas = []
-				// for each dict
-				dicts.forEach(_dict=>{
-					// is dict type
-					if(_dict.dict_type_id===dictType.dict_type_id){
-						// add to datas
-						datas.push(_dict)
-						// set value
-						dict[dictType.dict_type][_dict.dict_key] = {
-							id: _dict.dict_id,
-							name: _dict.dict_name,
-							key: _dict.dict_key,
-							value: _dict.dict_value,
-							_class: _dict.dict_class
+			try{
+				// get dict data
+				const data = await getDictData()
+				// get dict types, dicts
+				const dictTypes = data.data.dictTypeList
+				const dicts = data.data.dictList
+				// for each dict type
+				dictTypes.forEach(dictType=>{
+					// reset dict
+					dict[dictType.dict_type] = {}
+					// defined datas
+					const datas = []
+					// for each dict
+					dicts.forEach(_dict=>{
+						// is dict type
+						if(_dict.dict_type_id===dictType.dict_type_id){
+							// add to datas
+							datas.push(_dict)
+							// set value
+							dict[dictType.dict_type][_dict.dict_key] = {
+								id: _dict.dict_id,
+								name: _dict.dict_name,
+								key: _dict.dict_key,
+								value: _dict.dict_value,
+								_class: _dict.dict_class
+							}
 						}
-					}
+					})
+					// set datas to dict
+					dict[dictType.dict_type].datas = datas
 				})
-				// set datas to dict
-				dict[dictType.dict_type].datas = datas
-			})
-			// reset expired
-			expired.dict = timestamp
+				// reset expired
+				expired.dict = timestamp
+			}catch(e){
+				
+			}
 		}
 	}
 

@@ -5,7 +5,6 @@ import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useRouterStore } from '@/stores/router'
 import { isExternalLink, path2Camel } from '@/utils/tools'
-import config from '@/config/config'
 
 const constantRoutes: RouteRecordRaw[] = [
 	{
@@ -89,12 +88,12 @@ router.beforeEach(async (to, from, next) => {
 		if(to.path === '/login'){
 			next('/workbench')
 		}else{
-			if(userStore.user.user_id){
+			if(userStore.user.userId){
 				next()
 			}else{
 				try{
-					await userStore.getUserInfo()
-					await userStore.getAuthorityList()
+					await userStore.getLoginUserData()
+					await userStore.getLoginUserAuthorityList()
 				}catch(error){
 					userStore?.setToken('')
 					next('/login')

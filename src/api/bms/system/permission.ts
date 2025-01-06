@@ -2,12 +2,12 @@ import request from '@/utils/request'
 
 const path = '/bms/system/permission';
 
-export const $getUserMenuList = () => {
-	return request.post(path+'/user/menu/list')
+export const $getLoginUserMenuList = () => {
+	return request.post(path+'/login/user/menu/list')
 }
 
-export const $getUserAuthorityList = () => {
-	return request.post(path+'/user/authority/list')
+export const $getLoginUserAuthorityList = () => {
+	return request.post(path+'/login/user/authority/list')
 }
 
 export const $getPermissionList = (permissionType: number) => {

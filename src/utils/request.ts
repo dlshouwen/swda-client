@@ -3,9 +3,8 @@ import qs from 'qs'
 import { ElMessage } from 'element-plus'
 import { ElMessageBox } from 'element-plus/es'
 import { useUserStore } from '@/stores/user'
-import cache from '@/cache'
 import { local } from '@/utils/storage'
-import key from '@/config/key'
+import appConfig from '@/config' 
 
 // defined axios instance
 const request = axios.create({
@@ -21,7 +20,7 @@ request.interceptors.request.use(
 		if(userStore?.token){
 			config.headers['Authorization'] = userStore.token
 		}
-		config.headers['Accept-Language'] = local.get(key.cache.lang);
+		config.headers['Accept-Language'] = local.get(appConfig.key.lang);
 		if(config.method?.toLowerCase() === 'get'){
 			config.params = { ...config.params, t: new Date().getTime() }
 		}
@@ -62,7 +61,7 @@ request.interceptors.response.use(
 			const config = response.config
 			if(!isRefreshToken){
 				isRefreshToken = true
-				const refreshToken = cache.getRefreshToken()
+				const refreshToken = local.get(appConfig.key.refreshToken)
 				if(!refreshToken){
 					return handleUnauthorize()
 				}

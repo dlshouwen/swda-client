@@ -1,6 +1,6 @@
 import { sm2 } from 'sm-crypto'
 
-import config from '@/config/config';
+import config from '@/config';
 
 /**
  * path to camel

@@ -42,7 +42,8 @@
 import { ref, reactive, onMounted } from 'vue'
 import { User, Lock, Key, Iphone } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
-import { userCaptcha } from '@/api/bms/app/login'
+import { $getLoginCaptcha } from '@/api/bms/app/login'
+import { useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { sm2Encrypt } from '@/utils/tools'
@@ -50,6 +51,8 @@ import { sm2Encrypt } from '@/utils/tools'
 const appStore = useAppStore()
 
 const userStore = useUserStore()
+
+const router = useRouter()
 
 const { t } = useI18n()
 
@@ -79,7 +82,7 @@ const mobileForm = reactive({
 
 const loadAccountCaptcha = async ()=>{
 	if(appStore.attr.account_login_captcha_enabled=='1'){
-		const {data} = await userCaptcha()
+		const {data} = await $getLoginCaptcha()
 		accountForm.key = data.key
 		accountCaptchaBase64.value = data.image
 	}
@@ -96,7 +99,7 @@ const doAccountLogin = ()=>{
 			key: accountForm.key,
 			captcha: accountForm.captcha
 		}
-		userStore.accountLogin(data).then(()=>{
+		userStore.login('account', data).then(()=>{
 			router.push({path:'/workbench'})
 		}).catch(()=>{
 			loadAccountCaptcha()

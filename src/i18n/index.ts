@@ -1,5 +1,7 @@
 import { createI18n } from 'vue-i18n'
-import cache from '@/cache'
+
+import { local } from '@/utils/storage'
+import config from '@/config'
 
 import element_zh_cn from 'element-plus/es/locale/lang/zh-cn'
 import element_en from 'element-plus/es/locale/lang/en'
@@ -24,6 +26,6 @@ export const i18n = createI18n({
 	allowComposition: true,
 	globalInjection: true,
 	legacy: false,
-	locale: cache.getLang(),
+	locale: local.get(config.key.lang) || config.default.lang,
 	messages: messages
 })

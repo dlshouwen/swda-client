@@ -66,7 +66,7 @@ request.interceptors.response.use(
 					return handleUnauthorize()
 				}
 				try{
-					const {data} = await request.post('/bms/login/token?refreshToken='+refreshToken)
+					const {data} = await request.post('/login/token?refreshToken='+refreshToken)
 					userStore.setToken(data.access_token)
 					config.headers!.Authorization = data.access_token
 					requests.forEach((cb:any)=>{

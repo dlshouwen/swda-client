@@ -11,12 +11,15 @@ import 'element-plus/dist/index.css'
 
 import '@/styles/index.scss'
 
+import '@/assets/icon/icon.css'
+
 /** import app */
 import App from './App.vue'
 /** import pinia */
 import { createPinia } from 'pinia'
 
 import { i18n } from './i18n'
+
 
 // create app
 const app = createApp(App)

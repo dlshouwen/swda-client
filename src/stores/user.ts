@@ -2,7 +2,8 @@ import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { $accountLogin, $logout } from '@/api/bms/app/login'
 import { $getLoginUserData } from '@/api/bms/system/user'
-import { $getLoginUserAuthorityList } from '@/api/bms/system/permission'
+import { $getLoginUserSystemList } from '@/api/bms/system/system'
+import { $getLoginUserMenuList, $getLoginUserAuthorityList } from '@/api/bms/system/permission'
 import { local } from '@/utils/storage'
 import config from '@/config'
 
@@ -25,6 +26,9 @@ export const useUserStore = defineStore('userStore', {
 		},
 		token: local.get(config.key.token),
 		refreshToken: local.get(config.key.refreshToken),
+		systemId: 0,
+		systemList: [],
+		menuList: [],
 		authorityList: []
 	}),
 	actions: {
@@ -49,6 +53,15 @@ export const useUserStore = defineStore('userStore', {
 		async getLoginUserData() {
 			const { data } = await $getLoginUserData()
 			this.setUser(data)
+		},
+		async getLoginUserSystemList() {
+			const { data } = await $getLoginUserSystemList()
+			this.systemList = data || []
+			this.systemId = this.systemList.length>0?this.systemList[0].systemId:0
+		},
+		async getLoginUserMenuList() {
+			const { data } = await $getLoginUserMenuList()
+			this.menuList = data || []
 		},
 		async getLoginUserAuthorityList() {
 			const { data } = await $getLoginUserAuthorityList()

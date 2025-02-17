@@ -14,7 +14,7 @@ export const useRouterStore = defineStore('routerStore', {
 		async getMenuRoutes() {
 			const { data } = await $getLoginUserMenuList()
 			const routes = generateRoutes(data)
-
+			
 			const dashboardRoutes = generateRoutes(workbenchMenu)
 			this.menuRoutes.push(...dashboardRoutes)
 

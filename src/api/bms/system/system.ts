@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 const path = '/bms/system/system';
 
-export const $getUserSystemList = () => {
-	return request.post(path+'/user/system/list')
+export const $getLoginUserSystemList = () => {
+	return request.post(path+'/login/user/system/list')
 }
 
 export const $getSystemPageResult = (query: any) => {

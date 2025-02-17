@@ -7,8 +7,14 @@ import { useRouterStore } from '@/stores/router'
 import { isExternalLink, path2Camel } from '@/utils/tools'
 
 const constantRoutes: RouteRecordRaw[] = [
+	{ 
+		path: '/login', 
+		name: 'Login', 
+		component: () => import('@/views/core/login/Login.vue')
+	},
 	{
 		path: '/redirect',
+		name: 'Redirect',
 		component: () => import('../views/core/layout/Index.vue'),
 		children: [
 			{
@@ -19,14 +25,12 @@ const constantRoutes: RouteRecordRaw[] = [
 	},
 	{
 		path: '/iframe/:query?',
+		name: 'Iframe',
 		component: () => import('../views/core/page/Iframe.vue')
 	},
 	{
-		path: '/login',
-		component: () => import('../views/core/login/Login.vue')
-	},
-	{
 		path: '/404',
+		name: '404',
 		component: () => import('../views/core/error/404.vue')
 	}
 ]
@@ -34,12 +38,20 @@ const constantRoutes: RouteRecordRaw[] = [
 const asyncRoute: RouteRecordRaw = {
 	path: '/',
 	component: () => import('../views/core/layout/Index.vue'),
-	redirect: '/workbench',
 	children: [
 		{
 			path: '/profile',
-			name: 'ProfileIndex',
+			name: 'Profile',
 			component: () => import('../views/core/profile/Profile.vue'),
+			meta: {
+				title: '个人中心',
+				cache: true
+			}
+		},
+		{
+			path: '/workbench',
+			name: 'Workbench',
+			component: () => import('../views/core/workbench/Workbench.vue'),
 			meta: {
 				title: '个人中心',
 				cache: true
@@ -52,7 +64,7 @@ export const workbenchMenu = [
 	{
 		id:1,
 		name: 'Workbench',
-		url: null,
+		path: '',
 		openStyle: 0,
 		icon: 'icon-appstore',
 		affix: true
@@ -93,6 +105,8 @@ router.beforeEach(async (to, from, next) => {
 			}else{
 				try{
 					await userStore.getLoginUserData()
+					await userStore.getLoginUserSystemList()
+					await userStore.getLoginUserMenuList()
 					await userStore.getLoginUserAuthorityList()
 				}catch(error){
 					userStore?.setToken('')
@@ -105,6 +119,7 @@ router.beforeEach(async (to, from, next) => {
 				const keepAliveRoutes = getKeepAliveRoutes(menuRoutes, [])
 				
 				asyncRoute.children?.push(...keepAliveRoutes)
+				
 				router.addRoute(asyncRoute)
 				
 				router.addRoute(errorRoute)
@@ -136,7 +151,7 @@ export const getKeepAliveRoutes = (rs: RouteRecordRaw[], breadcrumb: string[]): 
 		if(route.meta.title){
 			breadcrumb.push(route.meta.title)
 		}
-		if(item.children?.length>0){
+		if(route.children?.length>0){
 			routes.push(...getKeepAliveRoutes(route.children, breadcrumb))
 		}else{
 			route.meta.breadcrumb.push(...breadcrumb)
@@ -159,19 +174,19 @@ const getDynamicComponent = (path: string): any => {
 export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 	const routes: RouteRecordRaw[] = []
 	
-	menuList.foreach((menu: any) => {
+	menuList.forEach((menu: any) => {
 		let component
 		let path
 		if(menu.children?.length>0){
 			component = () => import('@/views/core/layout/Index.vue')
-			path = '/p/'+menu.id
+			path = menu.path
 		}else{
 			if(isIframeUrl(menu)){
 				component = () => import('@/views/core/page/Iframe.vue')
 				path = '/iframe/'+menu.id
 			}else{
-				component = getDynamicComponent(menu.url)
-				path = '/'+menu.url
+				component = getDynamicComponent(menu.component)
+				path = menu.path
 			}
 		}
 		const route: RouteRecordRaw = {
@@ -180,9 +195,9 @@ export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 			component: component,
 			children: [],
 			meta: {
-				title: menu.menu_name,
+				title: menu.name,
 				icon: menu.icon,
-				id: ''+menu.menu_id,
+				id: ''+menu.id,
 				cache:true,
 				newOpen: menu.openStyle===1,
 				affix: menu.affix,

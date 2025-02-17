@@ -30,6 +30,9 @@ export default {
 	operation: {
 		add: '新增',
 		edit: '编辑',
+		close: '关闭',
+		closeOther: '关闭其他',
+		closeAll: '关闭所有',
 	}
 	
 }

@@ -11,7 +11,7 @@ import 'element-plus/dist/index.css'
 
 import '@/styles/index.scss'
 
-import '@/assets/icon/icon.css'
+import '@/assets/icon/iconfont'
 
 /** import app */
 import App from './App.vue'
@@ -20,6 +20,7 @@ import { createPinia } from 'pinia'
 
 import { i18n } from './i18n'
 
+import SwComponent from '@/components/SwComponent.ts'
 
 // create app
 const app = createApp(App)
@@ -34,6 +35,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 // use element plug
 app.use(ElementPlus)
+
+// use element plug
+app.use(SwComponent)
 
 app.use(router)
 

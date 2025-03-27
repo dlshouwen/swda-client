@@ -85,7 +85,7 @@ const tabRemove = (path)=>{
 }
 
 const closeTab = (tab: any) => {
-	if (tab.meta && tab.meta.affix) {
+	if (tab.meta?.affix) {
 		return
 	}
 	tabStore.delete(tab)
@@ -117,14 +117,14 @@ const toLastTab = (tab) => {
 
 const onClose = (type: string) => {
 	switch (type) {
-		case 'close':
-			closeTab(router, route)
+		case 'closeTab':
+			closeTab(route)
 			break
-		case 'closeOthers':
-			closeOthersTabs(router, route)
+		case 'closeOtherTab':
+			closeOtherTab(route)
 			break
-		case 'closeAll':
-			closeAllTabs(router, route)
+		case 'closeAllTab':
+			closeAllTab(route)
 			break
 	}
 }

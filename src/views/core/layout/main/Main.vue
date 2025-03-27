@@ -3,7 +3,7 @@
 		<el-main class="layout-main">
 			<el-scrollbar class="layout-scrollbar">
 				<router-view v-slot="{ Component, route }">
-					<keep-alive v-if="theme.isTabsCache" :include="[...tabsStore.cachedViews]">
+					<keep-alive v-if="theme.isTabsCache" :include="[...tabStore.caches]">
 						<component :is="Component" :key="route.fullPath" />
 					</keep-alive>
 					<component :is="Component" v-else :key="route.name" />

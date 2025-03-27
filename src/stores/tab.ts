@@ -43,7 +43,7 @@ export const useTabStore = defineStore('tabStore', {
 			this.visits = this.visits.filter(r => {
 				return r.meta.affix || r.path === route.path
 			})
-			const index = this.caches.indexOf(view.name)
+			const index = this.caches.indexOf(route.name)
 			if (index > -1) {
 				this.caches = this.caches.slice(index, index + 1)
 			} else {

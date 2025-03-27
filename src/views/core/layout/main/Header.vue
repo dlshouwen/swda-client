@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a v-for="system in userStore.systemList" key="system.systemId">{{system.systemName}}</a>
+		<a v-for="system in userStore.systemList" :key="system.systemId">{{system.systemName}}</a>
 		|
 		<a>语言</a>
 		|

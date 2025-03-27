@@ -53,8 +53,9 @@ const asyncRoute: RouteRecordRaw = {
 			name: 'Workbench',
 			component: () => import('../views/core/workbench/Workbench.vue'),
 			meta: {
-				title: '个人中心',
-				cache: true
+				title: '工作台',
+				cache: true,
+				affix: true
 			}
 		}
 	]

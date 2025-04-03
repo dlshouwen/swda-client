@@ -3,7 +3,7 @@
 		<el-tab-pane v-for="tab in tabStore.visits" :key="tab" :label="tab.title" :name="tab.path" :closable="!tab.meta?.affix">
 			<template #label>
 				<el-dropdown :id="tab.path" ref="dropdownRef" trigger="contextmenu" placement="bottom-end" @visible-change="tabChange($event, tab)" @command="onClose">
-					<span>{{ tab.title }}</span>
+					<span><sw-icon icon="" />{{ tab.title }}</span>
 					<template #dropdown>
 						<el-dropdown-menu>
 							<el-dropdown-item :icon="Close" command="closeTab">{{ $t('operation.close') }}</el-dropdown-item>
@@ -141,3 +141,54 @@ const tabChange = (visible: boolean, tab: any) => {
 	})
 }
 </script>
+
+<style lang="scss" scoped>
+
+.el-tabs{
+	
+	border-bottom:0.1rem solid #eee;padding:0;--el-tabs-header-height:3rem;
+	
+	::v-deep(.el-tabs__header){
+		
+		margin:0;margin-bottom:0.1rem;
+		
+		.el-tabs__item{padding:0 1rem;}
+		
+		.el-tabs__item:nth-child(2){padding-left:1rem;}
+		.el-tabs__item:last-child{padding-left:1rem;}
+		
+		.el-tabs__nav-next{border-left:0.1rem solid #eee;}
+		
+		.el-tabs__nav-prev{border-right:0.1rem solid #eee;}
+	
+	}
+	
+	::v-deep(.el-tabs__nav-wrap){
+		
+		.el-dropdown{height:3rem;line-height:3rem;}
+		
+		&:after{height:0;}
+		
+		.el-tabs__active-bar{height:0;}
+		
+		.el-tabs__item{
+			
+			border-right:0.1rem solid #efefef;
+			
+			&:before {content:'';width:0.6rem;height:0.6rem;margin-right:0.6rem;display:inline-block;background-color: #ddd;border-radius: 50%;}
+			
+			&.is-active{
+				
+				background:var(--el-color-primary-light-9);  
+				
+				.el-dropdown{color:var(--el-color-primary)}
+				
+				&:before {background:var(--el-color-primary)}
+		
+			}
+			
+		}
+	
+	}
+}
+</style>

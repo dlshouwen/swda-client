@@ -11,7 +11,8 @@ import 'element-plus/dist/index.css'
 
 import '@/styles/index.scss'
 
-import '@/assets/icon/iconfont'
+import '@/assets/icon/swda'
+import '@/assets/icon/ant'
 
 /** import app */
 import App from './App.vue'

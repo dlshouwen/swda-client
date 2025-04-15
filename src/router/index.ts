@@ -1,222 +1,188 @@
+// import router element
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+
+// import progress
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+
+// import stores
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
-import { useRouterStore } from '@/stores/router'
+import { useRouteStore } from '@/stores/route'
+
+// import tools
 import { isExternalLink, path2Camel } from '@/utils/tools'
 
+// defined constant routes
 const constantRoutes: RouteRecordRaw[] = [
-	{ 
-		path: '/login', 
-		name: 'Login', 
-		component: () => import('@/views/core/login/Login.vue')
-	},
-	{
-		path: '/redirect',
-		name: 'Redirect',
-		component: () => import('../views/core/layout/Index.vue'),
-		children: [
-			{
-				path: '/redirect/:path(.*)',
-				component: () => import('../views/core/page/Redirect.vue')
-			}
-		]
-	},
-	{
-		path: '/iframe/:query?',
-		name: 'Iframe',
-		component: () => import('../views/core/page/Iframe.vue')
-	},
-	{
-		path: '/404',
-		name: '404',
-		component: () => import('../views/core/error/404.vue')
-	}
+	{ path: '/login', name: 'Login', component: () => import('@/views/core/login/Login.vue') },
+	{ path: '/redirect', name: 'Redirect', component: () => import('../views/core/layout/Index.vue'), children: [
+		{ path: '/redirect/:path(.*)', component: () => import('../views/core/page/Redirect.vue') }
+	]},
+	{ path: '/iframe/:query?', name: 'Iframe', component: () => import('../views/core/page/Iframe.vue') },
+	{ path: '/404', name: '404', component: () => import('../views/core/error/404.vue') }
 ]
 
-const asyncRoute: RouteRecordRaw = {
-	path: '/',
-	component: () => import('../views/core/layout/Index.vue'),
-	children: [
-		{
-			path: '/profile',
-			name: 'Profile',
-			component: () => import('../views/core/profile/Profile.vue'),
-			meta: {
-				title: '个人中心',
-				cache: true
-			}
-		},
-		{
-			path: '/workbench',
-			name: 'Workbench',
-			component: () => import('../views/core/workbench/Workbench.vue'),
-			meta: {
-				title: '工作台',
-				cache: true,
-				affix: true
-			}
-		}
-	]
-}
-
-export const workbenchMenu = [
-	{
-		id:1,
-		name: 'Workbench',
-		path: '',
-		openStyle: 0,
-		icon: 'icon-appstore',
-		affix: true
-	}
-]
-
-export const constantMenu = []
-
-export const errorRoute: RouteRecordRaw = {
+// defined error route
+const errorRoute: RouteRecordRaw = {
 	path: '/:pathMatch(.*)',
 	redirect: '/404'
 }
 
+// defined async route
+const asyncRoute: RouteRecordRaw = { path: '/', component: () => import('../views/core/layout/Index.vue'), children: [
+	{ path: '/home', name: 'Home', component: () => import('../views/core/home/Home.vue'), meta: { title: '首页', cache: true, affix: true } }
+]}
+
+// defined whites
+const whites = ['/login']
+
+// create router
 export const router = createRouter({
 	history: createWebHistory(),
 	routes: constantRoutes
 })
 
-const whites = ['/login']
-
+// before each
 router.beforeEach(async (to, from, next) => {
-	
+	// progress start
 	NProgress.start()
-	
+	// get store
 	const appStore = useAppStore()
 	const userStore = useUserStore()
-	const routerStore = useRouterStore()
-	
+	const routeStore = useRouteStore()
+	// load attr
 	await appStore.loadAttr()
+	// load dict
 	await appStore.loadDict()
-	
+	// has user token
 	if(userStore.token) {
+		// if to login
 		if(to.path === '/login'){
-			next('/workbench')
+			// to home
+			next('/home')
 		}else{
+			// user store has user id
 			if(userStore.user.userId){
+				// next
 				next()
 			}else{
+				// try catch
 				try{
+					// get login user data
 					await userStore.getLoginUserData()
+					// get login user system list
 					await userStore.getLoginUserSystemList()
+					// get login user menu list
 					await userStore.getLoginUserMenuList()
+					// get login user authority list
 					await userStore.getLoginUserAuthorityList()
 				}catch(error){
+					// clear token
 					userStore?.setToken('')
+					// to login
 					next('/login')
+					// reject
 					return Promise.reject(error)
 				}
-				
-				const menuRoutes = await routerStore.getMenuRoutes()
-				
-				const keepAliveRoutes = getKeepAliveRoutes(menuRoutes, [])
-				
-				asyncRoute.children?.push(...keepAliveRoutes)
-				
+				// defined routes
+				const routes: RouteRecordRaw[] = [];
+				// for each user menu
+				userStore.menuList.forEach(menu=>{
+					// push route
+					routes.push(...menu2Routes(menu))
+				})
+				// async route push
+				asyncRoute.children?.push(...routes)
+				// add async route
 				router.addRoute(asyncRoute)
-				
+				// add error route
 				router.addRoute(errorRoute)
-				
-				routerStore.setRoutes(constantRoutes.concat(asyncRoute))
-				
-				routerStore.setSearchMenus(keepAliveRoutes)
-				
+				// set routes
+				routeStore.setRoutes(constantRoutes.concat(asyncRoute))
+				// set searchs
+				routeStore.setSearchs(routes)
+				//next
 				next({...to, replace:true})
 			}
 		}
 	}else{
+		// is in whites
 		if(whites.indexOf(to.path) > -1){
+			// next
 			next()
 		}else{
+			// to login
 			next('/login')
 		}
 	}
 })
 
+// after each
 router.afterEach(()=>{
+	// progress done
 	NProgress.done()
 })
 
-export const getKeepAliveRoutes = (rs: RouteRecordRaw[], breadcrumb: string[]): RouteRecordRaw[] => {
-	const routes: RouteRecordRaw[] = []
-	
-	rs.forEach((route: RouteRecordRaw) => {
-		if(route.meta.title){
-			breadcrumb.push(route.meta.title)
-		}
-		if(route.children?.length>0){
-			routes.push(...getKeepAliveRoutes(route.children, breadcrumb))
+/**
+ * menu to route
+ * @params menu
+ * @returns route
+ */
+const menu2Routes = (menu: any, breadcrumb: string[] = []): RouteRecordRaw[] => {
+	// defined routes
+	const routes = []
+	// defined path, component
+	let path, component
+	// if has children
+	if(menu.children?.length>0){
+		// set path
+		path = menu.path
+		// set component
+		component = () => import('@/views/core/layout/Index.vue')
+	}else{
+		// if menu is link
+		if(menu.openStyle!==1&&isExternalLink(menu.url)){
+			// set path
+			path = '/iframe/'+menu.id
+			// set component
+			component = () => import('@/views/core/page/Iframe.vue')
 		}else{
-			route.meta.breadcrumb.push(...breadcrumb)
-			routes.push(route)
-		}
-		breadcrumb.pop()
-	})
-	return routes
-}
-
-export const layoutModules = () => {
-	return import.meta.glob('/src/views/**/**/**/*.vue')
-}
-
-const getDynamicComponent = (path: string): any => {
-	const modules = layoutModules()
-	return modules[`/src/views/${path}.vue`]
-}
-
-export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
-	const routes: RouteRecordRaw[] = []
-	
-	menuList.forEach((menu: any) => {
-		let component
-		let path
-		if(menu.children?.length>0){
-			component = () => import('@/views/core/layout/Index.vue')
+			// set path
 			path = menu.path
-		}else{
-			if(isIframeUrl(menu)){
-				component = () => import('@/views/core/page/Iframe.vue')
-				path = '/iframe/'+menu.id
-			}else{
-				component = getDynamicComponent(menu.component)
-				path = menu.path
-			}
+			// set component
+			component = import.meta.glob('/src/views/**/**/**/*.vue')[`/src/views/${menu.component}.vue`]
+			//component = () => import(`@/src/views/${menu.component}.vue`)
 		}
-		const route: RouteRecordRaw = {
-			path: path,
-			name: path2Camel(path),
-			component: component,
-			children: [],
-			meta: {
-				title: menu.name,
-				icon: menu.icon,
-				id: ''+menu.id,
-				cache:true,
-				newOpen: menu.openStyle===1,
-				affix: menu.affix,
-				breadcrumb: []
-			}
-		}
-		
-		if(menu.children?.length>0){
-			route.children?.push(...generateRoutes(menu.children))
-		}
-		routes.push(route)
-	})
-	return routes
-}
-
-const isIframeUrl = (menu:any): boolean => {
-	if(menu.openStyle===1){
-		return false
 	}
-	return isExternalLink(menu.url)
+	// set breadcrumb
+	breadcrumb.push(menu.name)
+	// set route
+	const route: RouteRecordRaw = {
+		name: path2Camel(path),
+		path: path,
+		component: component,
+		children: [],
+		meta: {
+			title: menu.name,
+			icon: menu.icon,
+			id: ''+menu.id,
+			cache:true,
+			newOpen: menu.openStyle===1,
+			affix: menu.affix,
+			breadcrumb: breadcrumb
+		}
+	}
+	// if has children	
+	if(menu.children?.length>0){
+		// for each child
+		menu.children?.forEach(sub=>{
+			// add to children
+			routes.push(...menu2Routes(sub, [...breadcrumb]))
+		})
+	}else{
+		// push route
+		routes.push(route)
+	}
+	return routes
 }

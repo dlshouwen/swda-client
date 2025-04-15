@@ -1,5 +1,5 @@
 <template>
-	Profile
+	user
 </template>
 
 <script setup lang="ts">

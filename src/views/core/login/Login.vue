@@ -178,7 +178,7 @@ const doAccountLogin = ()=>{
 			captcha: accountLoginFormData.captcha
 		}
 		userStore.login('account', data).then(()=>{
-			router.push({path:'/workbench'})
+			router.push({path:'/home'})
 		}).catch(()=>{
 			loadAccountCaptcha()
 			loading.value = false;

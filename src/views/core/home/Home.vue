@@ -1,5 +1,5 @@
 <template>
-	Workbench
+	Home
 </template>
 
 <script setup lang="ts">

@@ -1,3 +1,4 @@
+// import request
 import request from '@/utils/request'
 
 export const $getAttrData = () => {

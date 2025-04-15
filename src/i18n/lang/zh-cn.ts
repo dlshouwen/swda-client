@@ -30,6 +30,68 @@ export default {
 		}
 	},
 	
+	options: {
+
+		size:{
+			
+			large: '最大',
+			default: '默认',
+			small: '最小'
+			
+		},
+		
+	},
+	
+	header: {
+		
+		operate: {
+			
+			sidebar: {
+				open: '展开侧边栏',
+				close: '折叠侧边栏'
+			},
+			refresh: '刷新当前页',
+			system: '选择系统',
+			lang: '选择语言',
+			size: '选择大小',
+			fullscreen: {
+				open:'全屏',
+				close:'取消全屏'
+			},
+			search: '搜索功能',
+			profile: {
+				userInfo: '个人信息',
+				changePassword: '修改密码',
+				logout: '退出登录'
+			},
+			setting: '更多设置',
+			
+		},
+		
+	},
+	
+	tab: {
+		
+		home: '首页',
+		
+		operate: {
+
+			close: {
+				self: '关闭',
+				other: '关闭其他',
+				all: '关闭所有'
+			}
+			
+		}
+		
+	},
+	
+	menu: {
+		
+		home: '首页'
+		
+	},
+	
 	valid: {
 		required: '必须填写',
 	},
@@ -37,9 +99,6 @@ export default {
 	operation: {
 		add: '新增',
 		edit: '编辑',
-		close: '关闭',
-		closeOther: '关闭其他',
-		closeAll: '关闭所有',
 	}
 	
 }

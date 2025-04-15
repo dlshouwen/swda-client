@@ -1,3 +1,4 @@
+// import request
 import request from '@/utils/request'
 
 const path = '/bms/platform/auth_platform';

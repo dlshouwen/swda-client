@@ -1,3 +1,4 @@
+// import request
 import request from '@/utils/request'
 
 const path = '/bms/log/login_log';

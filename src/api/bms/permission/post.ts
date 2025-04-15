@@ -1,3 +1,4 @@
+// import request
 import request from '@/utils/request'
 
 const path = '/bms/system/post';

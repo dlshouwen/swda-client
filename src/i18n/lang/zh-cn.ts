@@ -41,6 +41,19 @@ export default {
 			
 		},
 		
+		theme:{
+			
+			system: {
+				select:'选择模式',
+				merge:'合并显示'
+			},
+			style: {
+				light:'明亮模式',
+				dark:'深色模式'
+			},
+			
+		}
+		
 	},
 	
 	header: {
@@ -91,6 +104,35 @@ export default {
 	menu: {
 		
 		home: '首页'
+		
+	},
+	
+	setting: {
+		
+		title: '系统设置',
+		color: '设置主题色',
+		style: '设置样式',
+		
+		theme: {
+			
+			system: '系统切换样式',
+			style: '设置主题',
+			logo: '显示LOGO',
+			breadcrumb: '显示面包屑',
+			sidebar: {
+				unique: '侧边栏排他'
+			},
+			tab: {
+				enable: '显示标签页',
+				style: '标签页样式',
+				cache: '标签页缓存',
+			}
+			
+		},
+		
+		operate: '操作',
+		
+		reset: '重置所有选项'
 		
 	},
 	

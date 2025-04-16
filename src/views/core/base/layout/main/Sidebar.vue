@@ -2,7 +2,8 @@
 	<!-- sidebar -->
 	<el-scrollbar :class="`sidebar ${appStore.size}`">
 		<!-- menu -->
-		<el-menu :default-active="router.currentRoute.value.path" mode="vertical" :collapse-transition="false" :collapse="!appStore.sidebar">
+		<el-menu :default-active="router.currentRoute.value.path" mode="vertical" :collapse-transition="false" 
+			:collapse="appStore.theme.sidebar.collapse" :unique-opened="appStore.theme.sidebar.unique">
 			<!-- sub menu -->
 			<el-sub-menu v-for="menu in menus" :index="menu.path" class="sidebar-menu">
 				<!-- menu title -->

@@ -19,7 +19,6 @@ export const useAppStore = defineStore('appStore', {
 	state: () => ({
 		attr: {} as {[key:string]:string},
 		dict: {} as {[key:string]:any},
-		sidebar: local.get(config.key.sidebar) || config.default.sidebar,
 		lang: local.get(config.key.lang) || config.default.lang,
 		size: local.get(config.key.size) || config.default.size,
 		theme: local.get(config.key.theme) || config.default.theme,
@@ -98,16 +97,6 @@ export const useAppStore = defineStore('appStore', {
 					console.error(e)
 				}
 			}
-		},
-		/**
-		 * set sidebar
-		 * @param value
-		 */
-		setSidebar(value : boolean) {
-			// set value
-			this.sidebar = value
-			// set storage
-			local.set(config.key.sidebar, value)
 		},
 		/**
 		 * set lang

@@ -19,5 +19,5 @@ export const $accountLogin = (data: any) => {
  * logout
  */
 export const $logout = () => {
-	return request.post('/logout')
+	return request.post('/sign-out')
 }

@@ -4,13 +4,13 @@
 		<!-- operates -->
 		<div class="operates">
 			<!-- sidebar -->
-			<div class="operate" :title="appStore.sidebar?$t('header.operate.sidebar.close'):$t('header.operate.sidebar.open')" @click="setSidebar"><sw-icon :icon="appStore.sidebar?'outdent':'indent'" /></div>
+			<div class="operate" :title="appStore.theme.sidebar.collapse?$t('header.operate.sidebar.close'):$t('header.operate.sidebar.open')" @click="setSidebarCollapse"><sw-icon :icon="appStore.theme.sidebar.collapse?'indent':'outdent'" /></div>
 			<!-- refresh -->
 			<div class="operate" :title="$t('header.operate.refresh')" @click="refresh"><sw-icon icon="sync" /></div>
 		</div>
 		<!-- breadcrumb -->
 		<div class="breadcrumb">
-			<el-breadcrumb :separator-icon="ArrowRight">
+			<el-breadcrumb v-if="appStore.theme.breadcrumb" :separator-icon="ArrowRight">
 				<!-- home -->
 				<el-breadcrumb-item :to="{ path: '/home' }">{{ $t('menu.home') }}</el-breadcrumb-item>
 				<!-- path -->
@@ -135,11 +135,15 @@ const route = useRoute()
 const { locale } = useI18n()
 
 /**
- * set sidebar
+ * set sidebar collapse
  */
-const setSidebar = ()=>{
+const setSidebarCollapse = ()=>{
+	// get theme
+	const theme = appStore.theme
+	// set sidebar collapse
+	theme.sidebar.collapse = !theme.sidebar.collapse
 	// set sidebar
-	appStore.setSidebar(!appStore.sidebar);
+	appStore.setTheme(theme)
 }
 
 /**

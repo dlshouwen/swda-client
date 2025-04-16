@@ -2,11 +2,11 @@
 	<!-- logo -->
 	<div :class="`logo ${appStore.size}`">
 		<!-- logo -->
-		<sw-icon v-if="appStore.sidebar" :icon="appStore.attr.header_icon"></sw-icon>
+		<sw-icon v-if="!appStore.theme.sidebar.collapse" :icon="appStore.attr.header_icon"></sw-icon>
 		<!-- title -->
 		<h1>{{appStore.attr.header_title}}</h1>
 		<!-- version -->
-		<el-badge v-if="appStore.sidebar" :value="`v ${appStore.attr.version}`"></el-badge>
+		<el-badge v-if="!appStore.theme.sidebar.collapse" :value="`v ${appStore.attr.version}`"></el-badge>
 	</div>
 </template>
 

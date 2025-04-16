@@ -12,27 +12,25 @@ export default {
 	
 	default: {
 		
-		sidebar: false,
-		
 		lang: 'zh-cn',
 		
 		size: 'default',
 		
 		theme: {
-			global: {
-				primary: '#2494f2',
-				layout: 'vertical',
-				breadcrumb: true
-			},
 
-			header: {
-				style: 'light'
-			},
+			primary: '#2494f2',
+			
+			system: 'select',
+			
+			style: 'light',
+			
+			logo: true,
+			
+			breadcrumb: true,
 
 			sidebar: {
-				style: 'dark',
+				collapse: false,
 				unique: true,
-				logo: true
 			},
 
 			tab: {
@@ -40,6 +38,7 @@ export default {
 				style: 'tab-style-1',
 				cache: true
 			}
+
 		}
 		
 	},

@@ -6,7 +6,7 @@ const path = '/bms/permission/role';
 
 /**
  *  get role page result
-  * @params query
+  * @param query
  */
 export const $getRolePageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -21,7 +21,7 @@ export const $getRoleList = () => {
 
 /**
  *  get role data
-  * @params roleId
+  * @param roleId
  */
 export const $getRoleData = (roleId: number) => {
 	return request.get(path+'/data/'+roleId)
@@ -29,7 +29,7 @@ export const $getRoleData = (roleId: number) => {
 
 /**
  *  add role
-  * @params role
+  * @param role
  */
 export const $addRole = (role: any) => {
 	return request.post(path+'/add', role)
@@ -37,7 +37,7 @@ export const $addRole = (role: any) => {
 
 /**
  *  update role
-  * @params role
+  * @param role
  */
 export const $updateRole = (role: any) => {
 	return request.post(path+'/update', role)
@@ -45,7 +45,7 @@ export const $updateRole = (role: any) => {
 
 /**
  *  set role data scope
-  * @params roleDataScope
+  * @param roleDataScope
  */
 export const $setRoleDataScope = (roleDataScope: any) => {
 	return request.post(path+'/data_scope/set', roleDataScope)
@@ -53,7 +53,7 @@ export const $setRoleDataScope = (roleDataScope: any) => {
 
 /**
  *  delete role
-  * @params roleIdList
+  * @param roleIdList
  */
 export const $deleteRole = (roleIdList: any) => {
 	return request.delete(path+'/delete', roleIdList)
@@ -61,7 +61,7 @@ export const $deleteRole = (roleIdList: any) => {
 
 /**
  *  get role user page result
-  * @params query
+  * @param query
  */
 export const $getRoleUserPageResult = (query: any) => {
 	return request.post(path+'/user/page', query)
@@ -69,8 +69,8 @@ export const $getRoleUserPageResult = (query: any) => {
 
 /**
  *  add role user
- * @params roleId
- * @params userIdList
+ * @param roleId
+ * @param userIdList
  */
 export const $addRoleUser = (roleId: number, userIdList: any) => {
 	return request.post(path+'/'+roleId+'/user/add', userIdList)
@@ -78,8 +78,8 @@ export const $addRoleUser = (roleId: number, userIdList: any) => {
 
 /**
  *  delete role user
-  * @params roleId
-  * @params userIdList
+  * @param roleId
+  * @param userIdList
  */
 export const $deleteRoleUser = (roleId: number, userIdList: any) => {
 	return request.post(path+'/'+roleId+'/user/delete', userIdList)
@@ -87,7 +87,7 @@ export const $deleteRoleUser = (roleId: number, userIdList: any) => {
 
 /**
  *  get role name list
-  * @params roleIdList
+  * @param roleIdList
  */
 export const $getRoleNameList = (roleIdList: any) => {
 	return request.post(path+'/name/list', roleIdList)

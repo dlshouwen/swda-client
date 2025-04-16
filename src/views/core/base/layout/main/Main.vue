@@ -1,12 +1,18 @@
 <template>
+	<!-- scrollbar -->
 	<el-scrollbar>
-		<el-main class="layout-main">
-			<el-scrollbar class="layout-scrollbar">
+		<!-- main -->
+		<el-main>
+			<!-- scrollbar -->
+			<el-scrollbar>
+				<!-- router view -->
 				<router-view v-slot="{ Component, route }">
-					<keep-alive v-if="theme.isTabsCache" :include="[...tabStore.caches]">
+					<!-- cache: keep alive -->
+					<keep-alive v-if="appStore.theme.tab.cache" :include="[...tabStore.caches]">
 						<component :is="Component" :key="route.fullPath" />
 					</keep-alive>
-					<component :is="Component" v-else :key="route.name" />
+					<!-- no cache: component -->
+					<component v-else :is="Component" :key="route.name" />
 				</router-view>
 			</el-scrollbar>
 		</el-main>
@@ -14,13 +20,14 @@
 </template>
 
 <script setup lang="ts">
+// import vue router elements
 import { RouterView } from 'vue-router'
-import { computed } from 'vue'
+
+// import stores
 import { useAppStore } from '@/stores/app'
 import { useTabStore } from '@/stores/tab'
 
-
+// get stores
 const appStore = useAppStore()
 const tabStore = useTabStore()
-const theme = computed(() => appStore.theme)
 </script>

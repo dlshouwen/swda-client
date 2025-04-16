@@ -6,7 +6,7 @@ const path = '/bms/system/attr';
 
 /**
  *  get sms log page result
-  * @params query
+  * @param query
  */
 export const $getSmsLogPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getSmsLogPageResult = (query: any) => {
 
 /**
  *  get sms log data
-  * @params smsLogId
+  * @param smsLogId
  */
 export const $getSmsLogData = (smsLogId: number) => {
 	return request.get(path+'/'+smsLogId+'/data')
@@ -22,7 +22,7 @@ export const $getSmsLogData = (smsLogId: number) => {
 
 /**
  *  delete sms log
-  * @params smsLogIdList
+  * @param smsLogIdList
  */
 export const $deleteSmsLog = (smsLogIdList: any) => {
 	return request.delete(path+'/delete', smsLogIdList)

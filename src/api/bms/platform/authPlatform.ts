@@ -6,7 +6,7 @@ const path = '/bms/platform/auth_platform';
 
 /**
  *  get auth platform page result
-  * @params query
+  * @param query
  */
 export const $getAuthPlatformPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getAuthPlatformPageResult = (query: any) => {
 
 /**
  *  get auth platform data
-  * @params authPlatformId
+  * @param authPlatformId
  */
 export const $getAuthPlatformData = (authPlatformId: number) => {
 	return request.get(path+'/'+authPlatformId+'/data')
@@ -22,7 +22,7 @@ export const $getAuthPlatformData = (authPlatformId: number) => {
 
 /**
  *  add auth platform
-  * @params authPlatform
+  * @param authPlatform
  */
 export const $addAuthPlatform = (authPlatform: any) => {
 	return request.post(path+'/add', authPlatform)
@@ -30,7 +30,7 @@ export const $addAuthPlatform = (authPlatform: any) => {
 
 /**
  *  update auth platform
-  * @params authPlatform
+  * @param authPlatform
  */
 export const $updateAuthPlatform = (authPlatform: any) => {
 	return request.post(path+'/update', authPlatform)
@@ -38,7 +38,7 @@ export const $updateAuthPlatform = (authPlatform: any) => {
 
 /**
  *  delete auth platform
-  * @params authPlatformIdList
+  * @param authPlatformIdList
  */
 export const $deleteAuthPlatform = (authPlatformIdList: any) => {
 	return request.delete(path+'/delete', authPlatformIdList)

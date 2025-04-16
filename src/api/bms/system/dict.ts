@@ -6,8 +6,8 @@ const path = '/bms/system/dict';
 
 /**
  * get attr data
- * @params dictType
- * @params query
+ * @param dictType
+ * @param query
  */
 export const $getDictPageResult = (dictType: string, query: any) => {
 	return request.post(path+'/page/'+dictType, query)
@@ -15,7 +15,7 @@ export const $getDictPageResult = (dictType: string, query: any) => {
 
 /**
  * get attr data
- * @params dictType
+ * @param dictType
  */
 export const $getDictData = (dictId: number) => {
 	return request.get(path+'/'+dictId+'/data')
@@ -23,7 +23,7 @@ export const $getDictData = (dictId: number) => {
 
 /**
  * get attr data
- * @params dictType
+ * @param dictType
  */
 export const $addDict = (dict: any) => {
 	return request.post(path+'/add', dict)
@@ -31,7 +31,7 @@ export const $addDict = (dict: any) => {
 
 /**
  * get attr data
- * @params dictType
+ * @param dictType
  */
 export const $updateDict = (dict: any) => {
 	return request.post(path+'/update', dict)
@@ -39,7 +39,7 @@ export const $updateDict = (dict: any) => {
 
 /**
  * get attr data
- * @params dictType
+ * @param dictType
  */
 export const $deleteDict = (dictIdList: any) => {
 	return request.delete(path+'/delete', dictIdList)

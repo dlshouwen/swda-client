@@ -95,34 +95,39 @@
 </template>
 
 <script setup lang="ts">
-// import ref, reactive, on mounted
+// import vue elements
 import { ref, reactive, onMounted } from 'vue'
+
 // import apis
-import { $getLoginCaptcha } from '@/api/bms/app/login'
+import { $getLoginCaptcha } from '@/api/core/base/login'
+
 // import element icons
 import { User, Lock, Key, Avatar, Iphone } from '@element-plus/icons-vue'
+
 // import tools
 import { sm2Encrypt } from '@/utils/tools'
 
-// import & get i18n props
+// import vue i18n
 import { useI18n } from 'vue-i18n'
 const { t, locale } = useI18n()
 
-// import & get message from i18n
+// import i18n
 import { messages } from '@/i18n'
 const languages = Object.keys(messages)
 
-// import & get router
-import { useRouter } from 'vue-router'
-const router = useRouter()
-
-// import & get app store
+// import stores
 import { useAppStore } from '@/stores/app'
-const appStore = useAppStore()
-
-// import & get user store
 import { useUserStore } from '@/stores/user'
+
+// import vue router elements
+import { useRouter } from 'vue-router'
+
+// get stores
+const appStore = useAppStore()
 const userStore = useUserStore()
+
+// get router
+const router = useRouter()
 
 const changeLanguage = (lang: string)=>{
 	appStore.setLang(lang)

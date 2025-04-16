@@ -79,9 +79,11 @@
 					<!-- menus -->
 					<el-dropdown-menu class="user-dropdown">
 						<!-- profile -->
-						<el-dropdown-item @click="openUserInfo"> {{ $t('header.operate.profile.userInfo') }} </el-dropdown-item>
+						<el-dropdown-item @click="setUserInfo"> {{ $t('header.operate.profile.userInfo') }} </el-dropdown-item>
 						<!-- change password -->
-						<el-dropdown-item @click="openChangePassword"> {{ $t('header.operate.profile.changePassword') }} </el-dropdown-item>
+						<el-dropdown-item @click="changePassword"> {{ $t('header.operate.profile.changePassword') }} </el-dropdown-item>
+						<!-- set auth -->
+						<el-dropdown-item @click="setAuth"> {{ $t('header.operate.profile.auth') }} </el-dropdown-item>
 						<!-- logout -->
 						<el-dropdown-item divided @click="logout"> {{ $t('header.operate.profile.logout') }} </el-dropdown-item>
 					</el-dropdown-menu>
@@ -162,7 +164,7 @@ const langs = Object.keys(messages)
 
 /**
  * set lang
- * @params lang
+ * @param lang
  */
 const setLang = (lang: string)=>{
 	// set lang
@@ -175,7 +177,7 @@ const setLang = (lang: string)=>{
 
 /**
  * set size
- * @params size
+ * @param size
  */
 const setSize = (size: string)=>{
 	// set size
@@ -253,19 +255,27 @@ const openSetting = () => {
 }
 
 /**
- * open user info
+ * set user info
  */
-const openUserInfo = () => {
-	// open user info
-	emits.emit('openUserInfo')
+const setUserInfo = () => {
+	// set user info
+	emits.emit('setUserInfo')
 }
 
 /**
- * open change password
+ * change password
  */
-const openChangePassword = () => {
-	// open change password
-	emits.emit('openChangePassword')
+const changePassword = () => {
+	// change password
+	emits.emit('changePassword')
+}
+
+/**
+ * set auth
+ */
+const setAuth = () => {
+	// set auth
+	emits.emit('setAuth')
 }
 
 /**

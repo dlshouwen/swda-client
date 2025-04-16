@@ -13,7 +13,7 @@ export const $getOrganList = () => {
 
 /**
  *  get organ data
-  * @params organId
+  * @param organId
  */
 export const $getOrganData = (organId: number) => {
 	return request.get(path+'/data/'+organId)
@@ -21,7 +21,7 @@ export const $getOrganData = (organId: number) => {
 
 /**
  *  add organ
-  * @params organ
+  * @param organ
  */
 export const $addOrgan = (organ: any) => {
 	return request.post(path+'/add', organ)
@@ -29,7 +29,7 @@ export const $addOrgan = (organ: any) => {
 
 /**
  *  update organ
-  * @params organ
+  * @param organ
  */
 export const $updateOrgan = (organ: any) => {
 	return request.post(path+'/update', organ)
@@ -37,7 +37,7 @@ export const $updateOrgan = (organ: any) => {
 
 /**
  *  delete organ
-  * @params organIdList
+  * @param organIdList
  */
 export const $deleteOrgan = (organIdList: any) => {
 	return request.delete(path+'/delete', organIdList)
@@ -45,7 +45,7 @@ export const $deleteOrgan = (organIdList: any) => {
 
 /**
  *  get organ name list
-  * @params organIdList
+  * @param organIdList
  */
 export const $getOrganNameList = (organIdList: any) => {
 	return request.post(path+'/name/list', organIdList)

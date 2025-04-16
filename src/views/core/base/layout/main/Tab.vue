@@ -59,7 +59,7 @@ const activeTab = ref(route.path)
 
 /**
  * get affix tabs
- * @params routes
+ * @param routes
  */
 const getAffixTabs = (routes: any) => {
 	// defined affix tabs
@@ -116,7 +116,7 @@ const addTab = ()=>{
 
 /**
  * open last tab
- * @params tab
+ * @param tab
  */
 const openLastTab = (tab) => {
 	// get last
@@ -139,7 +139,7 @@ const openLastTab = (tab) => {
 
 /**
  * close tab
- * @params tab
+ * @param tab
  */
 const closeTab = (tab: any) => {
 	// if tab affix
@@ -155,7 +155,7 @@ const closeTab = (tab: any) => {
 
 /**
  * close other tab
- * @params tab
+ * @param tab
  */
 const closeOtherTab = (tab: any) => {
 	// push tab
@@ -166,7 +166,7 @@ const closeOtherTab = (tab: any) => {
 
 /**
  * close all tab
- * @params tab
+ * @param tab
  */
 const closeAllTab = (tab: any) => {
 	// delete all tab
@@ -177,7 +177,7 @@ const closeAllTab = (tab: any) => {
 
 /**
  * tab click
- * @params tab
+ * @param tab
  */
 const tabClick = (tab)=>{
 	// has path then push
@@ -186,7 +186,7 @@ const tabClick = (tab)=>{
 
 /**
  * tab remove
- * @params path
+ * @param path
  */
 const tabRemove = (path)=>{
 	// find tab
@@ -197,7 +197,7 @@ const tabRemove = (path)=>{
 
 /**
  * on tab dropdown trigger
- * @params type
+ * @param type
  */
 const onTabDropdownTrigger = (type: string) => {
 	// close tab
@@ -213,8 +213,8 @@ const dropdownRef = ref()
 
 /**
  * on tab dropdown visible change
- * @params visible
- * @params tab
+ * @param visible
+ * @param tab
  */
 const onTabDropdownVisibleChange = (visible: boolean, tab: any) => {
 	// if not open

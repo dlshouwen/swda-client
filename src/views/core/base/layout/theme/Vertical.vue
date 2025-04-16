@@ -17,19 +17,16 @@
 			<!-- main -->
 			<Main class="main"></Main>
 		</el-container>
-		<!-- setting -->
-		<Setting />
 	</el-container>
 </template>
 
 <script setup lang="ts">
 // import components
-import Logo from '@/views/core/layout/main/Logo.vue'
-import Sidebar from '@/views/core/layout/main/Sidebar.vue'
-import Header from '@/views/core/layout/main/Header.vue'
-import Tab from '@/views/core/layout/main/Tab.vue'
-import Main from '@/views/core/layout/main/Main.vue'
-import Setting from '@/views/core/layout/main/Setting.vue'
+import Logo from '@/views/core/base/layout/main/Logo.vue'
+import Sidebar from '@/views/core/base/layout/main/Sidebar.vue'
+import Header from '@/views/core/base/layout/main/Header.vue'
+import Tab from '@/views/core/base/layout/main/Tab.vue'
+import Main from '@/views/core/base/layout/main/Main.vue'
 
 // import stores
 import { useAppStore } from '@/stores/app'

@@ -6,7 +6,7 @@ const path = '/bms/system/attr';
 
 /**
  *  get operation log page result
-  * @params query
+  * @param query
  */
 export const $getOperationLogPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getOperationLogPageResult = (query: any) => {
 
 /**
  *  get operation log data
-  * @params operationLogId
+  * @param operationLogId
  */
 export const $getOperationLogData = (operationLogId: number) => {
 	return request.get(path+'/'+operationLogId+'/data')
@@ -22,7 +22,7 @@ export const $getOperationLogData = (operationLogId: number) => {
 
 /**
  *  delete operation log
-  * @params operationLogIdList
+  * @param operationLogIdList
  */
 export const $deleteOperationLog = (operationLogIdList: any) => {
 	return request.delete(path+'/delete', operationLogIdList)

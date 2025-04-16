@@ -6,7 +6,7 @@ const path = '/bms/platform/sms_platform';
 
 /**
  *  get sms platform page result
-  * @params query
+  * @param query
  */
 export const $getSmsPlatformPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getSmsPlatformPageResult = (query: any) => {
 
 /**
  *  get sms platform list
-  * @params smsPlatformType
+  * @param smsPlatformType
  */
 export const $getSmsPlatformList = (smsPlatformType: number) => {
 	return request.post(path+'/list', smsPlatformType)
@@ -22,7 +22,7 @@ export const $getSmsPlatformList = (smsPlatformType: number) => {
 
 /**
  *  get sms platform data
-  * @params smsPlatformId
+  * @param smsPlatformId
  */
 export const $getSmsPlatformData = (smsPlatformId: number) => {
 	return request.get(path+'/'+smsPlatformId+'/data')
@@ -30,7 +30,7 @@ export const $getSmsPlatformData = (smsPlatformId: number) => {
 
 /**
  *  add sms platform
-  * @params smsPlatform
+  * @param smsPlatform
  */
 export const $addSmsPlatform = (smsPlatform: any) => {
 	return request.post(path+'/add', smsPlatform)
@@ -38,7 +38,7 @@ export const $addSmsPlatform = (smsPlatform: any) => {
 
 /**
  *  update sms platform
-  * @params smsPlatform
+  * @param smsPlatform
  */
 export const $updateSmsPlatform = (smsPlatform: any) => {
 	return request.post(path+'/update', smsPlatform)
@@ -46,7 +46,7 @@ export const $updateSmsPlatform = (smsPlatform: any) => {
 
 /**
  *  delete sms platform
-  * @params smsPlatformIdList
+  * @param smsPlatformIdList
  */
 export const $deleteSmsPlatform = (smsPlatformIdList: any) => {
 	return request.delete(path+'/delete', smsPlatformIdList)
@@ -54,7 +54,7 @@ export const $deleteSmsPlatform = (smsPlatformIdList: any) => {
 
 /**
  *  send sms
-  * @params sendSms
+  * @param sendSms
  */
 export const $sendSms = (sendSms: any) => {
 	return request.post(path+'/send', sendSms)

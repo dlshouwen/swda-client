@@ -13,7 +13,7 @@ export const $getLoginUserSystemList = () => {
 
 /**
  *  get system page result
-  * @params query
+  * @param query
  */
 export const $getSystemPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -21,7 +21,7 @@ export const $getSystemPageResult = (query: any) => {
 
 /**
  *  get system data
-  * @params systemId
+  * @param systemId
  */
 export const $getSystemData = (systemId: number) => {
 	return request.get(path+'/data/'+systemId)
@@ -29,7 +29,7 @@ export const $getSystemData = (systemId: number) => {
 
 /**
  *  add system
-  * @params system
+  * @param system
  */
 export const $addSystem = (system: any) => {
 	return request.post(path+'/add', system)
@@ -37,7 +37,7 @@ export const $addSystem = (system: any) => {
 
 /**
  *  update system
-  * @params system
+  * @param system
  */
 export const $updateSystem = (system: any) => {
 	return request.post(path+'/update', system)
@@ -45,7 +45,7 @@ export const $updateSystem = (system: any) => {
 
 /**
  *  delete system
-  * @params systemIdList
+  * @param systemIdList
  */
 export const $deleteSystem = (systemIdList: any) => {
 	return request.delete(path+'/delete', systemIdList)

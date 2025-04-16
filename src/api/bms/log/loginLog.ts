@@ -6,7 +6,7 @@ const path = '/bms/log/login_log';
 
 /**
  *  get login log page result
-  * @params query
+  * @param query
  */
 export const $getLoginLogPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getLoginLogPageResult = (query: any) => {
 
 /**
  *  get login log data
-  * @params loginLogId
+  * @param loginLogId
  */
 export const $getLoginLogData = (loginLogId: number) => {
 	return request.get(path+'/'+loginLogId+'/data')
@@ -22,7 +22,7 @@ export const $getLoginLogData = (loginLogId: number) => {
 
 /**
  *  delete login log
-  * @params loginLogIdList
+  * @param loginLogIdList
  */
 export const $deleteLoginLog = (loginLogIdList: any) => {
 	return request.delete(path+'/delete', loginLogIdList)

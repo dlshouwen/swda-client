@@ -13,7 +13,7 @@ export const $getLoginUserData = () => {
 
 /**
  *  update login user
-  * @params user
+  * @param user
  */
 export const $updateLoginUser = (user: any) => {
 	return request.post(path+'/login/update', user)
@@ -21,7 +21,7 @@ export const $updateLoginUser = (user: any) => {
 
 /**
  *  update login user avatar
-  * @params userAvatar
+  * @param userAvatar
  */
 export const $updateLoginUserAvatar = (userAvatar: any) => {
 	return request.post(path+'/login/avatar/update', userAvatar)
@@ -29,7 +29,7 @@ export const $updateLoginUserAvatar = (userAvatar: any) => {
 
 /**
  *  update login user password
-  * @params userPassword
+  * @param userPassword
  */
 export const $updateLoginUserPassword = (userPassword: any) => {
 	return request.post(path+'/login/password/update', userPassword)
@@ -37,7 +37,7 @@ export const $updateLoginUserPassword = (userPassword: any) => {
 
 /**
  *  get user page result
-  * @params query
+  * @param query
  */
 export const $getUserPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -45,7 +45,7 @@ export const $getUserPageResult = (query: any) => {
 
 /**
  *  get user data
-  * @params userId
+  * @param userId
  */
 export const $getUserData = (userId: number) => {
 	return request.get(path+'/data/'+userId)
@@ -53,7 +53,7 @@ export const $getUserData = (userId: number) => {
 
 /**
  *  add user
-  * @params user
+  * @param user
  */
 export const $addUser = (user: any) => {
 	return request.post(path+'/add', user)
@@ -61,7 +61,7 @@ export const $addUser = (user: any) => {
 
 /**
  *  update user
-  * @params user
+  * @param user
  */
 export const $updateUser = (user: any) => {
 	return request.post(path+'/update', user)
@@ -69,7 +69,7 @@ export const $updateUser = (user: any) => {
 
 /**
  *  delete user
-  * @params userIdList
+  * @param userIdList
  */
 export const $deleteUser = (userIdList: any) => {
 	return request.delete(path+'/delete', userIdList)
@@ -77,7 +77,7 @@ export const $deleteUser = (userIdList: any) => {
 
 /**
  *  get user name list
-  * @params userIdList
+  * @param userIdList
  */
 export const $getUserNameList = (userIdList: any) => {
 	return request.post(path+'/name/list', userIdList)
@@ -85,7 +85,7 @@ export const $getUserNameList = (userIdList: any) => {
 
 /**
  *  import user
-  * @params file
+  * @param file
  */
 export const $importUser = (file: any) => {
 	return request.post(path+'/import', file)

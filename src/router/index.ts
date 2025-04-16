@@ -15,8 +15,8 @@ import { isExternalLink, path2Camel } from '@/utils/tools'
 
 // defined constant routes
 const constantRoutes: RouteRecordRaw[] = [
-	{ path: '/login', name: 'Login', component: () => import('@/views/core/login/Login.vue') },
-	{ path: '/redirect', name: 'Redirect', component: () => import('../views/core/layout/Index.vue'), children: [
+	{ path: '/login', name: 'Login', component: () => import('@/views/core/base/login/Login.vue') },
+	{ path: '/redirect', name: 'Redirect', component: () => import('../views/core/base/layout/Index.vue'), children: [
 		{ path: '/redirect/:path(.*)', component: () => import('../views/core/page/Redirect.vue') }
 	]},
 	{ path: '/iframe/:query?', name: 'Iframe', component: () => import('../views/core/page/Iframe.vue') },
@@ -30,8 +30,8 @@ const errorRoute: RouteRecordRaw = {
 }
 
 // defined async route
-const asyncRoute: RouteRecordRaw = { path: '/', component: () => import('../views/core/layout/Index.vue'), children: [
-	{ path: '/home', name: 'Home', component: () => import('../views/core/home/Home.vue'), meta: { title: '首页', cache: true, affix: true } }
+const asyncRoute: RouteRecordRaw = { path: '/', component: () => import('../views/core/base/layout/Index.vue'), children: [
+	{ path: '/home', name: 'Home', component: () => import('../views/core/base/home/Home.vue'), meta: { title: '首页', cache: true, affix: true } }
 ]}
 
 // defined whites
@@ -126,7 +126,7 @@ router.afterEach(()=>{
 
 /**
  * menu to route
- * @params menu
+ * @param menu
  * @returns route
  */
 const menu2Routes = (menu: any, breadcrumb: string[] = []): RouteRecordRaw[] => {
@@ -139,7 +139,7 @@ const menu2Routes = (menu: any, breadcrumb: string[] = []): RouteRecordRaw[] => 
 		// set path
 		path = menu.path
 		// set component
-		component = () => import('@/views/core/layout/Index.vue')
+		component = () => import('@/views/core/base/layout/Index.vue')
 	}else{
 		// if menu is link
 		if(menu.openStyle!==1&&isExternalLink(menu.url)){

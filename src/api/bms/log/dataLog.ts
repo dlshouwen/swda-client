@@ -6,7 +6,7 @@ const path = '/bms/log/data_log';
 
 /**
  *  get data log page result
-  * @params query
+  * @param query
  */
 export const $getDataLogPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getDataLogPageResult = (query: any) => {
 
 /**
  *  get data log data
-  * @params dataLogId
+  * @param dataLogId
  */
 export const $getDataLogData = (dataLogId: number) => {
 	return request.get(path+'/'+dataLogId+'/data')
@@ -22,7 +22,7 @@ export const $getDataLogData = (dataLogId: number) => {
 
 /**
  *  delete data log
-  * @params dataLogIdList
+  * @param dataLogIdList
  */
 export const $deleteDataLog = (dataLogIdList: any) => {
 	return request.delete(path+'/delete', dataLogIdList)

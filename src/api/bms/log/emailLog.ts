@@ -6,7 +6,7 @@ const path = '/bms/log/email_log';
 
 /**
  *  get email log page result
-  * @params query
+  * @param query
  */
 export const $getEmailLogPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getEmailLogPageResult = (query: any) => {
 
 /**
  *  get email log data
-  * @params emailLogId
+  * @param emailLogId
  */
 export const $getEmailLogData = (emailLogId: number) => {
 	return request.get(path+'/'+emailLogId+'/data')
@@ -22,7 +22,7 @@ export const $getEmailLogData = (emailLogId: number) => {
 
 /**
  *  delete email log
-  * @params emailLogIdList
+  * @param emailLogIdList
  */
 export const $deleteEmailLog = (emailLogIdList: any) => {
 	return request.delete(path+'/delete', emailLogIdList)

@@ -1,11 +1,21 @@
+// import pinia
 import { defineStore } from 'pinia'
-import config from '@/config'
-import { local } from '@/utils/storage'
-import { $getAttrData, $getDictData } from '@/api/bms/app/app'
 
+// import config
+import config from '@/config'
+
+// import tools
+import { local } from '@/utils/storage'
+
+// import apis
+import { $getAttrData, $getDictData } from '@/api/core/base/app'
+
+// defined expired
 const expired = {attr:0, dict:0}
 
+// export store
 export const useAppStore = defineStore('appStore', {
+	// state
 	state: () => ({
 		attr: {} as {[key:string]:string},
 		dict: {} as {[key:string]:any},
@@ -14,7 +24,11 @@ export const useAppStore = defineStore('appStore', {
 		size: local.get(config.key.size) || config.default.size,
 		theme: local.get(config.key.theme) || config.default.theme,
 	}),
+	// actions
 	actions: {
+		/**
+		 * load attr
+		 */
 		async loadAttr() {
 			// get timestamp
 			const timestamp = new Date().getTime()
@@ -33,10 +47,14 @@ export const useAppStore = defineStore('appStore', {
 					// reset expired
 					expired.attr = timestamp
 				}catch(e){
-					
+					// output
+					console.error(e)
 				}
 			}
 		},
+		/**
+		 * load dict
+		 */
 		async loadDict() {
 			// get timestamp
 			const timestamp = new Date().getTime()
@@ -76,24 +94,49 @@ export const useAppStore = defineStore('appStore', {
 					// reset expired
 					expired.dict = timestamp
 				}catch(e){
-					
+					// output
+					console.error(e)
 				}
 			}
 		},
+		/**
+		 * set sidebar
+		 * @param value
+		 */
 		setSidebar(value : boolean) {
+			// set value
 			this.sidebar = value
+			// set storage
 			local.set(config.key.sidebar, value)
 		},
+		/**
+		 * set lang
+		 * @param value
+		 */
 		setLang(value : string) {
+			// set value
 			this.lang = value
+			// set storage
 			local.set(config.key.lang, value)
 		},
+		/**
+		 * set size
+		 * @param value
+		 */
 		setSize(value : string) {
+			// set value
 			this.size = value
+			// set storage
 			local.set(config.key.size, value)
 		},
+		/**
+		 * set theme
+		 * @param value
+		 */
 		setTheme(value : any) {
+			// set value
 			this.theme = value
+			// set storage
 			local.set(config.key.theme, value)
 		}
 	}

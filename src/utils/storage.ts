@@ -1,11 +1,11 @@
 /**
- * local
+ * export local
  */
 export const local = {
 	/**
 	 * set
-	 * @params key
-	 * @params value
+	 * @param key
+	 * @param value
 	 */
 	set(key: string, value: any) {
 		if (value === undefined) {
@@ -15,7 +15,7 @@ export const local = {
 	},
 	/**
 	 * get
-	 * @params key
+	 * @param key
 	 * @returns value
 	 */
 	get(key: string) {
@@ -24,7 +24,7 @@ export const local = {
 	},
 	/**
 	 * remove
-	 * @params key
+	 * @param key
 	 */
 	remove(key: string) {
 		window.localStorage.removeItem(key)
@@ -38,13 +38,13 @@ export const local = {
 }
 
 /**
- * session
+ * export session
  */
 export const session = {
 	/**
 	 * set
-	 * @params key
-	 * @params value
+	 * @param key
+	 * @param value
 	 */
 	set(key: string, value: any) {
 		if (value === undefined) {
@@ -54,7 +54,7 @@ export const session = {
 	},
 	/**
 	 * get
-	 * @params key
+	 * @param key
 	 * @returns value
 	 */
 	get(key: string) {
@@ -63,7 +63,7 @@ export const session = {
 	},
 	/**
 	 * remove
-	 * @params key
+	 * @param key
 	 */
 	remove(key: string) {
 		window.sessionStorage.removeItem(key)

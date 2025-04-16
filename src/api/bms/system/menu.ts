@@ -20,7 +20,7 @@ export const $getLoginUserAuthorityList = () => {
 
 /**
  *  get menu list
-  * @params menuType
+  * @param menuType
  */
 export const $getMenuList = (menuType: number) => {
 	return request.post(path+'/page', menuType)
@@ -28,7 +28,7 @@ export const $getMenuList = (menuType: number) => {
 
 /**
  *  get menu data
-  * @params menuId
+  * @param menuId
  */
 export const $getMenuData = (menuId: number) => {
 	return request.get(path+'/data/'+menuId)
@@ -36,7 +36,7 @@ export const $getMenuData = (menuId: number) => {
 
 /**
  *  add menu
-  * @params menu
+  * @param menu
  */
 export const $addMenu = (menu: any) => {
 	return request.post(path+'/add', menu)
@@ -44,7 +44,7 @@ export const $addMenu = (menu: any) => {
 
 /**
  *  update menu
-  * @params menu
+  * @param menu
  */
 export const $updateMenu = (menu: any) => {
 	return request.post(path+'/update', menu)
@@ -52,7 +52,7 @@ export const $updateMenu = (menu: any) => {
 
 /**
  *  delete menu
-  * @params menuIdList
+  * @param menuIdList
  */
 export const $deleteMenu = (menuIdList: any) => {
 	return request.delete(path+'/delete', menuIdList)

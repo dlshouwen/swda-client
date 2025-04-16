@@ -6,7 +6,7 @@ const path = '/bms/system/dict_type';
 
 /**
  * get dict type page result
- * @params query
+ * @param query
  */
 export const $getDictTypePageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getDictTypePageResult = (query: any) => {
 
 /**
  * get dict type data
- * @params dictTypeId
+ * @param dictTypeId
  */
 export const $getDictTypeData = (dictTypeId: number) => {
 	return request.get(path+'/'+dictTypeId+'/data')
@@ -22,7 +22,7 @@ export const $getDictTypeData = (dictTypeId: number) => {
 
 /**
  * add dict type
- * @params dictType
+ * @param dictType
  */
 export const $addDictType = (dictType: any) => {
 	return request.post(path+'/add', dictType)
@@ -30,7 +30,7 @@ export const $addDictType = (dictType: any) => {
 
 /**
  *  update dict type
-  * @params dictType
+  * @param dictType
  */
 export const $updateDictType = (dictType: any) => {
 	return request.post(path+'/update', dictType)
@@ -38,7 +38,7 @@ export const $updateDictType = (dictType: any) => {
 
 /**
  *  delete dict type
-  * @params dictTypeIdList
+  * @param dictTypeIdList
  */
 export const $deleteDictType = (dictTypeIdList: any) => {
 	return request.delete(path+'/delete', dictTypeIdList)
@@ -46,7 +46,7 @@ export const $deleteDictType = (dictTypeIdList: any) => {
 
 /**
  *  get sql dict list
-  * @params dictTypeId
+  * @param dictTypeId
  */
 export const $getSqlDictList = (dictTypeId: number) => {
 	return request.get(path+'/delete'+dictTypeId)

@@ -1,3 +1,4 @@
+// export
 export default {
 	
 	loading: '正在加载...',
@@ -62,6 +63,7 @@ export default {
 			profile: {
 				userInfo: '个人信息',
 				changePassword: '修改密码',
+				auth: '账号绑定',
 				logout: '退出登录'
 			},
 			setting: '更多设置',

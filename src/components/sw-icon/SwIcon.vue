@@ -1,5 +1,7 @@
 <template>
+	<!-- sw icon -->
 	<div v-if="icon" class="sw-icon">
+		<!-- svg -->
 		<svg :class="`${className}`" :style="`color:${color};width: ${size};height: ${size}`" aria-hidden="true">
 			<use :xlink:href="iconName" />
 		</svg>
@@ -7,8 +9,10 @@
 </template>
 
 <script setup lang="ts" name="SwIcon">
+// import vue elements
 import { computed } from 'vue'
 
+// defined props
 const props = defineProps({
 	icon: {
 		type: String,
@@ -28,12 +32,17 @@ const props = defineProps({
 	}
 })
 
+// computed icon name
 const iconName = computed(() => `#icon-${props.icon.replace('icon-', '')}`)
 </script>
 
 <style lang="scss" scoped>
+/** sw-icon */
 .sw-icon {
+
 	display: inline-block;
+	
+	/** svg */
 	svg {
 		width: 1em;
 		height: 1em;
@@ -42,5 +51,6 @@ const iconName = computed(() => `#icon-${props.icon.replace('icon-', '')}`)
 		overflow: hidden;
 		flex-shrink: 0;
 	}
+
 }
 </style>

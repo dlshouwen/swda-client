@@ -6,7 +6,7 @@ const path = '/bms/platform/email_platform';
 
 /**
  *  get email platform page result
-  * @params query
+  * @param query
  */
 export const $getEmailPlatformPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -14,7 +14,7 @@ export const $getEmailPlatformPageResult = (query: any) => {
 
 /**
  *  get email platform list
-  * @params emailPlatformType
+  * @param emailPlatformType
  */
 export const $getEmailPlatformList = (emailPlatformType: number) => {
 	return request.post(path+'/list', emailPlatformType)
@@ -22,7 +22,7 @@ export const $getEmailPlatformList = (emailPlatformType: number) => {
 
 /**
  *  get email platform data
-  * @params emailPlatformId
+  * @param emailPlatformId
  */
 export const $getEmailPlatformData = (emailPlatformId: number) => {
 	return request.get(path+'/'+emailPlatformId+'/data')
@@ -30,7 +30,7 @@ export const $getEmailPlatformData = (emailPlatformId: number) => {
 
 /**
  *  add email platform
-  * @params emailPlatform
+  * @param emailPlatform
  */
 export const $addEmailPlatform = (emailPlatform: any) => {
 	return request.post(path+'/add', emailPlatform)
@@ -38,7 +38,7 @@ export const $addEmailPlatform = (emailPlatform: any) => {
 
 /**
  *  update email platform
-  * @params emailPlatform
+  * @param emailPlatform
  */
 export const $updateEmailPlatform = (emailPlatform: any) => {
 	return request.post(path+'/update', emailPlatform)
@@ -46,7 +46,7 @@ export const $updateEmailPlatform = (emailPlatform: any) => {
 
 /**
  *  delete email platform
-  * @params emailPlatformIdList
+  * @param emailPlatformIdList
  */
 export const $deleteEmailPlatform = (emailPlatformIdList: any) => {
 	return request.delete(path+'/delete', emailPlatformIdList)
@@ -54,7 +54,7 @@ export const $deleteEmailPlatform = (emailPlatformIdList: any) => {
 
 /**
  *  send email
-  * @params emailSend
+  * @param emailSend
  */
 export const $sendEmail = (emailSend: any) => {
 	return request.post(path+'/send', emailSend)

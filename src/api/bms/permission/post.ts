@@ -6,7 +6,7 @@ const path = '/bms/permission/post';
 
 /**
  *  get post page result
-  * @params query
+  * @param query
  */
 export const $getPostPageResult = (query: any) => {
 	return request.post(path+'/page', query)
@@ -21,7 +21,7 @@ export const $getPostList = () => {
 
 /**
  *  get post data
-  * @params postId
+  * @param postId
  */
 export const $getPostData = (postId: number) => {
 	return request.get(path+'/data/'+postId)
@@ -29,7 +29,7 @@ export const $getPostData = (postId: number) => {
 
 /**
  *  add post
-  * @params post
+  * @param post
  */
 export const $addPost = (post: any) => {
 	return request.post(path+'/add', post)
@@ -37,7 +37,7 @@ export const $addPost = (post: any) => {
 
 /**
  *  update post
-  * @params post
+  * @param post
  */
 export const $updatePost = (post: any) => {
 	return request.post(path+'/update', post)
@@ -45,7 +45,7 @@ export const $updatePost = (post: any) => {
 
 /**
  *  delete post
-  * @params postIdList
+  * @param postIdList
  */
 export const $deletePost = (postIdList: any) => {
 	return request.delete(path+'/delete', postIdList)
@@ -53,7 +53,7 @@ export const $deletePost = (postIdList: any) => {
 
 /**
  *  get post name list
-  * @params postIdList
+  * @param postIdList
  */
 export const $getPostNameList = (postIdList: any) => {
 	return request.post(path+'/name/list', postIdList)

@@ -1,5 +1,17 @@
-// export handle theme style
-export const handleThemeStyle = (theme: any) => {
+/**
+ * set primary color
+ * @param color
+ */
+export const setPrimaryColor = (color: string) => {
+	// set primary color
+	document.documentElement.style.setProperty('--el-color-primary', color)
+	// for each level
+	for (let i = 1; i <= 9; i++) {
+		// set light color
+		document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLighterColor(color, i / 10)}`)
+		// set dark color
+		document.documentElement.style.setProperty(`--el-color-primary-dark-${i}`, `${getDarkerColor(color, i / 10)}`)
+	}
 }
 
 /**
@@ -7,7 +19,7 @@ export const handleThemeStyle = (theme: any) => {
  * @param hex
  * @returns rgb
  */
-const hexToRgb = (hex: any) => {
+export const hexToRgb = (hex: any) => {
 	hex = hex.replace('#', '')
 	let rgb = hex.match(/../g)
 	for (let i = 0; i < 3; i++) {
@@ -23,7 +35,7 @@ const hexToRgb = (hex: any) => {
  * @param b
  * @returns hex
  */
-const rgbToHex = (r: any, g: any, b: any) => {
+export const rgbToHex = (r: any, g: any, b: any) => {
 	let hex = [r.toString(16), g.toString(16), b.toString(16)]
 	for (let i = 0; i < 3; i++) {
 		if (hex[i].length == 1) {
@@ -39,7 +51,7 @@ const rgbToHex = (r: any, g: any, b: any) => {
  * @param level
  * @returns lighter color
  */
-const getLighterColor = (color: string, level: number) => {
+export const getLighterColor = (color: string, level: number) => {
 	let rgb = hexToRgb(color)
 	for (let i = 0; i < 3; i++) {
 		rgb[i] = Math.floor((255 - rgb[i]) * level + rgb[i])
@@ -53,7 +65,7 @@ const getLighterColor = (color: string, level: number) => {
  * @param level
  * @returns darker color
  */
-const getDarkerColor = (color: string, level: number) => {
+export const getDarkerColor = (color: string, level: number) => {
 	let rgb = hexToRgb(color)
 	for (let i = 0; i < 3; i++) {
 		rgb[i] = Math.floor(rgb[i] * (1 - level))

@@ -17,26 +17,44 @@ export default {
 		size: 'default',
 		
 		theme: {
+			
+			mode: 'light',	// light / dark
 
-			primary: '#2494f2',
-			
-			system: 'select',
-			
-			style: 'light',
-			
-			logo: true,
-			
-			breadcrumb: true,
+			primary: '#409EFF',
 
-			sidebar: {
+			layout: 'vertical', // vertical / horizontal
+			
+			system: 'expand', // select / expand
+			
+			logo: {
+			
+				enable: true,
+				style: 'primary' // primary / light / dark
+			
+			},
+			
+			sidebar:{
+			
+				style: 'dark', // primary / light / dark
 				collapse: false,
 				unique: true,
+			
 			},
-
+			
+			header:{
+			
+				style: 'light', // primary / light / dark
+				breadcrumb: false,
+			
+			},
+			
 			tab: {
+				
 				enable: true,
-				style: 'tab-style-1',
+				style: 'light', // light / dark
+				mode: 'single', // single / series
 				cache: true
+				
 			}
 
 		}

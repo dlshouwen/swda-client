@@ -47,7 +47,6 @@ request.interceptors.request.use(
 			// set data to string
 			config.data = qs.stringify(config.data)
 		}
-		console.log(1111)
 		// return config
 		return config
 	},

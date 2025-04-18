@@ -2,6 +2,19 @@
 @charset "UTF-8";
 
 /** import css */
-@use './element.scss';
-@use './theme.scss';
-@use './layout.scss';
+@import './reset.scss';
+@import './layout.scss';
+
+/** import theme */
+@import './theme/logo.scss';
+@import './theme/header.scss';
+@import './theme/sidebar.scss';
+@import './theme/tab.scss';
+
+/** import size */
+@import './size/small.scss';
+@import './size/default.scss';
+@import './size/large.scss';
+
+/** import dark */
+@import './dark.scss';

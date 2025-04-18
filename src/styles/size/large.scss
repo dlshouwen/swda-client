@@ -1,0 +1,53 @@
+/** chartset */
+@charset "UTF-8";
+
+/** logo */
+.layout-container.large .header-container .logo {width:280px;height:64px;}
+.layout-container.large .header-container .logo.collapse {width:64px;}
+.layout-container.large .header-container .logo .sw-icon {font-size:32px;margin:0 14px;}
+.layout-container.large .header-container .logo h1{font-size:28px;}
+.layout-container.large .header-container .logo .el-badge {margin:-12px 0 0 12px;}
+		
+/** navbar container */
+.layout-container.large .navbar-container {height:64px;}
+
+/** operate */
+.layout-container.large .navbar-container .operate {width:64px;font-size:28px;}
+
+/** breadcrumb */
+.layout-container.large .navbar-container .breadcrumb {padding:0 14px;font-size:16px;}
+
+/** systems */
+.layout-container.large .navbar-container .systems .el-select {width:200px;margin-right:12px;}
+.layout-container.large .navbar-container .systems .el-select .sw-icon {margin-right:10px;}
+.layout-container.large .navbar-container .systems .el-menu {height:40px;}
+.layout-container.large .navbar-container .systems .el-menu .sw-icon {font-size:20px;margin-right:16px;}
+.layout-container.large .navbar-container .systems .el-menu .el-menu-item {font-size:16px;margin-right:10px;}
+			
+/** sidebar */
+.layout-container.large .navbar-container .sidebar .el-menu .sw-icon {font-size:20px;margin-right:18px;}
+.layout-container.large .navbar-container .sidebar .el-menu .el-sub-menu .el-sub-menu__title {padding-left:22px;font-size:16px;}
+
+/** avatar */
+.layout-container.large .navbar-container .avatar .title {padding:0 18px;}
+.layout-container.large .navbar-container .avatar .title span {padding:0 12px;font-size:16px;}
+
+/** sidebar */
+.layout-container.large .index-container .aside-container .sidebar {width:280px;}
+.layout-container.large .index-container .aside-container .sidebar.collapse {width:64px;}
+.layout-container.large .index-container .aside-container .sidebar .el-menu .sw-icon {font-size:18px;margin-right:12px;}
+.layout-container.large .index-container .aside-container .sidebar .el-menu .el-sub-menu__title {padding-left:18px;height:56px;font-size:16px;}
+.layout-container.large .index-container .aside-container .sidebar .el-menu .el-menu-item {height:56px;font-size:16px;}
+
+/** tab */
+.layout-container.large .main-container .tab {height:48px;}
+.layout-container.large .main-container .tab .el-tabs {--el-tabs-header-height:48px;height:48px;}
+.layout-container.large .main-container .tab .el-tabs .el-tabs__header .el-tabs__item {padding:0 16px;}
+.layout-container.large .main-container .tab .el-tabs .el-tabs__header .el-tabs__item:nth-child(2) {padding-left:14px;}
+.layout-container.large .main-container .tab .el-tabs .el-tabs__header .el-tabs__item:last-child {padding-left:14px;}
+.layout-container.large .main-container .tab .el-tabs .el-tabs__header .el-tabs__nav-next, .el-tabs__nav-prev {height:48px;line-height:48px;}
+.layout-container.large .main-container .tab .el-tabs .el-tabs__nav-wrap .el-dropdown {font-size:16px;height:48px;line-height:48px;}
+.layout-container.large .main-container .tab .el-tabs .el-tabs__nav-wrap .el-tabs__item:before {width:12px;height:12px;margin-right:12px;}
+
+/** el menu */
+.el-menu-item .sw-icon{margin-right:16px;}

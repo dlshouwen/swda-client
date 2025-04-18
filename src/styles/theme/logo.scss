@@ -1,0 +1,7 @@
+/** chartset */
+@charset "UTF-8";
+
+/** logo */
+.layout-container .header-container .logo.primary {background: var(--el-color-primary);color:white;}
+.layout-container .header-container .logo.light {background: white;color:var(--el-color-primary);border-right:1px solid #eee;border-bottom:1px solid #eee;}
+.layout-container .header-container .logo.dark {background: #263238;color:var(--el-color-primary);}

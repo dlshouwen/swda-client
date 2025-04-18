@@ -10,7 +10,7 @@ import { RouterView } from 'vue-router'
 import { useTitle } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import { messages } from '@/i18n'
-import { handleThemeStyle } from '@/utils/theme'
+import { setPrimaryColor } from '@/utils/theme'
 import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
@@ -23,7 +23,7 @@ const size = computed(()=>appStore.size)
 
 onMounted(()=>{
 	nextTick(()=>{
-		handleThemeStyle(appStore.theme)
+		setPrimaryColor(appStore.theme.primary)
 	})
 })
 

@@ -19,40 +19,40 @@ export const $getLoginUserAuthorityList = () => {
 }
 
 /**
- *  get menu list
-  * @param menuType
+ * get menu list
+ * @param menuType
  */
 export const $getMenuList = (menuType: number) => {
 	return request.post(path+'/page', menuType)
 }
 
 /**
- *  get menu data
-  * @param menuId
+ * get menu data
+ * @param menuId
  */
 export const $getMenuData = (menuId: number) => {
 	return request.get(path+'/data/'+menuId)
 }
 
 /**
- *  add menu
-  * @param menu
+ * add menu
+ * @param menu
  */
 export const $addMenu = (menu: any) => {
 	return request.post(path+'/add', menu)
 }
 
 /**
- *  update menu
-  * @param menu
+ * update menu
+ * @param menu
  */
 export const $updateMenu = (menu: any) => {
 	return request.post(path+'/update', menu)
 }
 
 /**
- *  delete menu
-  * @param menuIdList
+ * delete menu
+ * @param menuIdList
  */
 export const $deleteMenu = (menuIdList: any) => {
 	return request.delete(path+'/delete', menuIdList)

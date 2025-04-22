@@ -12,80 +12,80 @@ export const $getLoginUserData = () => {
 }
 
 /**
- *  update login user
-  * @param user
+ * update login user
+ * @param user
  */
 export const $updateLoginUser = (user: any) => {
 	return request.post(path+'/login/update', user)
 }
 
 /**
- *  update login user avatar
-  * @param userAvatar
+ * update login user avatar
+ * @param userAvatar
  */
 export const $updateLoginUserAvatar = (userAvatar: any) => {
 	return request.post(path+'/login/avatar/update', userAvatar)
 }
 
 /**
- *  update login user password
-  * @param userPassword
+ * update login user password
+ * @param userPassword
  */
 export const $updateLoginUserPassword = (userPassword: any) => {
 	return request.post(path+'/login/password/update', userPassword)
 }
 
 /**
- *  get user page result
-  * @param query
+ * get user page result
+ * @param query
  */
 export const $getUserPageResult = (query: any) => {
 	return request.post(path+'/page', query)
 }
 
 /**
- *  get user data
-  * @param userId
+ * get user data
+ * @param userId
  */
 export const $getUserData = (userId: number) => {
 	return request.get(path+'/'+userId+'/data')
 }
 
 /**
- *  add user
-  * @param user
+ * add user
+ * @param user
  */
 export const $addUser = (user: any) => {
 	return request.post(path+'/add', user)
 }
 
 /**
- *  update user
-  * @param user
+ * update user
+ * @param user
  */
 export const $updateUser = (user: any) => {
-	return request.put(path+'/update', user)
+	return request.post(path+'/update', user)
 }
 
 /**
- *  delete user
-  * @param userIdList
+ * delete user
+ * @param userIdList
  */
 export const $deleteUser = (userIdList: any) => {
-	return request.delete(path+'/delete', userIdList)
+	return request.post(path+'/delete', userIdList)
 }
 
 /**
- *  get user name list
-  * @param userIdList
+ * get user name list
+ * @param userIdList
  */
 export const $getUserNameList = (userIdList: any) => {
 	return request.post(path+'/name/list', userIdList)
 }
 
 /**
- *  import user
-  * @param file
+ * import user
+ * @param file
  */
 export const $importUser = (file: any) => {
 	return request.post(path+'/import', file)

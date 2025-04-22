@@ -30,14 +30,20 @@
 				</el-col>
 				<el-col class="right" :span="12">
 					<el-button type="primary" @click="addUser"><sw-icon icon="plus"></sw-icon>新增</el-button>
-					<el-button type="warning" @click="updateUser('')"><sw-icon icon="edit"></sw-icon>编辑</el-button>
-					<el-button type="danger" @click="deleteUser"><sw-icon icon="delete"></sw-icon>删除</el-button>
+					<el-button type="warning" @click="updateUser()"><sw-icon icon="edit"></sw-icon>编辑</el-button>
+					<el-button type="danger" @click="deleteUser()"><sw-icon icon="delete"></sw-icon>删除</el-button>
 				</el-col>
 			</el-row>
 			<!-- grid -->
 			<el-row ref="gridContainerRef" class="panel-grid">
 				<el-table ref="gridRef" :data="grid.datas" border stripe :height="grid.option.height" @selection-change="gridSelectionChange">
 					<el-table-column type="selection" align="center" width="55" />
+					<el-table-column label="操作" width="120" align="center">
+						<template #default="scope">
+							<el-button link type="warning" @click="updateUser(scope.row.userId)">编辑</el-button>
+							<el-button link type="danger" @click="deleteUser(scope.row.userId)">删除</el-button>
+						</template>
+					</el-table-column>
 					<el-table-column prop="userId" label="用户编号" align="center" sortable show-overflow-tooltip width="120" />
 					<el-table-column prop="username" label="用户名称" align="center" sortable show-overflow-tooltip width="120" />
 					<el-table-column prop="realName" label="真实名称" align="center" sortable show-overflow-tooltip width="120" />
@@ -84,14 +90,14 @@
 import { ref, reactive, onMounted, nextTick } from 'vue'
 
 // import element plus elements
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 // import components
 import AddUser from './AddUser.vue'
 import UpdateUser from './UpdateUser.vue'
 
 // import apis
-import { $getUserPageResult } from '@/api/bms/permission/user' 
+import { $getUserPageResult, $deleteUser } from '@/api/bms/permission/user' 
 
 // import stores
 import { useAppStore } from '@/stores/app'
@@ -213,6 +219,34 @@ const updateUser = (userId)=>{
 /**
  * delete user
  */
-const deleteUser = ()=>{
+const deleteUser = (userId)=>{
+	// defined user ids
+	let userIds = []
+	// no user id
+	if(!userId){
+		// no select
+		if(grid.selects==null||grid.selects.length<=0){
+			// warning
+			ElMessage({ message: '至少选择一个用户。', type: 'warning' })
+			// return
+			return
+		}
+		// set user id
+		userIds = grid.selects.map(select=>select.userId)
+	}else{
+		// push user id
+		userIds.push(userId)
+	}
+	// confirm
+	ElMessageBox.confirm('确认删除吗？', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
+		// delete user
+		$deleteUser(userIds).then(handler=>{
+			// message
+			ElMessage.success({ message: '操作成功', duration: 500, onClose: () => {
+				// search
+				search()
+			}})
+		})
+	})
 }
 </script>

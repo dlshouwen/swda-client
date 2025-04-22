@@ -29,24 +29,24 @@ export const $addDictType = (dictType: any) => {
 }
 
 /**
- *  update dict type
-  * @param dictType
+ * update dict type
+ * @param dictType
  */
 export const $updateDictType = (dictType: any) => {
 	return request.post(path+'/update', dictType)
 }
 
 /**
- *  delete dict type
-  * @param dictTypeIdList
+ * delete dict type
+ * @param dictTypeIdList
  */
 export const $deleteDictType = (dictTypeIdList: any) => {
 	return request.delete(path+'/delete', dictTypeIdList)
 }
 
 /**
- *  get sql dict list
-  * @param dictTypeId
+ * get sql dict list
+ * @param dictTypeId
  */
 export const $getSqlDictList = (dictTypeId: number) => {
 	return request.get(path+'/delete'+dictTypeId)

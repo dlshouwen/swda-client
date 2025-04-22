@@ -64,7 +64,7 @@ export const useAppStore = defineStore('appStore', {
 					const { data } = await $getDictData()
 					// get dict types, dicts
 					const dictTypes: [{dictTypeId:number,dictType:string}] = data.dictTypeList
-					const dicts: [{dictTypeId:number,dictType:string,dictKey:string,dictId:number,dictName:string,dictValue:string,dictClass:string}] = data.dictList
+					const dicts: [{dictTypeId:number,dictType:string,dictId:number,dictName:string,dictLabel:string,dictValue:string,dictStyle:string}] = data.dictList
 					// for each dict type
 					dictTypes.forEach(dictType=>{
 						// reset dict
@@ -74,17 +74,19 @@ export const useAppStore = defineStore('appStore', {
 						// for each dict
 						dicts.forEach(_dict=>{
 							// is dict type
-							if(_dict.dictTypeId===dictType.dictTypeId){
-								// add to datas
-								datas.push(_dict)
-								// set value
-								this.dict[dictType.dictType][_dict.dictKey] = {
+							if(_dict.dictType===dictType.dictType){
+								// construct dict
+								var d = {
 									id: _dict.dictId,
 									name: _dict.dictName,
-									key: _dict.dictKey,
+									label: _dict.dictLabel,
 									value: _dict.dictValue,
-									_class: _dict.dictClass
+									style: _dict.dictStyle
 								}
+								// add to datas
+								datas.push(d)
+								// set value
+								this.dict[dictType.dictType][_dict.dictValue] = d
 							}
 						})
 						// set datas to dict

@@ -1,22 +1,19 @@
 <template>
-	<!-- scrollbar -->
-	<el-scrollbar>
-		<!-- main -->
-		<el-main>
-			<!-- scrollbar -->
-			<el-scrollbar>
-				<!-- router view -->
-				<router-view v-slot="{ Component, route }">
-					<!-- cache: keep alive -->
-					<keep-alive v-if="appStore.theme.tab.cache" :include="[...tabStore.caches]">
-						<component :is="Component" :key="route.fullPath" />
-					</keep-alive>
-					<!-- no cache: component -->
-					<component v-else :is="Component" :key="route.name" />
-				</router-view>
-			</el-scrollbar>
-		</el-main>
-	</el-scrollbar>
+	<!-- main -->
+	<el-main>
+		<!-- scrollbar -->
+		<el-scrollbar height="100%">
+			<!-- router view -->
+			<router-view v-slot="{ Component, route }">
+				<!-- cache: keep alive -->
+				<keep-alive v-if="appStore.theme.tab.cache" :include="[...tabStore.caches]">
+					<component :is="Component" :key="route.fullPath" />
+				</keep-alive>
+				<!-- no cache: component -->
+				<component v-else :is="Component" :key="route.name" />
+			</router-view>
+		</el-scrollbar>
+	</el-main>
 </template>
 
 <script setup lang="ts">

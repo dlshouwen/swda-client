@@ -7,9 +7,14 @@
 	padding: 0;
 	outline: none !important;
 	box-sizing: border-box;
+	font-family: '微软雅黑'
 }
 
 /** html, body */
 html,body,#app {
 	height: 100%;
 }
+
+.el-main {--el-main-padding: 0;}
+
+.el-button .sw-icon{margin-right:8px;}

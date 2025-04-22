@@ -1,6 +1,6 @@
 <template>
 	<el-dialog v-model="visible" title="Shipping address" width="800">
-		user info
+		change password
 	  </el-dialog>
 </template>
 

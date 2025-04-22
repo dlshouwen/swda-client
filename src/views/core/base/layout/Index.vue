@@ -62,7 +62,7 @@
 
 	<!-- profile -->
 	<UserInfo />
-	<ChangePassword />
+	<change-password />
 	<Auth />
 
 </template>

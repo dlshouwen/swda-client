@@ -2,19 +2,19 @@
 @charset "UTF-8";
 
 /** import css */
-@import './reset.scss';
-@import './layout.scss';
+@use './reset.scss';
+@use './layout.scss';
 
 /** import theme */
-@import './theme/logo.scss';
-@import './theme/header.scss';
-@import './theme/sidebar.scss';
-@import './theme/tab.scss';
+@use './theme/logo.scss';
+@use './theme/header.scss';
+@use './theme/sidebar.scss';
+@use './theme/tab.scss';
 
 /** import size */
-@import './size/small.scss';
-@import './size/default.scss';
-@import './size/large.scss';
+@use './size/small.scss';
+@use './size/default.scss';
+@use './size/large.scss';
 
 /** import dark */
-@import './dark.scss';
+@use './dark.scss';

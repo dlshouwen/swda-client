@@ -48,7 +48,7 @@ export const $getUserPageResult = (query: any) => {
   * @param userId
  */
 export const $getUserData = (userId: number) => {
-	return request.get(path+'/data/'+userId)
+	return request.get(path+'/'+userId+'/data')
 }
 
 /**
@@ -64,7 +64,7 @@ export const $addUser = (user: any) => {
   * @param user
  */
 export const $updateUser = (user: any) => {
-	return request.post(path+'/update', user)
+	return request.put(path+'/update', user)
 }
 
 /**

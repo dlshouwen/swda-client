@@ -171,14 +171,14 @@ const updateRegion = (regionId)=>{
 		// no select
 		if(grid.selects==null||grid.selects.length<=0){
 			// warning
-			ElMessage({ message: '至少选择一个用户。', type: 'warning' })
+			ElMessage({ message: '至少选择一个区域。', type: 'warning' })
 			// return
 			return
 		}
 		// select more then 1
 		if(grid.selects.length>1){
 			// warning
-			ElMessage({ message: '只能选择一个用户。', type: 'warning' })
+			ElMessage({ message: '只能选择一个区域。', type: 'warning' })
 			// return
 			return
 		}

@@ -20,10 +20,10 @@ export const $getLoginUserAuthorityList = () => {
 
 /**
  * get menu list
- * @param menuType
+ * @param systemId
  */
-export const $getMenuList = (menuType: number) => {
-	return request.post(path+'/page', menuType)
+export const $getMenuList = (systemId: number) => {
+	return request.post(path+'/list', systemId)
 }
 
 /**

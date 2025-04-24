@@ -68,3 +68,33 @@ export const uuid = (split: string = '-'):string => {
 export const sm2Encrypt = (data: string): string => {
 	return '04' + sm2.doEncrypt(data, config.app.sm2, 1)
 }
+
+/**
+ * search cascader id
+ * @param datas
+ * @param id
+ * @param top
+ * @return search result array
+ */
+export const searchCascaderId = (datas, id, top, idProperty='id', pidProperty='pid', valueProperty='value', childrenProperty='children') => {
+	const result = []
+	const iterateFunc = function(_datas, _id) {
+		for (let i=0; i<_datas.length; i++) {
+			const item = _datas[i]
+			if (item[idProperty]==_id) {
+				result.push(item[valueProperty])
+				if(item[pidProperty]!=top){
+					iterateFunc(datas, item[pidProperty])
+				}
+				break
+			}else{
+				if(item[childrenProperty]) {
+					iterateFunc(item[childrenProperty], _id)
+				}
+			}
+		}
+	}
+	iterateFunc(datas, id)
+	result.reverse()
+	return result
+};

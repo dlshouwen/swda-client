@@ -106,7 +106,7 @@ const region = reactive({
 
 // const rules
 const rules = ref({
-	regionId: [{ label:'区域编号', valid:'r|integer|l-le11', unique:{ code:'bms.system.region.region_id.update', args:[region.regionId] }, lang:t, validator:validator, trigger:'blur' }],
+	regionId: [{ label:'区域编号', valid:'r|integer|l-le11', lang:t, validator:validator, trigger:'blur' }],
 	preRegionId: [{ label:'上级区域编号', valid:'r|integer|l-le11', lang:t, validator:validator, trigger:'blur' }],
 	regionType: [{ label:'区域类型', valid:'r|l-le2', lang:t, validator:validator, trigger:'blur' }],
 	regionName: [{ label:'区域名称', valid:'r|l-le200', lang:t, validator:validator, trigger:'blur' }],

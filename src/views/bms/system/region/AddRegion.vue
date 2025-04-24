@@ -154,18 +154,7 @@ const selectRegionProps = {
  */
 const selectRegionChange = (value) => {
 	// set pre region id
-	region.preRegionId = value[0]
-}
-
-/**
- * select region load
- */
-const selectRegionLoad = (node, resolve) => {
-	// get region list
-	$getRegionList(node?node.value:0).then(handler=>{
-		// resolve
-		resolve(handler.data)
-	})
+	region.preRegionId = value[value.length-1]
 }
 
 /**

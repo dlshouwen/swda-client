@@ -25,5 +25,5 @@ export const $getOperationLogData = (operationLogId: number) => {
   * @param operationLogIdList
  */
 export const $deleteOperationLog = (operationLogIdList: any) => {
-	return request.delete(path+'/delete', operationLogIdList)
+	return request.post(path+'/delete', operationLogIdList)
 }

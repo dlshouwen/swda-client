@@ -55,5 +55,5 @@ export const $updateMenu = (menu: any) => {
  * @param menuIdList
  */
 export const $deleteMenu = (menuIdList: any) => {
-	return request.delete(path+'/delete', menuIdList)
+	return request.post(path+'/delete', menuIdList)
 }

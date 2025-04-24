@@ -41,7 +41,7 @@ export const $updateDictType = (dictType: any) => {
  * @param dictTypeIdList
  */
 export const $deleteDictType = (dictTypeIdList: any) => {
-	return request.delete(path+'/delete', dictTypeIdList)
+	return request.post(path+'/delete', dictTypeIdList)
 }
 
 /**

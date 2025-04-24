@@ -55,5 +55,5 @@ export const $updateSystem = (system: any) => {
  * @param systemIdList
  */
 export const $deleteSystem = (systemIdList: any) => {
-	return request.delete(path+'/delete', systemIdList)
+	return request.post(path+'/delete', systemIdList)
 }

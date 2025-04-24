@@ -49,7 +49,7 @@ export const $updateSmsPlatform = (smsPlatform: any) => {
  * @param smsPlatformIdList
  */
 export const $deleteSmsPlatform = (smsPlatformIdList: any) => {
-	return request.delete(path+'/delete', smsPlatformIdList)
+	return request.post(path+'/delete', smsPlatformIdList)
 }
 
 /**

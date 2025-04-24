@@ -25,5 +25,5 @@ export const $getDataLogData = (dataLogId: number) => {
   * @param dataLogIdList
  */
 export const $deleteDataLog = (dataLogIdList: any) => {
-	return request.delete(path+'/delete', dataLogIdList)
+	return request.post(path+'/delete', dataLogIdList)
 }

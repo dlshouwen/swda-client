@@ -63,7 +63,7 @@ router.beforeEach(async (to, from, next) => {
 			next('/home')
 		}else{
 			// user store has user id
-			if(userStore.user.userId){
+			if(userStore.user.userId!==''&&userStore.user.userId!==null){
 				// next
 				next()
 			}else{

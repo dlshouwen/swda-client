@@ -44,9 +44,8 @@
 							<el-button link type="danger" @click="deleteUser(scope.row.userId)">删除</el-button>
 						</template>
 					</el-table-column>
-					<el-table-column prop="userId" label="用户编号" align="center" sortable show-overflow-tooltip width="120" />
 					<el-table-column prop="username" label="用户名称" align="center" sortable show-overflow-tooltip width="120" />
-					<el-table-column prop="realName" label="真实名称" align="center" sortable show-overflow-tooltip width="120" />
+					<el-table-column prop="realName" label="真实名称" align="center" sortable show-overflow-tooltip width="120" bbf="12341234" />
 					<el-table-column prop="organName" label="所属机构" align="center" sortable show-overflow-tooltip width="120" />
 					<el-table-column prop="superAdmin" label="超级管理员" align="center" sortable show-overflow-tooltip width="130">
 						<template #default="scope">

@@ -56,7 +56,7 @@ export const $setRoleDataScope = (roleDataScope: any) => {
  * @param roleIdList
  */
 export const $deleteRole = (roleIdList: any) => {
-	return request.delete(path+'/delete', roleIdList)
+	return request.post(path+'/delete', roleIdList)
 }
 
 /**

@@ -25,5 +25,5 @@ export const $getEmailLogData = (emailLogId: number) => {
   * @param emailLogIdList
  */
 export const $deleteEmailLog = (emailLogIdList: any) => {
-	return request.delete(path+'/delete', emailLogIdList)
+	return request.post(path+'/delete', emailLogIdList)
 }

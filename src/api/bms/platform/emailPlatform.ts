@@ -49,7 +49,7 @@ export const $updateEmailPlatform = (emailPlatform: any) => {
  * @param emailPlatformIdList
  */
 export const $deleteEmailPlatform = (emailPlatformIdList: any) => {
-	return request.delete(path+'/delete', emailPlatformIdList)
+	return request.post(path+'/delete', emailPlatformIdList)
 }
 
 /**

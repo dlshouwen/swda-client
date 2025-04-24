@@ -25,5 +25,5 @@ export const $getSmsLogData = (smsLogId: number) => {
   * @param smsLogIdList
  */
 export const $deleteSmsLog = (smsLogIdList: any) => {
-	return request.delete(path+'/delete', smsLogIdList)
+	return request.post(path+'/delete', smsLogIdList)
 }

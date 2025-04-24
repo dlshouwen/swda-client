@@ -25,5 +25,5 @@ export const $getLoginLogData = (loginLogId: number) => {
   * @param loginLogIdList
  */
 export const $deleteLoginLog = (loginLogIdList: any) => {
-	return request.delete(path+'/delete', loginLogIdList)
+	return request.post(path+'/delete', loginLogIdList)
 }

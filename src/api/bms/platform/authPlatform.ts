@@ -41,5 +41,5 @@ export const $updateAuthPlatform = (authPlatform: any) => {
  * @param authPlatformIdList
  */
 export const $deleteAuthPlatform = (authPlatformIdList: any) => {
-	return request.delete(path+'/delete', authPlatformIdList)
+	return request.post(path+'/delete', authPlatformIdList)
 }

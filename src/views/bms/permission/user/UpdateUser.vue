@@ -1,9 +1,8 @@
 <template>
 	<el-dialog v-model="visible" title="编辑用户" :close-on-click-modal="false" draggable width="480px">
-		<el-input type="hidden" v-model="user.userId" />
 		<el-form ref="formRef" :model="user" :rules="rules" label-width="120px" @keyup.enter="updateUser">
 			<el-form-item prop="systemIdList" label="所属系统">
-				<el-select v-model="user.systemIdList" multiple placeholder="所属系统" >
+				<el-select v-model="user.systemIdList" placeholder="所属系统" >
 					<el-option v-for="system in systemList" :key="system.systemId" :label="system.systemName" :value="system.systemId"></el-option>
 				</el-select>
 			</el-form-item>
@@ -153,6 +152,7 @@ const rules = ref({
 	email: [{ label:'邮箱', valid:'email|l-le200', lang:t, validator:validator, trigger:'blur' }],
 	address: [{ label:'地址', valid:'l-l600', lang:t, validator:validator, trigger:'blur' }],
 	assistSearch: [{ label:'辅助查询', valid:'l-l400', lang:t, validator:validator, trigger:'blur' }],
+	sort: [{ label:'排序号', valid:'r|integer', lang:t, validator:validator, trigger:'blur' }],
 	remark: [{ label:'备注', valid:'l-l200', lang:t, validator:validator, trigger:'blur' }],
 })
 
@@ -214,6 +214,10 @@ const getPostList = async () => {
 	postList.value = handler.data
 }
 
+/**
+ * get user data
+ * @param userId
+ */
 const getUserData = async (userId)=>{
 	// get user data
 	let handler = await $getUserData(userId)
@@ -245,16 +249,12 @@ const updateUser = ()=>{
 		// update user
 		$updateUser(user).then(()=>{
 			// message
-			ElMessage.success({ 
-				message: '操作成功', 
-				duration: 500, 
-				onClose: () => {
-					// set visible
-					visible.value = false
-					// callback
-					emit('callback')
-				}
-			})
+			ElMessage.success({ message: '操作成功', duration: 500, onClose: () => {
+				// set visible
+				visible.value = false
+				// callback
+				emit('callback')
+			}})
 		})
 	})
 }

@@ -48,7 +48,7 @@ export const $updatePost = (post: any) => {
  * @param postIdList
  */
 export const $deletePost = (postIdList: any) => {
-	return request.delete(path+'/delete', postIdList)
+	return request.post(path+'/delete', postIdList)
 }
 
 /**

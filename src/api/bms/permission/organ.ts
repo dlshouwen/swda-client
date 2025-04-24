@@ -40,7 +40,7 @@ export const $updateOrgan = (organ: any) => {
  * @param organIdList
  */
 export const $deleteOrgan = (organIdList: any) => {
-	return request.delete(path+'/delete', organIdList)
+	return request.post(path+'/delete', organIdList)
 }
 
 /**

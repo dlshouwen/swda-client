@@ -42,5 +42,5 @@ export const $updateDict = (dict: any) => {
  * @param dictType
  */
 export const $deleteDict = (dictIdList: any) => {
-	return request.delete(path+'/delete', dictIdList)
+	return request.post(path+'/delete', dictIdList)
 }

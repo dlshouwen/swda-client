@@ -31,7 +31,7 @@ export const $getSystemList = () => {
  * @param systemId
  */
 export const $getSystemData = (systemId: number) => {
-	return request.get(path+'/data/'+systemId)
+	return request.get(path+'/'+systemId+'/data')
 }
 
 /**

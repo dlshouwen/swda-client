@@ -24,7 +24,7 @@ export const $getRoleList = () => {
  * @param roleId
  */
 export const $getRoleData = (roleId: number) => {
-	return request.get(path+'/data/'+roleId)
+	return request.get(path+'/'+roleId+'/data')
 }
 
 /**

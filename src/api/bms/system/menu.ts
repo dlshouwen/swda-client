@@ -31,7 +31,7 @@ export const $getMenuList = (menuType: number) => {
  * @param menuId
  */
 export const $getMenuData = (menuId: number) => {
-	return request.get(path+'/data/'+menuId)
+	return request.get(path+'/'+menuId+'/data')
 }
 
 /**

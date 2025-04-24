@@ -16,7 +16,7 @@ export const $getOrganList = () => {
  * @param organId
  */
 export const $getOrganData = (organId: number) => {
-	return request.get(path+'/data/'+organId)
+	return request.get(path+'/'+organId+'/data')
 }
 
 /**

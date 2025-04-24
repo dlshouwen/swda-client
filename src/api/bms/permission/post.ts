@@ -24,7 +24,7 @@ export const $getPostList = () => {
  * @param postId
  */
 export const $getPostData = (postId: number) => {
-	return request.get(path+'/data/'+postId)
+	return request.get(path+'/'+postId+'/data')
 }
 
 /**

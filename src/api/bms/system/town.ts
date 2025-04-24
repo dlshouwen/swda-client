@@ -17,7 +17,7 @@ export const $getTownPageResult = (query: any) => {
  * @param townId
  */
 export const $getTownData = (townId: number) => {
-	return request.get(path+'/data/'+townId)
+	return request.get(path+'/'+townId+'/data')
 }
 
 /**

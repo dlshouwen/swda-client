@@ -123,7 +123,7 @@ const rules = ref({
 /**
  * init
  */
-const init = (taskId)=>{
+const init = (taskId: number)=>{
 	// get task data
 	getTaskData(taskId)
 	// set visible
@@ -134,7 +134,7 @@ const init = (taskId)=>{
  * get task data
  * @param taskId
  */
-const getTaskData = async (taskId)=>{
+const getTaskData = async (taskId: number)=>{
 	// get task data
 	let handler = await $getTaskData(taskId)
 	// set task data

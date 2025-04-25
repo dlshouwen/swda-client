@@ -95,8 +95,8 @@ const formRef = ref()
 // const menu
 const menu = reactive({
 	menuId: '',
-	preMenuId: '',
-	systemId: '',
+	preMenuId: 0,
+	systemId: 0,
 	menuCode: '',
 	menuName: '',
 	menuType: '',
@@ -150,7 +150,7 @@ watch(selectPreMenuData, ()=>{
 /**
  * init
  */
-const init = async (menuId)=>{
+const init = async (menuId:number)=>{
 	// get menu data
 	await getMenuData(menuId)
 	// get system list
@@ -165,7 +165,7 @@ const init = async (menuId)=>{
  * get menu data
  * @param menuId
  */
-const getMenuData = async (menuId)=>{
+const getMenuData = async (menuId:number)=>{
 	// get menu data
 	let handler = await $getMenuData(menuId)
 	// set menu data
@@ -187,7 +187,7 @@ const reset = async ()=>{
  * system change
  * @param systemId
  */
-const systemChange = (systemId) => {
+const systemChange = () => {
 	// get menu list
 	getMenuList()
 }
@@ -212,14 +212,6 @@ const getMenuList = async ()=>{
 	let handler = await $getMenuList(menu.systemId)
 	// set menu list
 	menuList.value = handler.data
-}
-
-/**
- * select menu change
- */
-const getselectMenuChange = (value) => {
-	// set pre menu id
-	menu.preMenuId = value[value.length-1]
 }
 
 /**

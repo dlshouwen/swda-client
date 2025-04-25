@@ -123,46 +123,18 @@ const rules = ref({
 /**
  * init
  */
-const init = (regionId)=>{
+const init = async (regionId:number)=>{
 	// get region data
-	getRegionData(regionId)
+	await getRegionData(regionId)
 	// set visible
 	visible.value = true
-}
-
-// const select region props
-const selectRegionProps = {
-	lazy: true,
-	label: 'regionName',
-	value: 'regionId',
-	leaf: 'leaf',
-	checkStrictly: true,
-	lazyLoad(node, resolve) {
-		// get region list
-		$getRegionList(node.level==0?0:node.value).then(handler=>{
-			handler.data.forEach(data=>{data.leaf=!data.hasChildren})
-			// resolve
-			resolve(handler.data)
-		})
-	}
-}
-
-/**
- * select region load
- */
-const selectRegionLoad = (node, resolve) => {
-	// get region list
-	$getRegionList(node?node.value:0).then(handler=>{
-		// resolve
-		resolve(handler.data)
-	})
 }
 
 /**
  * get region data
  * @param regionId
  */
-const getRegionData = async (regionId)=>{
+const getRegionData = async (regionId:number)=>{
 	// get region data
 	let handler = await $getRegionData(regionId)
 	// set region data

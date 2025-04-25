@@ -110,11 +110,11 @@ const selectRegionProps = {
 	value: 'regionId',
 	leaf: 'leaf',
 	checkStrictly: true,
-	lazyLoad(node, resolve) {
+	lazyLoad(node:any, resolve:any) {
 		// get region list
 		$getRegionList(node.level==0?0:node.value).then(handler=>{
 			// set leaf
-			handler.data.forEach(data=>{data.leaf=!data.hasChildren})
+			handler.data.forEach((data:any)=>{data.leaf=!data.hasChildren})
 			// resolve
 			resolve(handler.data)
 		})
@@ -124,7 +124,7 @@ const selectRegionProps = {
 /**
  * select region change
  */
-const selectRegionChange = (value) => {
+const selectRegionChange = (value:any[]) => {
 	// set query
 	town.provinceId = value.length>0?value[0]:''
 	town.cityId = value.length>1?value[1]:''
@@ -135,10 +135,10 @@ const selectRegionChange = (value) => {
  * init
  */
 const init = ()=>{
-	// set visible
-	visible.value = true
 	// reset data
 	reset()
+	// set visible
+	visible.value = true
 }
 
 /**

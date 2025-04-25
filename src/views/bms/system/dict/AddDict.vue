@@ -92,13 +92,13 @@ const rules = ref({
 /**
  * init
  */
-const init = (dictType)=>{
-	// set visible
-	visible.value = true
+const init = (dictType:string)=>{
 	// set dict type
 	dict.dictType = dictType
 	// reset data
 	reset()
+	// set visible
+	visible.value = true
 }
 
 /**

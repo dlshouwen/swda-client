@@ -174,7 +174,7 @@ const rules = ref({
 /**
  * init
  */
-const init = (smsPlatformId)=>{
+const init = (smsPlatformId: number)=>{
 	// get sms platform data
 	getSmsPlatformData(smsPlatformId)
 	// set visible
@@ -185,7 +185,7 @@ const init = (smsPlatformId)=>{
  * get sms platform data
  * @param smsPlatformId
  */
-const getSmsPlatformData = async (smsPlatformId)=>{
+const getSmsPlatformData = async (smsPlatformId: number)=>{
 	// get sms platform data
 	let handler = await $getSmsPlatformData(smsPlatformId)
 	// set sms platform data

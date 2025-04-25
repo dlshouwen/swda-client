@@ -127,11 +127,11 @@ const selectRegionProps = {
 	label: 'regionName',
 	value: 'regionId',
 	leaf: 'leaf',
-	lazyLoad(node, resolve) {
+	lazyLoad(node:any, resolve:any) {
 		// get region list
 		$getRegionList(node.level==0?0:node.value).then(handler=>{
 			// set leaf
-			handler.data.forEach(data=>{data.leaf=!data.hasChildren})
+			handler.data.forEach((data:any)=>{data.leaf=!data.hasChildren})
 			// resolve
 			resolve(handler.data)
 		})
@@ -141,7 +141,7 @@ const selectRegionProps = {
 /**
  * select region change
  */
-const selectRegionChange = (value) => {
+const selectRegionChange = (value:any[]) => {
 	// set query
 	organ.provinceId = value.length>0?value[0]:''
 	organ.cityId = value.length>1?value[1]:''
@@ -176,11 +176,9 @@ const reset = ()=>{
  */
 const getOrganList = ()=>{
 	// get organ list
-	$getOrganList(organ.systemId).then(handler=>{
+	$getOrganList().then(handler=>{
 		// set organ list
 		organList.value = handler.data
-		// set pre organ id
-		organ.preOrganId = organ.systemId
 	})
 }
 

@@ -60,9 +60,6 @@ import { ref, reactive } from 'vue'
 // import element plus elements
 import { ElMessage } from 'element-plus'
 
-// import cascader props
-import type { CascaderProps } from 'element-plus'
-
 // import use i18n
 import { useI18n } from 'vue-i18n'
 
@@ -126,10 +123,10 @@ const rules = ref({
  * init
  */
 const init = ()=>{
-	// set visible
-	visible.value = true
 	// reset data
 	reset()
+	// set visible
+	visible.value = true
 }
 
 // const select region props
@@ -139,10 +136,10 @@ const selectRegionProps = {
 	value: 'regionId',
 	leaf: 'leaf',
 	checkStrictly: true,
-	lazyLoad(node, resolve) {
+	lazyLoad(node:any, resolve:any) {
 		// get region list
 		$getRegionList(node.level==0?0:node.value).then(handler=>{
-			handler.data.forEach(data=>{data.leaf=!data.hasChildren})
+			handler.data.forEach((data:any)=>{data.leaf=!data.hasChildren})
 			// resolve
 			resolve(handler.data)
 		})
@@ -152,7 +149,7 @@ const selectRegionProps = {
 /**
  * select region change
  */
-const selectRegionChange = (value) => {
+const selectRegionChange = (value:any[]) => {
 	// set pre region id
 	region.preRegionId = value[value.length-1]
 }

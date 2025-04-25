@@ -61,9 +61,6 @@ import { ref, reactive, watch } from 'vue'
 // import element plus elements
 import { ElMessage } from 'element-plus'
 
-// import cascader props
-import type { CascaderProps } from 'element-plus'
-
 // import use i18n
 import { useI18n } from 'vue-i18n'
 

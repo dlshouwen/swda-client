@@ -90,18 +90,18 @@ const rules = ref({
 /**
  * init
  */
-const init = (systemId)=>{
+const init = async (systemId:number)=>{
+	// get system data
+	await getSystemData(systemId)
 	// set visible
 	visible.value = true
-	// get system data
-	getSystemData(systemId)
 }
 
 /**
  * get system data
  * @param systemId
  */
-const getSystemData = async (systemId)=>{
+const getSystemData = async (systemId:number)=>{
 	// get system data
 	let handler = await $getSystemData(systemId)
 	// set system data

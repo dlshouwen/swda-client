@@ -166,7 +166,7 @@ const search = ()=>{
 /**
  * grid selection change
  */
-const gridSelectionChange = (datas)=>{
+const gridSelectionChange = (datas:any)=>{
 	// set select
 	grid.selects = datas
 }
@@ -188,7 +188,7 @@ const updateTaskRef = ref()
 /**
  * update task
  */
-const updateTask = (taskId)=>{
+const updateTask = (taskId: number)=>{
 	// no task id
 	if(!taskId){
 		// no select
@@ -215,7 +215,7 @@ const updateTask = (taskId)=>{
 /**
  * open task
  */
-const openTask = (taskId)=>{
+const openTask = (taskId: number)=>{
 	// defined task ids
 	let taskIds = []
 	// no task id
@@ -249,7 +249,7 @@ const openTask = (taskId)=>{
 /**
  * pause task
  */
-const pauseTask = (taskId)=>{
+const pauseTask = (taskId: number)=>{
 	// defined task ids
 	let taskIds = []
 	// no task id
@@ -283,7 +283,7 @@ const pauseTask = (taskId)=>{
 /**
  * execute task
  */
-const executeTask = (taskId)=>{
+const executeTask = (taskId: number)=>{
 	// defined task ids
 	let taskIds = []
 	// no task id
@@ -317,7 +317,7 @@ const executeTask = (taskId)=>{
 /**
  * delete task
  */
-const deleteTask = (taskId)=>{
+const deleteTask = (taskId: number)=>{
 	// defined task ids
 	let taskIds = []
 	// no task id

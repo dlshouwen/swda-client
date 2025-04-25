@@ -61,9 +61,6 @@ import { useI18n } from 'vue-i18n'
 import { $getOrganList, $getOrganData, $updateOrgan } from '@/api/bms/permission/organ'
 import { $getRegionList } from '@/api/bms/system/region'
 
-// import tools
-import { searchCascaderId } from '@/utils/tools'
-
 // import validator
 import { validator } from '@/utils/validator'
  
@@ -133,11 +130,11 @@ const selectRegionProps = {
 	label: 'regionName',
 	value: 'regionId',
 	leaf: 'leaf',
-	lazyLoad(node, resolve) {
+	lazyLoad(node: any, resolve: any) {
 		// get region list
 		$getRegionList(node.level==0?0:node.value).then(handler=>{
 			// set leaf
-			handler.data.forEach(data=>{data.leaf=!data.hasChildren})
+			handler.data.forEach((data:any)=>{data.leaf=!data.hasChildren})
 			// resolve
 			resolve(handler.data)
 		})
@@ -147,7 +144,7 @@ const selectRegionProps = {
 /**
  * select region change
  */
-const selectRegionChange = (value) => {
+const selectRegionChange = (value:any[]) => {
 	// set query
 	organ.provinceId = value.length>0?value[0]:''
 	organ.cityId = value.length>1?value[1]:''
@@ -157,7 +154,7 @@ const selectRegionChange = (value) => {
 /**
  * init
  */
-const init = async (organId)=>{
+const init = async (organId: number)=>{
 	// get organ list
 	await getOrganList()
 	// get organ data
@@ -172,7 +169,7 @@ const init = async (organId)=>{
  * get organ data
  * @param organId
  */
-const getOrganData = async (organId)=>{
+const getOrganData = async (organId: number)=>{
 	// get organ data
 	let handler = await $getOrganData(organId)
 	// set organ data

@@ -99,7 +99,7 @@ const rules = ref({
 /**
  * init
  */
-const init = (authPlatformId)=>{
+const init = (authPlatformId: number)=>{
 	// get auth platform data
 	getAuthPlatformData(authPlatformId)
 	// set visible
@@ -110,7 +110,7 @@ const init = (authPlatformId)=>{
  * get auth platform data
  * @param authPlatformId
  */
-const getAuthPlatformData = async (authPlatformId)=>{
+const getAuthPlatformData = async (authPlatformId: number)=>{
 	// get auth platform data
 	let handler = await $getAuthPlatformData(authPlatformId)
 	// set auth platform data

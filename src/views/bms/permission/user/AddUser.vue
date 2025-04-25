@@ -2,7 +2,7 @@
 	<el-dialog v-model="visible" title="新增用户" :close-on-click-modal="false" draggable width="480px">
 		<el-form ref="formRef" :model="user" :rules="rules" label-width="120px" @keyup.enter="addUser">
 			<el-form-item prop="systemIdList" label="所属系统">
-				<el-select v-model="user.systemIdList" placeholder="所属系统" >
+				<el-select v-model="user.systemIdList" multiple placeholder="所属系统" >
 					<el-option v-for="system in systemList" :key="system.systemId" :label="system.systemName" :value="system.systemId"></el-option>
 				</el-select>
 			</el-form-item>
@@ -160,8 +160,6 @@ const rules = ref({
  * init
  */
 const init = ()=>{
-	// set visible
-	visible.value = true
 	// reset data
 	reset()
 	// get system list
@@ -172,6 +170,8 @@ const init = ()=>{
 	getRoleList()
 	// get post list
 	getPostList()
+	// set visible
+	visible.value = true
 }
 
 /**

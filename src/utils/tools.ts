@@ -76,9 +76,9 @@ export const sm2Encrypt = (data: string): string => {
  * @param top
  * @return search result array
  */
-export const searchCascaderId = (datas, id, top, idProperty='id', pidProperty='pid', valueProperty='value', childrenProperty='children') => {
-	const result = []
-	const iterateFunc = function(_datas, _id) {
+export const searchCascaderId = (datas:any[], id:any, top:any, idProperty='id', pidProperty='pid', valueProperty='value', childrenProperty='children') => {
+	const result:any[] = []
+	const iterateFunc = function(_datas:any[], _id:any) {
 		for (let i=0; i<_datas.length; i++) {
 			const item = _datas[i]
 			if (item[idProperty]==_id) {

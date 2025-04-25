@@ -89,18 +89,18 @@ const rules = ref({
 /**
  * init
  */
-const init = (postId)=>{
+const init = async (postId: number)=>{
+	// get post data
+	await getPostData(postId)
 	// set visible
 	visible.value = true
-	// get post data
-	getPostData(postId)
 }
 
 /**
  * get post data
  * @param postId
  */
-const getPostData = async (postId)=>{
+const getPostData = async (postId: number)=>{
 	// get post data
 	let handler = await $getPostData(postId)
 	// set post data

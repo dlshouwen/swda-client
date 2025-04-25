@@ -100,10 +100,10 @@ const rules = ref({
  * init
  */
 const init = ()=>{
-	// set visible
-	visible.value = true
 	// reset data
 	reset()
+	// set visible
+	visible.value = true
 }
 
 /**

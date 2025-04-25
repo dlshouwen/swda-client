@@ -108,7 +108,7 @@ const menuList = ref()
 // const role
 const role = reactive({
 	roleId: '',
-	systemId: '',
+	systemId: null,
 	organId: '',
 	roleCode: '',
 	roleName: '',

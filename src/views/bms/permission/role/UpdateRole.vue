@@ -114,7 +114,7 @@ const menuList = ref()
 // const role
 const role = reactive({
 	roleId: '',
-	systemId: '',
+	systemId: null,
 	organId: '',
 	roleCode: '',
 	roleName: '',
@@ -141,22 +141,22 @@ const rules = ref({
 /**
  * init
  */
-const init = (roleId)=>{
+const init = async (roleId: number)=>{
+	// get system list
+	await getSystemList()
+	// get organ list
+	await getOrganList()
+	// get role data
+	await getRoleData(roleId)
 	// set visible
 	visible.value = true
-	// get system list
-	getSystemList()
-	// get organ list
-	getOrganList()
-	// get role data
-	getRoleData(roleId)
 }
 
 /**
  * get role data
  * @param roleId
  */
-const getRoleData = async (roleId) => {
+const getRoleData = async (roleId: number) => {
 	// get role data
 	let handler = await $getRoleData(roleId)
 	// set role data

@@ -91,17 +91,17 @@ const rules = ref({
 /**
  * init
  */
-const init = (dictType, dictId)=>{
+const init = async (dictType:string, dictId:number)=>{
+	// get dict data
+	await getDictData(dictId)
 	// set visible
 	visible.value = true
-	// get dict data
-	getDictData(dictId)
 }
 
 /**
  * get dict data
  */
-const getDictData = async (dictId)=>{
+const getDictData = async (dictId:number)=>{
 	// get dict data
 	let handler = await $getDictData(dictId)
 	// set dict data

@@ -1,5 +1,5 @@
 <template>
-	<el-dialog v-model="visible" title="查看数据日志" :close-on-click-modal="false" draggable width="480px">
+	<el-dialog v-model="visible" title="查看数据日志" :close-on-click-modal="false" draggable width="720px">
 		<el-descriptions :column="1" :label-width="120" border>
 			<el-descriptions-item label="日志编号">{{dataLog.dataLogId}}</el-descriptions-item>
 			<el-descriptions-item label="执行类型">

@@ -2,14 +2,14 @@
 	<el-dialog v-model="visible" title="编辑用户" :close-on-click-modal="false" draggable width="480px">
 		<el-form ref="formRef" :model="user" :rules="rules" label-width="120px" @keyup.enter="updateUser">
 			<el-form-item prop="systemIdList" label="所属系统">
-				<el-select v-model="user.systemIdList" placeholder="所属系统" >
+				<el-select v-model="user.systemIdList" multiple placeholder="所属系统" >
 					<el-option v-for="system in systemList" :key="system.systemId" :label="system.systemName" :value="system.systemId"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item prop="organId" label="所属机构">
 				<el-tree-select v-model="user.organId" :data="organList" check-strictly :render-after-expand="false" />
 			</el-form-item>
-			<el-form-item prop="username" label="用户名">
+			<el-form-item prop="username" label="用户名" :rules="{ label:'用户名', valid:'r|le3-le200', unique:{ code:'bms.permission.user.username.update', args:[user.userId] }, lang:t, validator:validator, trigger:'blur' }">
 				<el-input v-model="user.username" placeholder="用户名"></el-input>
 			</el-form-item>
 			<el-form-item prop="password" label="密码">
@@ -71,7 +71,7 @@
 
 <script setup lang="ts">
 // import vue elements
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 
 // import element plus elements
 import { ElMessage } from 'element-plus'
@@ -141,7 +141,7 @@ const user = reactive({
 })
 
 // const rules
-const rules = ref({
+const rules = reactive({
 	username: [{ label:'用户名', valid:'r|le3-le200', unique:{ code:'bms.permission.user.username.update', args:[user.userId] }, lang:t, validator:validator, trigger:'blur' }],
 	password: [{ label:'密码', valid:'le6-le32', lang:t, validator:validator, trigger:'blur' }],
 	realName: [{ label:'真实姓名', valid:'r|l-le400', lang:t, validator:validator, trigger:'blur' }],
@@ -159,19 +159,19 @@ const rules = ref({
 /**
  * init
  */
-const init = (userId)=>{
+const init = async (userId: number)=>{
+	// get system list
+	await getSystemList()
+	// get organ list
+	await getOrganList()
+	// get role list
+	await getRoleList()
+	// get post list
+	await getPostList()
+	// get user data
+	await getUserData(userId)
 	// set visible
 	visible.value = true
-	// get system list
-	getSystemList()
-	// get organ list
-	getOrganList()
-	// get role list
-	getRoleList()
-	// get post list
-	getPostList()
-	// get user data
-	getUserData(userId)
 }
 
 /**
@@ -218,7 +218,7 @@ const getPostList = async () => {
  * get user data
  * @param userId
  */
-const getUserData = async (userId)=>{
+const getUserData = async (userId: number)=>{
 	// get user data
 	let handler = await $getUserData(userId)
 	// set user data

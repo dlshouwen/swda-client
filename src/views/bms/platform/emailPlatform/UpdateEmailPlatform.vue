@@ -141,7 +141,7 @@ const rules = ref({
 /**
  * init
  */
-const init = (emailPlatformId)=>{
+const init = (emailPlatformId: number)=>{
 	// get email platform data
 	getEmailPlatformData(emailPlatformId)
 	// set visible
@@ -152,7 +152,7 @@ const init = (emailPlatformId)=>{
  * get email platform data
  * @param emailPlatformId
  */
-const getEmailPlatformData = async (emailPlatformId)=>{
+const getEmailPlatformData = async (emailPlatformId: number)=>{
 	// get email platform data
 	let handler = await $getEmailPlatformData(emailPlatformId)
 	// set email platform data

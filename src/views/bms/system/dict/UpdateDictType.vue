@@ -89,11 +89,11 @@ const rules = ref({
 /**
  * init
  */
-const init = (dictTypeId)=>{
+const init = async (dictTypeId)=>{
+	// get dict type data
+	await getDictTypeData(dictTypeId)
 	// set visible
 	visible.value = true
-	// get dict type data
-	getDictTypeData(dictTypeId)
 }
 
 /**

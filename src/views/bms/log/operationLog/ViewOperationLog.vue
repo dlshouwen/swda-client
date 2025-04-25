@@ -1,28 +1,31 @@
 <template>
-	<el-dialog v-model="visible" title="查看操作日志" :close-on-click-modal="false" draggable width="480px">
+	<el-dialog v-model="visible" title="查看操作日志" :close-on-click-modal="false" draggable width="800px">
 		<el-descriptions :column="1" :label-width="120" border>
-			<el-descriptions-item label="日志编号">{{loginLog.loginLogId}}</el-descriptions-item>
-			<el-descriptions-item label="User Agent">{{loginLog.userAgent}}</el-descriptions-item>
-			<el-descriptions-item label="IP 地址">{{loginLog.ip}}</el-descriptions-item>
-			<el-descriptions-item label="登录类型">
-				<el-tag :style="appStore.dict.login_type[loginLog.loginType].style">{{appStore.dict.login_type[loginLog.loginType].label}}</el-tag>
+			<el-descriptions-item label="日志编号">{{operationLog.operationLogId}}</el-descriptions-item>
+			<el-descriptions-item label="user agent">{{operationLog.userAgent}}</el-descriptions-item>
+			<el-descriptions-item label="操作模块">{{operationLog.operationModule}}</el-descriptions-item>
+			<el-descriptions-item label="操作名称">{{operationLog.operationName}}</el-descriptions-item>
+			<el-descriptions-item label="操作类型">
+				<el-tag :type="appStore.dict.operation_type[operationLog.operationType].style">{{appStore.dict.operation_type[operationLog.operationType].label}}</el-tag>
 			</el-descriptions-item>
-			<el-descriptions-item label="登录状态">
-				<el-tag :style="appStore.dict.login_status[loginLog.loginStatus].style">{{appStore.dict.login_status[loginLog.loginStatus].label}}</el-tag>
+			<el-descriptions-item label="请求地址">{{operationLog.requestUri}}</el-descriptions-item>
+			<el-descriptions-item label="请求方法">{{operationLog.requestMethod}}</el-descriptions-item>
+			<el-descriptions-item label="请求参数">{{operationLog.requestParams}}</el-descriptions-item>
+			<el-descriptions-item label="响应结果">{{operationLog.responseResult}}</el-descriptions-item>
+			<el-descriptions-item label="调用来源">{{operationLog.callSource}}</el-descriptions-item>
+			<el-descriptions-item label="行号">{{operationLog.lineNo}}</el-descriptions-item>
+			<el-descriptions-item label="调用结果">
+				<el-tag :type="appStore.dict.call_result[operationLog.callResult].style">{{appStore.dict.call_result[operationLog.callResult].label}}</el-tag>
 			</el-descriptions-item>
-			<el-descriptions-item label="登录时间">{{loginLog.loginTime}}</el-descriptions-item>
-			<el-descriptions-item label="登录消息">{{loginLog.loginMessage}}</el-descriptions-item>
-			<el-descriptions-item label="用户编号">{{loginLog.userId}}</el-descriptions-item>
-			<el-descriptions-item label="真实名称">{{loginLog.realName}}</el-descriptions-item>
-			<el-descriptions-item label="机构编号">{{loginLog.organId}}</el-descriptions-item>
-			<el-descriptions-item label="机构名称">{{loginLog.organName}}</el-descriptions-item>
-			<el-descriptions-item label="是否登出">
-				<el-tag :style="appStore.dict.zero_one[loginLog.isLogout].style">{{appStore.dict.zero_one[loginLog.isLogout].label}}</el-tag>
-			</el-descriptions-item>
-			<el-descriptions-item label="登出类型">
-				<el-tag :style="appStore.dict.logout_type[loginLog.logoutType].style">{{appStore.dict.logout_type[loginLog.logoutType].label}}</el-tag>
-			</el-descriptions-item>
-			<el-descriptions-item label="登出时间">{{loginLog.logoutTime}}</el-descriptions-item>
+			<el-descriptions-item label="错误原因">{{operationLog.errorReason}}</el-descriptions-item>
+			<el-descriptions-item label="开始时间">{{operationLog.startTime}}</el-descriptions-item>
+			<el-descriptions-item label="结束时间">{{operationLog.endTime}}</el-descriptions-item>
+			<el-descriptions-item label="耗时">{{operationLog.cost}}</el-descriptions-item>
+			<el-descriptions-item label="用户编号">{{operationLog.userId}}</el-descriptions-item>
+			<el-descriptions-item label="真实名称">{{operationLog.realName}}</el-descriptions-item>
+			<el-descriptions-item label="机构编号">{{operationLog.organId}}</el-descriptions-item>
+			<el-descriptions-item label="机构名称">{{operationLog.organName}}</el-descriptions-item>
+			<el-descriptions-item label="ip地址">{{operationLog.ip}}</el-descriptions-item>
 		</el-descriptions>
 	</el-dialog>
 </template>
@@ -49,44 +52,50 @@ const appStore = useAppStore()
 // const visible
 const visible = ref(false)
 
-// const login log
-const loginLog = reactive({
-	loginLogId: '0',
+// const operation log
+const operationLog = reactive({
+	operationLogId: '0',
 	userAgent: '',
-	ip: '',
-	loginType: '',
-	loginStatus: '',
-	loginTime: '',
-	loginInfo: '',
-	loginMessage: '',
+	operationModule: '',
+	operationName: '',
+	operationType: '',
+	requestUri: '',
+	requestMethod: '',
+	requestParams: '',
+	responseResult: '',
+	callSource: '',
+	lineNo: '0',
+	callResult: '',
+	errorReason: '',
+	startTime: '',
+	endTime: '',
+	cost: '0',
 	userId: '0',
 	realName: '',
 	organId: '0',
 	organName: '',
-	isLogout: '',
-	logoutType: '',
-	logoutTime: '',
+	ip: '',
 })
 
 /**
  * init
  */
-const init = async (loginLogId)=>{
-	// get login log data
-	await getOperationLogData(loginLogId)
+const init = async (operationLogId)=>{
+	// get operation log data
+	await getOperationLogData(operationLogId)
 	// set visible
 	visible.value = true
 }
 
 /**
- * get login log data
- * @param loginLogId
+ * get operation log data
+ * @param operationLogId
  */
-const getOperationLogData = async (loginLogId)=>{
-	// get login log data
-	let handler = await $getOperationLogData(loginLogId)
-	// set login log data
-	Object.assign(loginLog, handler.data)
+const getOperationLogData = async (operationLogId)=>{
+	// get operation log data
+	let handler = await $getOperationLogData(operationLogId)
+	// set operation log data
+	Object.assign(operationLog, handler.data)
 }
 
 /**

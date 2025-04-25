@@ -4,13 +4,13 @@
 		<!-- search container -->
 		<el-card class="panel">
 			<el-form :model="grid.query.manualQueryParameters" :inline="true">
-				<el-form-item label="操作类型">
-					<el-select v-model="grid.query.manualQueryParameters.eq_operation_type" clearable placeholder="操作类型" style="width:100px">
-						<el-option v-for="dict in appStore.dict.operation_type.datas" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
+				<el-form-item label="执行类型">
+					<el-select v-model="grid.query.manualQueryParameters.eq_execute_type" clearable placeholder="执行类型" style="width:100px">
+						<el-option v-for="dict in appStore.dict.execute_type.datas" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="操作时间">
-					<el-date-picker v-model="operationTimeRange" type="datetimerange" value-format="YYYY-MM-DD HH:mm:ss" range-separator="到" start-placeholder="开始时间" end-placeholder="结束时间" />
+				<el-form-item label="执行时间">
+					<el-date-picker v-model="dataTimeRange" type="datetimerange" value-format="YYYY-MM-DD HH:mm:ss" range-separator="到" start-placeholder="开始时间" end-placeholder="结束时间" />
 				</el-form-item>
 				<el-form-item>
 					<el-button type="warning" @click="reset"><sw-icon icon="redo"></sw-icon>重置</el-button>
@@ -26,8 +26,8 @@
 					<el-button type="default" @click="search"><sw-icon icon="sync"></sw-icon>刷新</el-button>
 				</el-col>
 				<el-col class="right" :span="12">
-					<el-button type="info" @click="viewOperationLog()"><sw-icon icon="file-text"></sw-icon>查看</el-button>
-					<el-button type="danger" @click="deleteOperationLog()"><sw-icon icon="delete"></sw-icon>删除</el-button>
+					<el-button type="info" @click="viewDataLog()"><sw-icon icon="file-text"></sw-icon>查看</el-button>
+					<el-button type="danger" @click="deleteDataLog()"><sw-icon icon="delete"></sw-icon>删除</el-button>
 				</el-col>
 			</el-row>
 			<!-- grid -->
@@ -36,21 +36,28 @@
 					<el-table-column type="selection" align="center" width="55" />
 					<el-table-column label="操作" width="120" align="center">
 						<template #default="scope">
-							<el-button link type="info" @click="viewOperationLog(scope.row.operationLogId)">查看</el-button>
-							<el-button link type="danger" @click="deleteOperationLog(scope.row.operationLogId)">删除</el-button>
+							<el-button link type="info" @click="viewDataLog(scope.row.dataLogId)">查看</el-button>
+							<el-button link type="danger" @click="deleteDataLog(scope.row.dataLogId)">删除</el-button>
 						</template>
 					</el-table-column>
-					<el-table-column label="编号" prop="operationLogId" width="80" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="user agent" prop="userAgent" width="200" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="模块" prop="operationModule" width="120" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="名称" prop="operationName" width="160" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="类型" prop="operationType" width="80" align="center" sortable show-overflow-tooltip>
+					<el-table-column label="编号" prop="dataLogId" width="80" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="类型" prop="executeType" width="80" align="center" sortable show-overflow-tooltip>
 						<template #default="scope">
-							<el-tag v-if="scope.row.operationType!==null" :type="appStore.dict.operation_type[scope.row.operationType].style">{{appStore.dict.operation_type[scope.row.operationType].label}}</el-tag>
+							<el-tag v-if="scope.row.executeType!==null" :type="appStore.dict.execute_type[scope.row.executeType].style">{{appStore.dict.execute_type[scope.row.executeType].label}}</el-tag>
 						</template>
 					</el-table-column>
-					<el-table-column label="地址" prop="requestUri" width="200" align="left" header-align="center" sortable show-overflow-tooltip />
-					<el-table-column label="方法" prop="requestMethod" width="80" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="SQL" prop="executeSql" width="200" header-align="center" align="left" sortable show-overflow-tooltip />
+					<el-table-column label="方法" prop="executeMethod" width="100" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="参数" prop="executeParams" width="200" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="结果类型" prop="executeResultClass" width="200" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="结果" prop="executeResult" width="120" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="方式" prop="callType" width="120" align="center" sortable show-overflow-tooltip>
+						<template #default="scope">
+							<el-tag v-if="scope.row.callType!==null" :type="appStore.dict.call_type[scope.row.callType].style">{{appStore.dict.call_type[scope.row.callType].label}}</el-tag>
+						</template>
+					</el-table-column>
+					<el-table-column label="来源" prop="callSource" width="200" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="行号" prop="lineNo" width="80" align="center" sortable show-overflow-tooltip />
 					<el-table-column label="结果" prop="callResult" width="80" align="center" sortable show-overflow-tooltip>
 						<template #default="scope">
 							<el-tag v-if="scope.row.callResult!==null" :type="appStore.dict.call_result[scope.row.callResult].style">{{appStore.dict.call_result[scope.row.callResult].label}}</el-tag>
@@ -58,9 +65,9 @@
 					</el-table-column>
 					<el-table-column label="开始时间" prop="startTime" width="180" align="center" sortable show-overflow-tooltip />
 					<el-table-column label="结束时间" prop="endTime" width="180" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="耗时" prop="cost" width="80" align="right" header-align="center" sortable show-overflow-tooltip />
+					<el-table-column label="耗时" prop="cost" width="80" header-align="center" align="right" sortable show-overflow-tooltip />
 					<el-table-column label="用户" prop="realName" width="120" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="机构" prop="organName" width="180" align="center" sortable show-overflow-tooltip />
+					<el-table-column label="机构" prop="organName" width="120" align="center" sortable show-overflow-tooltip />
 					<el-table-column label="IP" prop="ip" width="120" align="center" sortable show-overflow-tooltip />
 				</el-table>
 			</el-row>
@@ -71,8 +78,8 @@
 			</el-row>
 		</el-card>
 	</el-container>
-	<!-- view operation log -->
-	<ViewOperationLog ref="viewOperationLogRef"></ViewOperationLog>
+	<!-- view data log -->
+	<ViewDataLog ref="viewDataLogRef"></ViewDataLog>
 </template>
 
 <script setup lang="ts">
@@ -83,10 +90,10 @@ import { ref, reactive, onMounted, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 // import components
-import ViewOperationLog from './ViewOperationLog.vue'
+import ViewDataLog from './ViewDataLog.vue'
 
 // import apis
-import { $getOperationLogPageResult, $deleteOperationLog } from '@/api/bms/log/operationLog' 
+import { $getDataLogPageResult, $deleteDataLog } from '@/api/bms/log/dataLog' 
 
 // import stores
 import { useAppStore } from '@/stores/app'
@@ -122,13 +129,13 @@ const grid = reactive({
 	}
 });
 
-// const operation time range
-const operationTimeRange = ref()
+// const data time range
+const dataTimeRange = ref()
 
-// watch operation time range
-watch(operationTimeRange, async ()=>{
-	grid.query.manualQueryParameters.ge_start_time = operationTimeRange.value[0]
-	grid.query.manualQueryParameters.le_start_time = operationTimeRange.value[1]
+// watch data time range
+watch(dataTimeRange, async ()=>{
+	grid.query.manualQueryParameters.ge_start_time = dataTimeRange.value[0]
+	grid.query.manualQueryParameters.le_start_time = dataTimeRange.value[1]
 	console.log(grid.query.manualQueryParameters)
 })
 
@@ -157,8 +164,8 @@ const reset = ()=>{
  * search
  */
 const search = ()=>{
-	// get operation log page result
-	$getOperationLogPageResult(grid.query).then(handler=>{
+	// get data log page result
+	$getDataLogPageResult(grid.query).then(handler=>{
 		// set total
 		grid.total = handler.data.total
 		// set datas
@@ -174,15 +181,15 @@ const gridSelectionChange = (datas)=>{
 	grid.selects = datas
 }
 
-// view operation log ref
-const viewOperationLogRef = ref()
+// view data log ref
+const viewDataLogRef = ref()
 
 /**
- * view operation log
+ * view data log
  */
-const viewOperationLog = (operationLogId)=>{
-	// no operation log id
-	if(!operationLogId){
+const viewDataLog = (dataLogId)=>{
+	// no data log id
+	if(!dataLogId){
 		// no select
 		if(grid.selects==null||grid.selects.length<=0){
 			// warning
@@ -197,21 +204,21 @@ const viewOperationLog = (operationLogId)=>{
 			// return
 			return
 		}
-		// set operation log id
-		operationLogId = grid.selects[0].operationLogId
+		// set data log id
+		dataLogId = grid.selects[0].dataLogId
 	}
-	// view operation log init
-	viewOperationLogRef.value.init(operationLogId);
+	// view data log init
+	viewDataLogRef.value.init(dataLogId);
 }
 
 /**
- * delete operation log
+ * delete data log
  */
-const deleteOperationLog = (operationLogId)=>{
-	// defined operation log ids
-	let operationLogIds = []
-	// no operation log id
-	if(!operationLogId){
+const deleteDataLog = (dataLogId)=>{
+	// defined data log ids
+	let dataLogIds = []
+	// no data log id
+	if(!dataLogId){
 		// no select
 		if(grid.selects==null||grid.selects.length<=0){
 			// warning
@@ -219,16 +226,16 @@ const deleteOperationLog = (operationLogId)=>{
 			// return
 			return
 		}
-		// set operation log id
-		operationLogIds = grid.selects.map(select=>select.operationLogId)
+		// set data log id
+		dataLogIds = grid.selects.map(select=>select.dataLogId)
 	}else{
-		// push operation log id
-		operationLogIds.push(operationLogId)
+		// push data log id
+		dataLogIds.push(dataLogId)
 	}
 	// confirm
 	ElMessageBox.confirm('确认删除吗？', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
-		// delete operation log
-		$deleteOperationLog(operationLogIds).then(handler=>{
+		// delete data log
+		$deleteDataLog(dataLogIds).then(handler=>{
 			// message
 			ElMessage.success({ message: '操作成功', duration: 500, onClose: () => {
 				// search

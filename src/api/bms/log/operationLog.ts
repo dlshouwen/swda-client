@@ -2,7 +2,7 @@
 import request from '@/utils/request'
 
 // const base path
-const path = '/bms/system/attr';
+const path = '/bms/log/operation_log';
 
 /**
  *  get operation log page result

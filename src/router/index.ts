@@ -5,6 +5,9 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+// import vueuse core
+import { useTitle } from '@vueuse/core'
+
 // import stores
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
@@ -55,6 +58,8 @@ router.beforeEach(async (to, from, next) => {
 	await appStore.loadAttr()
 	// load dict
 	await appStore.loadDict()
+	// set title
+	useTitle(appStore.attr.title)
 	// has user token
 	if(userStore.token) {
 		// if to login

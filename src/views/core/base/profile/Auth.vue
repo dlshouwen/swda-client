@@ -1,7 +1,5 @@
 <template>
-	<el-dialog v-model="visible" title="Shipping address" width="800">
-		set auth
-	  </el-dialog>
+	<el-dialog v-model="visible" title="账号绑定" width="800">暂未支持</el-dialog>
 </template>
 
 <script setup lang="ts">

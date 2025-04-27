@@ -14,7 +14,7 @@ export const $updateLoginUser = (loginUser: any) => {
  * @param userAvatar
  */
 export const $updateLoginUserAvatar = (userAvatar: any) => {
-	return request.post('/login/user/avatar/update', userAvatar)
+	return request.post('/profile/login/user/avatar/update', userAvatar)
 }
 
 /**
@@ -22,7 +22,7 @@ export const $updateLoginUserAvatar = (userAvatar: any) => {
  * @param userPassword
  */
 export const $updateLoginUserPassword = (userPassword: any) => {
-	return request.post('/profile/login/user/update', userPassword)
+	return request.post('/profile/login/user/password/update', userPassword)
 }
 
 /**

@@ -19,7 +19,7 @@ const { t } = useI18n()
 const locale = computed(()=>messages[appStore.lang].el)
 const size = computed(()=>appStore.size)
 
-//useTitle(t(attr.title))
+
 
 onMounted(()=>{
 	nextTick(()=>{

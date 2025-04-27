@@ -2,10 +2,14 @@
 import type { App, Plugin } from 'vue'
 
 // import components
+import SwButton from '@/components/sw-permission/SwButton.vue'
+import SwLink from '@/components/sw-permission/SwLink.vue'
 import SwIcon from '@/components/sw-icon/SwIcon.vue'
 
 // const components
 const components = [
+	SwButton,
+	SwLink,
 	SwIcon
 ]
 

@@ -24,7 +24,7 @@
 					<el-button type="default" @click="search"><sw-icon icon="sync"></sw-icon>刷新</el-button>
 				</el-col>
 				<el-col class="right" :span="12">
-					<el-button type="primary" @click="addSystem"><sw-icon icon="plus"></sw-icon>新增</el-button>
+					<sw-button type="primary" @click="addSystem" authority="bms:system:system:add"><sw-icon icon="plus"></sw-icon>新增</sw-button>
 					<el-button type="warning" @click="updateSystem()"><sw-icon icon="edit"></sw-icon>编辑</el-button>
 					<el-button type="danger" @click="deleteSystem()"><sw-icon icon="delete"></sw-icon>删除</el-button>
 				</el-col>
@@ -35,7 +35,7 @@
 					<el-table-column type="selection" align="center" width="55" />
 					<el-table-column label="操作" width="120" align="center">
 						<template #default="scope">
-							<el-button link type="warning" @click="updateSystem(scope.row.systemId)">编辑</el-button>
+							<sw-button link type="warning" @click="updateSystem(scope.row.systemId)" divider>编辑</sw-button>
 							<el-button link type="danger" @click="deleteSystem(scope.row.systemId)">删除</el-button>
 						</template>
 					</el-table-column>

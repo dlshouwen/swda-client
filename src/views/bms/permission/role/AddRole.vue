@@ -15,7 +15,7 @@
 			<el-form-item label="配置菜单权限">
 				<el-card shadow="never" style="width:100%;">
 					<el-scrollbar style="height:120px;">
-						<el-tree ref="menuTreeRef" :props="{label:'menuName', value:'menuId'}" node-key="menuId" :data="menuList" show-checkbox />
+						<el-tree ref="menuTreeRef" :props="{label:'menuName', value:'menuId'}" node-key="menuId" :data="menuList" check-on-click-node check-strictly show-checkbox />
 					</el-scrollbar>
 				</el-card>
 			</el-form-item>
@@ -30,7 +30,7 @@
 			<el-form-item label="配置机构权限" v-if="role.dataScope==='5'">
 				<el-card shadow="never" style="width:100%;">
 					<el-scrollbar style="height:80px;">
-						<el-tree ref="organTreeRef" :props="{label:'organName', value:'organId'}" node-key="organId" :data="organList" show-checkbox />
+						<el-tree ref="organTreeRef" :props="{label:'organName', value:'organId'}" node-key="organId" :data="organList" check-on-click-node check-strictly show-checkbox />
 					</el-scrollbar>
 				</el-card>
 			</el-form-item>

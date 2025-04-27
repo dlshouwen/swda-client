@@ -21,7 +21,7 @@
 			</el-form-item>
 			<el-form-item>
 				<el-button type="warning" @click="reset"><sw-icon icon="undo"></sw-icon>重置</el-button>
-				<el-button type="success" @click="addSystem"><sw-icon icon="save"></sw-icon>保存</el-button>
+				<sw-button type="success" @click="addSystem"><sw-icon icon="save" authority="bms:system:system:add"></sw-icon>保存</sw-button>
 				<el-divider direction="vertical" />
 				<el-button type="danger" @click="close"><sw-icon icon="close"></sw-icon>关闭</el-button>
 			</el-form-item>

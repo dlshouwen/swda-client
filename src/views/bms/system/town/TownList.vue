@@ -42,9 +42,9 @@
 					</template>
 				</sw-table-column>
 				<sw-table-column label="所属区域" align="center">
-					<sw-table-column label="省" prop="provinceName" width="100" align="center" sortable show-overflow-tooltip />
-					<sw-table-column label="市" prop="cityName" width="100" align="center" sortable show-overflow-tooltip />
-					<sw-table-column label="区" prop="countyName" width="100" align="center" sortable show-overflow-tooltip />
+					<sw-table-column label="省" prop="provinceName" :merge="['provinceId']" width="100" align="center" sortable show-overflow-tooltip />
+					<sw-table-column label="市" prop="cityName" :merge="['provinceId', 'cityId']" width="100" align="center" sortable show-overflow-tooltip />
+					<sw-table-column label="区" prop="countyName" :merge="['provinceId', 'cityId', 'countyId']" width="100" align="center" sortable show-overflow-tooltip />
 				</sw-table-column>
 				<sw-table-column label="基础信息" align="center">
 					<sw-table-column label="街道编号" prop="townId" width="120" align="center" sortable show-overflow-tooltip />

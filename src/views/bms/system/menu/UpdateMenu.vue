@@ -1,14 +1,8 @@
 <template>
 	<el-dialog v-model="visible" title="编辑菜单" :close-on-click-modal="false" draggable width="480px">
 		<el-form ref="formRef" :model="menu" :rules="rules" label-width="120px" @keyup.enter="updateMenu">
-			<el-form-item prop="systemId" label="所属系统">
-				<el-select v-model="menu.systemId" placeholder="所属系统" style="width:100%" @change="systemChange">
-					<el-option v-for="system in systemList" :key="system.systemId" :label="system.systemName" :value="system.systemId"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item prop="preMenuId" label="上级菜单">
-				<el-cascader v-model="selectPreMenuData" :options="menuList" :props="selectMenuProps" placeholder="所属菜单" clearable checkStrictly style="width:100%" />
-			</el-form-item>
+			<sw-select-system v-model="menu.systemId" prop="systemId" label="上级菜单" clearable checkStrictly />
+			<sw-select-menu v-model="selectPreMenuData" :systemId="menu.systemId" prop="preMenuId" label="上级菜单" clearable checkStrictly />
 			<el-form-item prop="menuId" label="菜单编号">
 				<el-input v-model="menu.menuId" placeholder="请输入菜单编号" disabled></el-input>
 			</el-form-item>

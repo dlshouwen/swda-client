@@ -3,9 +3,11 @@ import type { App, Plugin } from 'vue'
 
 // import form item components
 import SwSelectSystem from '@/components/sw-form-item/SwSelectSystem.vue'
+import SwSelectMenu from '@/components/sw-form-item/SwSelectMenu.vue'
 import SwSelectRole from '@/components/sw-form-item/SwSelectRole.vue'
 import SwSelectOrgan from '@/components/sw-form-item/SwSelectOrgan.vue'
 import SwSelectPost from '@/components/sw-form-item/SwSelectPost.vue'
+import SwSelectRegion from '@/components/sw-form-item/SwSelectRegion.vue'
 import SwInput from '@/components/sw-form-item/SwInput.vue'
 import SwRadioGroup from '@/components/sw-form-item/SwRadioGroup.vue'
 
@@ -21,7 +23,12 @@ import SwLink from '@/components/sw-permission/SwLink.vue'
 import SwIcon from '@/components/sw-icon/SwIcon.vue'
 
 // const components
-const components = [ SwSelectSystem, SwSelectRole, SwSelectOrgan, SwSelectPost, SwInput, SwRadioGroup, SwTable, SwTableColumn, SwButton, SwLink, SwIcon ]
+const components = [ 
+	SwSelectSystem, SwSelectMenu, SwSelectRole, SwSelectOrgan, SwSelectPost, SwSelectRegion, 
+	SwInput, SwRadioGroup, SwTable, SwTableColumn, 
+	SwButton, SwLink, 
+	SwIcon
+]
 
 // regist components
 const SwComponent: Plugin = {

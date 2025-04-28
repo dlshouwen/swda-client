@@ -1,12 +1,10 @@
 <template>
 	<el-dialog v-model="visible" title="编辑机构" :close-on-click-modal="false" draggable width="480px">
 		<el-form ref="formRef" :model="organ" :rules="rules" label-width="120px" @keyup.enter="updateOrgan">
-			<el-form-item prop="preOrganId" label="所属机构">
-				<el-tree-select v-model="organ.preOrganId" :data="organList" check-strictly :render-after-expand="false" />
-			</el-form-item>
-			<el-form-item prop="countyId" label="所属区域">
-				<el-cascader v-model="selectRegionData" :props="selectRegionProps" placeholder="所属区域" clearable @change="selectRegionChange" style="width:100%" />
-			</el-form-item>
+			<sw-select-organ prop="preOrganId" v-model="organ.preOrganId" label="所属机构" check-strictly />
+			<sw-select-region prop="countyId" v-model="selectRegionData" label="所属区域" clearable />
+			
+			
 			<el-form-item prop="organCode" label="机构编码">
 				<el-input v-model="organ.organCode" placeholder="请输入机构编码"></el-input>
 			</el-form-item>
@@ -58,7 +56,7 @@ import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 
 // import apis
-import { $getOrganList, $getOrganData, $updateOrgan } from '@/api/bms/permission/organ'
+import { $getOrganData, $updateOrgan } from '@/api/bms/permission/organ'
 import { $getRegionList } from '@/api/bms/system/region'
 
 // import validator
@@ -118,28 +116,8 @@ const rules = ref({
 	remark: [{ label:'备注', valid:'l-le200', lang:t, validator:validator, trigger:'blur' }],
 })
 
-// const organ list
-const organList = ref()
-
 // const select region data
 const selectRegionData = ref()
-
-// const select region props
-const selectRegionProps = {
-	lazy: true,
-	label: 'regionName',
-	value: 'regionId',
-	leaf: 'leaf',
-	lazyLoad(node: any, resolve: any) {
-		// get region list
-		$getRegionList(node.level==0?0:node.value).then(handler=>{
-			// set leaf
-			handler.data.forEach((data:any)=>{data.leaf=!data.hasChildren})
-			// resolve
-			resolve(handler.data)
-		})
-	}
-}
 
 /**
  * select region change
@@ -155,8 +133,6 @@ const selectRegionChange = (value:any[]) => {
  * init
  */
 const init = async (organId: number)=>{
-	// get organ list
-	await getOrganList()
 	// get organ data
 	await getOrganData(organId)
 	// set select region data
@@ -188,36 +164,19 @@ const reset = async ()=>{
 }
 
 /**
- * get organ list
- */
-const getOrganList = async ()=>{
-	// get organ list
-	let handler = await $getOrganList()
-	// set organ list
-	organList.value = handler.data
-}
-
-/**
  * update organ
  */
-const updateOrgan = ()=>{
+const updateOrgan = async ()=>{
 	// valid
-	formRef.value.validate((valid:boolean)=>{
-		// not valid
-		if(!valid){
-			return false
-		}
-		// update organ
-		$updateOrgan(organ).then(()=>{
-			// message
-			ElMessage.success({ message: '操作成功', duration: 500, onClose: () => {
-				// set visible
-				visible.value = false
-				// callback
-				emit('callback')
-			}})
-		})
-	})
+	let valid = await formRef.value.validate()
+	// unpass
+	if(!valid){
+		return false
+	}
+	// update organ
+	await $updateOrgan(organ)
+	// message
+	ElMessage.success({ message: '操作成功', duration: 500, onClose: close })
 }
 
 /**
@@ -226,6 +185,8 @@ const updateOrgan = ()=>{
 const close = ()=>{
 	// set visible
 	visible.value = false
+	// callback
+	emit('callback')
 }
 
 // expose

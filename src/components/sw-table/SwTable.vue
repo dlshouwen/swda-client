@@ -11,7 +11,7 @@
 				:headerRowClassName="props.headerRowClassName" :headerRowStyle="props.headerRowStyle" :headerCellClassName="props.headerCellClassName" :headerCellStyle="props.headerCellStyle"
 				:rowKey="props.rowKey" :emptyText="props.emptyText" :defaultExpandAll="props.defaultExpandAll" :expandRowKeys="props.expandRowKeys"
 				:defaultSort="props.defaultSort" :tooltipEffect="props.tooltipEffect" :tooltipOptions="props.tooltipOptions" :appendFilterPanelTo="props.appendFilterPanelTo"
-				:showSummary="props.showSummary" :sumText="props.sumText" :summaryMethod="props.summaryMethod" :spanMethod="props.spanMethod"
+				:showSummary="props.showSummary" :sumText="props.sumText" :summaryMethod="props.summaryMethod" :spanMethod="handleSpanMethod"
 				:selectOnIndeterminate="props.selectOnIndeterminate" :indent="props.indent" 
 				:lazy="props.lazy" :load="props.load" :treeProps="props.treeProps" 
 				:tableLayout="props.tableLayout" :scrollbarAlwaysOn="props.scrollbarAlwaysOn" :showOverflowTooltip="props.showOverflowTooltip"
@@ -155,7 +155,7 @@ const props = defineProps({
 	// params
 	params: { type:Object, required:false },
 	// search
-	search: { type:Object, required:false },
+	search: { type:Object, required:false, default: ()=>{ return {} } },
 	// sizes
 	sizes: { type:Array, required:false, default: ()=>[50, 100, 500, 1000] },
 	// layout
@@ -338,7 +338,7 @@ const load = async () => {
 				// get data
 				let { data } = await request.post(props.url)
 				// set origin
-				state.datas.orgin = data.datas
+				state.datas.origin = data
 				// set init
 				state.init = true
 			}catch(e){
@@ -393,7 +393,7 @@ const handleDatas = () => {
 	// sort datas
 	if(props.data || props.once) {
 		// sort datas
-		state.datas.sort = sortDatas(state.datas.origin.filter([]))
+		state.datas.sort = sortDatas(state.datas.filter.concat([]))
 	}else{
 		// set filter datas to sort datas
 		state.datas.sort = state.datas.filter.concat([])
@@ -426,9 +426,9 @@ const handleDatas = () => {
  * @param datas
  * @return filter datas
  */
-const filterDatas = (datas) => {
+const filterDatas = (datas: any[]) => {
 	// defined params
-	let params = { ...props.search, ...data.query.params.fast }
+	let params = { ...props.search, ...state.query.params.fast }
 	// defined advance
 	let advance = ''
 	// advance query condition
@@ -437,7 +437,8 @@ const filterDatas = (datas) => {
 		let conditions = state.query.params.advance.conditions;
 		// for each condition
 		for(let i=0; i<conditions.length; i++){
-			let condition = conditions[k];
+			// get condition
+			let condition = conditions[i];
 			// column
 			const column = state.column[condition.conditionField];
 			// value
@@ -961,6 +962,91 @@ const print = (columns) => {
 		gridHeaderStyle: 'font-size:12px;border:1px solid #000;text-align:center;color:#333;',
 		gridStyle: 'border:1px solid #000;text-align:center;font-size:12px;color:#666;'
 	});
+}
+
+
+/**
+ * handle span method
+ * @param row
+ * @param node
+ * @param resolve
+ */
+const handleSpanMethod = ({ row, column, rowIndex, columnIndex }) => {
+	// custom
+	if(props.spanMethod){
+		props.spanMethod({ row, column, rowIndex, columnIndex })
+		return
+	}
+	// resolve merge
+	if(column.property&&state.column[column.property]&&state.column[column.property].merge!==false){
+		// get merge
+		let merge = state.column[column.property].merge
+		// get up equal
+		let uequal = false
+		if(rowIndex==0){
+			uequal = false
+		}else{
+			let cdata = state.datas.pager[rowIndex]
+			let udata = state.datas.pager[rowIndex-1]
+			if(merge===true){
+				uequal = cdata[column.property]==udata[column.property]
+			}else{
+				uequal = cdata[column.property]==udata[column.property]
+				if(uequal){
+					if(typeof merge === 'array'){
+						for(let i=0; i<merge.length; i++){
+							let condition = merge[i]
+							uequal = cdata[condition]==udata[condition]
+							if(!uequal){
+								break
+							}
+						}
+					}
+					if(typeof merge === 'string'){
+						uequal = cdata[merge]==udata[merge]
+					}
+				}
+			}
+		}
+		// if up equal then 0 0
+		if(uequal){
+			return {rowspan:0, colspan:0}
+		}
+		// defined rowspan
+		let rowspan = 1
+		// get cdata
+		let cdata = state.datas.pager[rowIndex]
+		for(let i=rowIndex+1; i<state.datas.pager.length; i++){
+			let ddata = state.datas.pager[i]
+			let dequal = false
+			if(merge===true){
+				dequal = cdata[column.property]==ddata[column.property]
+			}else{
+				dequal = cdata[column.property]==ddata[column.property]
+				if(dequal){
+					if(typeof merge === 'array'){
+						for(let i=0; i<merge.length; i++){
+							let condition = merge[i]
+							uequal = cdata[condition]==udata[condition]
+							if(!uequal){
+								break
+							}
+						}
+					}
+					if(typeof merge === 'string'){
+						uequal = cdata[merge]==udata[merge]
+					}
+				}
+			}
+			if(dequal){
+				rowspan++
+			}else{
+				break;
+			}
+		}
+		// return
+		return {rowspan:rowspan, colspan:1}
+	}
 }
 
 /**

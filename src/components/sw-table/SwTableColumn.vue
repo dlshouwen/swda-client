@@ -67,6 +67,8 @@ const props = defineProps({
 	max: { type:[String, Number], required:false, default: ()=>320 },
 	// fit: fit width
 	fit: { type:Boolean, required:false, default: ()=>true },
+	// merge
+	merge: { type:[Boolean, Array, String], required:false, default: ()=>false },
 	// fit: dict
 	dict: { type:[Object, Array, String], required:false, default: null },
 	// fixed

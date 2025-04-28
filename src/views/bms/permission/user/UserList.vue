@@ -18,64 +18,41 @@
 				<el-form-item>
 					<el-button type="warning" @click="reset"><sw-icon icon="redo"></sw-icon>重置</el-button>
 					<el-button type="primary" @click="search"><sw-icon icon="search"></sw-icon>查询</el-button>
+					<el-button type="primary" @click="addUser"><sw-icon icon="plus"></sw-icon>新增</el-button>
+					<el-button type="warning" @click="updateUser()"><sw-icon icon="edit"></sw-icon>编辑</el-button>
+					<el-button type="danger" @click="deleteUser()"><sw-icon icon="delete"></sw-icon>删除</el-button>
 				</el-form-item>
 			</el-form>
 		</el-card>
 		<!-- grid container -->
 		<el-card class="panel panel-auto">
-			<!-- operate -->
-			<el-row class="panel-operate">
-				<el-col class="left" :span="12">
-					<el-button type="default" @click="search"><sw-icon icon="sync"></sw-icon>刷新</el-button>
-				</el-col>
-				<el-col class="right" :span="12">
-					<el-button type="primary" @click="addUser"><sw-icon icon="plus"></sw-icon>新增</el-button>
-					<el-button type="warning" @click="updateUser()"><sw-icon icon="edit"></sw-icon>编辑</el-button>
-					<el-button type="danger" @click="deleteUser()"><sw-icon icon="delete"></sw-icon>删除</el-button>
-				</el-col>
-			</el-row>
 			<!-- grid -->
-			<el-row ref="gridContainerRef" class="panel-grid">
-				<el-table ref="gridRef" :data="grid.datas" border stripe :height="grid.option.height" @selection-change="gridSelectionChange">
-					<el-table-column type="selection" align="center" width="55" />
-					<el-table-column label="操作" width="120" align="center">
-						<template #default="scope">
-							<el-button link type="warning" @click="updateUser(scope.row.userId)">编辑</el-button>
-							<el-button link type="danger" @click="deleteUser(scope.row.userId)">删除</el-button>
-						</template>
-					</el-table-column>
-					<el-table-column prop="username" label="用户名称" align="center" sortable show-overflow-tooltip width="120" />
-					<el-table-column prop="realName" label="真实名称" align="center" sortable show-overflow-tooltip width="120" bbf="12341234" />
-					<el-table-column prop="organName" label="所属机构" align="center" sortable show-overflow-tooltip width="120" />
-					<el-table-column prop="superAdmin" label="超级管理员" align="center" sortable show-overflow-tooltip width="130">
-						<template #default="scope">
-							<el-tag type="danger" v-if="scope.row.superAdmin=='1'">超级管理员</el-tag>
-							<span v-if="scope.row.superAdmin=='0'"></span>
-						</template>
-					</el-table-column>
-					<el-table-column prop="status" label="用户状态" align="center" sortable show-overflow-tooltip width="120" >
-						<template #default="scope">
-							<el-tag :type="appStore.dict.open_close[scope.row.status].style">{{appStore.dict.open_close[scope.row.status].label}}</el-tag>
-						</template>
-					</el-table-column>
-					<el-table-column prop="gender" label="性别" align="center" sortable show-overflow-tooltip width="90" >
-						<template #default="scope">
-							<el-tag :type="appStore.dict.gender[scope.row.gender].style">{{appStore.dict.gender[scope.row.gender].label}}</el-tag>
-						</template>
-					</el-table-column>
-					<el-table-column prop="cardId" label="证件号" align="center" sortable show-overflow-tooltip width="200" />
-					<el-table-column prop="mobile" label="手机号" align="center" sortable show-overflow-tooltip width="180" />
-					<el-table-column prop="email" label="Email" align="center" sortable show-overflow-tooltip width="200" />
-					<el-table-column prop="address" label="地址" sortable show-overflow-tooltip width="200" />
-					<el-table-column prop="remark" label="备注" sortable show-overflow-tooltip width="200" />
-					<el-table-column prop="createTime" label="创建时间" align="center" sortable show-overflow-tooltip width="180" />
-				</el-table>
-			</el-row>
-			<!-- pagination -->
-			<el-row class="panel-pagination">
-				<el-pagination v-model:current-page="grid.query.page.current" v-model:page-size="grid.query.page.size" :page-sizes="grid.option.sizes"
-					:layout="grid.option.layout" :total="grid.total" @size-change="search" @current-change="search" />
-			</el-row>
+			<sw-table ref="gridRef" row-key="userId" url="/bms/permission/user/page" @selection-change="gridSelectionChange" title="用户列表">
+				<sw-table-column type="selection" width="55" :advance="false" :printable="false" :exportable="false" />
+				<sw-table-column label="操作" width="120" align="center" :advance="false" :printable="false" :exportable="false">
+					<template #default="scope">
+						<el-button link type="warning" @click="updateUser(scope.row.userId)">编辑</el-button>
+						<el-button link type="danger" @click="deleteUser(scope.row.userId)">删除</el-button>
+					</template>
+				</sw-table-column>
+				<sw-table-column prop="username" label="用户名称" width="120" fast="lk" />
+				<sw-table-column prop="realName" label="真实名称" width="120" fast="lk" />
+				<sw-table-column prop="organName" label="所属机构" width="120" fast="eq" />
+				<sw-table-column prop="superAdmin" label="超级管理员" width="130" dict="zero_one" fast="eq" fast-type="radio" >
+					<template #default="scope">
+						<el-tag type="danger" v-if="scope.row.superAdmin=='1'">超级管理员</el-tag>
+						<span v-if="scope.row.superAdmin=='0'"></span>
+					</template>
+				</sw-table-column>
+				<sw-table-column prop="status" label="用户状态" dict="open_close" width="120" fast="eq" fast-type="radio" />
+				<sw-table-column prop="gender" label="性别" dict="gender" width="90" fast="eq" fast-type="radio" />
+				<sw-table-column prop="cardId" label="证件号" width="200" fast="eq" />
+				<sw-table-column prop="mobile" label="手机号" width="180" fast="eq" />
+				<sw-table-column prop="email" label="Email" width="200" fast="eq" />
+				<sw-table-column prop="address" label="地址" width="200" fast="lk" />
+				<sw-table-column prop="remark" label="备注" width="200" fast="lk" />
+				<sw-table-column prop="createTime" label="创建时间" data-type="date" width="180" fast="range" />
+			</sw-table>
 		</el-card>
 	</el-container>
 	<!-- add user -->
@@ -104,19 +81,11 @@ import { useAppStore } from '@/stores/app'
 // get stores
 const appStore = useAppStore()
 
-// const grid container ref
-const gridContainerRef = ref(null)
-
 // const grid ref
 const gridRef = ref(null)
 
 // const grid
 const grid = reactive({
-	option: {
-		height: '200px',
-		sizes: [50, 100, 500, 1000],
-		layout: 'total, sizes, prev, pager, next, jumper'
-	},
 	selects: [],
 	total: 0,
 	datas: [],
@@ -132,19 +101,6 @@ const grid = reactive({
 	}
 });
 
-// mounted
-onMounted(() => {
-	// search
-	search()
-	// resize height
-	grid.option.height = gridContainerRef.value.$el.clientHeight+ 'px'
-	// resize
-    window.onresize = () => {
-		// resize height
-        grid.option.height = gridContainerRef.value.$el.clientHeight + 'px'
-    }
-})
-
 /**
  * reset
  */
@@ -157,6 +113,7 @@ const reset = ()=>{
  * search
  */
 const search = ()=>{
+	return;
 	// get user page result
 	$getUserPageResult(grid.query).then(handler=>{
 		// set total
@@ -170,6 +127,7 @@ const search = ()=>{
  * grid selection change
  */
 const gridSelectionChange = (datas)=>{
+	console.log(datas)
 	// set select
 	grid.selects = datas
 }

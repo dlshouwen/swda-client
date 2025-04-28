@@ -140,7 +140,7 @@ export const validator = (rule, value, callback) => {
 		let expression = expressions[i]
 		// required
 		if(expression=='r'){
-			if(value===''){
+			if(value===''||value.length===0){
 				let message = rule.type=='select'?rule.lang('validator.validate.required.select', {label:rule.label}):rule.lang('validator.validate.required.input', {label:rule.label})
 				callback(new Error(message))
 				return

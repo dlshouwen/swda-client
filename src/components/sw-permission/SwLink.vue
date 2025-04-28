@@ -2,7 +2,12 @@
 	<!-- if has permission or no permission but show -->
 	<template v-if="appStore.attr.show_button_when_no_limit=='1'||!forbidden">
 		<!-- el link -->
-		<el-link :disabled="disabled" :title="title" v-bind="$attrs"><slot></slot></el-link>
+		<el-link :disabled="disabled" :title="title" v-bind="$attrs">
+			<!-- icon -->
+			<sw-icon v-if="props.icon" :icon="props.icon"></sw-icon>
+			<!-- slot -->
+			<slot></slot>
+		</el-link>
 		<!-- el divider -->
 		<el-divider v-if="divider" direction="vertical"></el-divider>
 	</template>
@@ -28,7 +33,9 @@ const userStore = useUserStore();
 //define props
 const props = defineProps({
 	authority: { default: ()=>'', type:String, required:false },
-	divider: { default: ()=>false, type:Boolean, required:false }
+	divider: { default: ()=>false, type:Boolean, required:false },
+	elIcon: { default: ()=>'', type:String, required:false },
+	icon: { default: ()=>'', type:String, required:false }
 })
 
 // const data

@@ -96,7 +96,7 @@
 .layout-container .main-container .tab.series .el-tabs .el-tabs__nav-wrap .el-tabs__item.is-active {border-bottom:2px solid var(--el-color-primary);}
 
 /** main */
-.layout-container .main-container .main{background:#f0f0f0;}
+.layout-container .main-container .main{background:var(--el-bg-color-page);}
 .layout-container .main-container .main>.el-scrollbar>.el-scrollbar__wrap>.el-scrollbar__view{height:100%;}
 
 /** container */

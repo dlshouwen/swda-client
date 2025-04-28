@@ -3,21 +3,21 @@
 	<el-container class="container" direction="vertical">
 		<!-- search container -->
 		<el-card class="panel">
-			<el-form :model="grid.query.manualQueryParameters" :inline="true">
+			<el-form :model="search" :inline="true">
 				<el-form-item label="用户编号">
-					<el-input v-model="grid.query.manualQueryParameters.eq_user_id" placeholder="请输入用户编号" clearable style="width:130px" />
+					<el-input v-model="search.eq_user_id" placeholder="请输入用户编号" clearable style="width:130px" />
 				</el-form-item>
 				<el-form-item label="用户名称">
-					<el-input v-model="grid.query.manualQueryParameters.lk_username" placeholder="请输入用户名称" clearable style="width:130px" />
+					<el-input v-model="search.lk_username" placeholder="请输入用户名称" clearable style="width:130px" />
 				</el-form-item>
 				<el-form-item label="性别">
-					<el-select v-model="grid.query.manualQueryParameters.eq_gender" clearable style="width:100px">
+					<el-select v-model="search.eq_gender" clearable style="width:100px">
 						<el-option v-for="item in appStore.dict.gender.datas" :label="item.label" :value="item.value" />
 					</el-select>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="warning" @click="reset"><sw-icon icon="redo"></sw-icon>重置</el-button>
-					<el-button type="primary" @click="search"><sw-icon icon="search"></sw-icon>查询</el-button>
+					<el-button type="primary" @click="load"><sw-icon icon="search"></sw-icon>查询</el-button>
 					<el-button type="primary" @click="addUser"><sw-icon icon="plus"></sw-icon>新增</el-button>
 					<el-button type="warning" @click="updateUser()"><sw-icon icon="edit"></sw-icon>编辑</el-button>
 					<el-button type="danger" @click="deleteUser()"><sw-icon icon="delete"></sw-icon>删除</el-button>
@@ -27,7 +27,7 @@
 		<!-- grid container -->
 		<el-card class="panel panel-auto">
 			<!-- grid -->
-			<sw-table ref="gridRef" row-key="userId" url="/bms/permission/user/page" @selection-change="gridSelectionChange" title="用户列表">
+			<sw-table ref="gridRef" row-key="userId" url="/bms/permission/user/page" :search="search" title="用户列表">
 				<sw-table-column type="selection" width="55" :advance="false" :printable="false" :exportable="false" />
 				<sw-table-column label="操作" width="120" align="center" :advance="false" :printable="false" :exportable="false">
 					<template #default="scope">
@@ -63,7 +63,7 @@
 
 <script setup lang="ts">
 // import vue elements
-import { ref, reactive, onMounted, nextTick } from 'vue'
+import { ref, reactive } from 'vue'
 
 // import element plus elements
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -73,7 +73,7 @@ import AddUser from './AddUser.vue'
 import UpdateUser from './UpdateUser.vue'
 
 // import apis
-import { $getUserPageResult, $deleteUser } from '@/api/bms/permission/user' 
+import { $deleteUser } from '@/api/bms/permission/user' 
 
 // import stores
 import { useAppStore } from '@/stores/app'
@@ -82,54 +82,25 @@ import { useAppStore } from '@/stores/app'
 const appStore = useAppStore()
 
 // const grid ref
-const gridRef = ref(null)
+const gridRef = ref()
 
-// const grid
-const grid = reactive({
-	selects: [],
-	total: 0,
-	datas: [],
-	query: {
-		page: {
-			size: 50,
-			current: 1
-		},
-		manualQueryParameters: {},
-		fastQueryParameters: {},
-		advanceQueryConditions: [],
-		advanceQuerySorts: [],
-	}
-});
+// const params
+const search = ref({})
 
 /**
  * reset
  */
 const reset = ()=>{
 	// reset
-	grid.query.manualQueryParameters = {}
+	search.value = {}
 }
 
 /**
- * search
+ * load
  */
-const search = ()=>{
-	return;
-	// get user page result
-	$getUserPageResult(grid.query).then(handler=>{
-		// set total
-		grid.total = handler.data.total
-		// set datas
-		grid.datas = handler.data.datas
-	})
-}
-
-/**
- * grid selection change
- */
-const gridSelectionChange = (datas)=>{
-	console.log(datas)
-	// set select
-	grid.selects = datas
+const load = ()=>{
+	// load
+	gridRef.value.load()
 }
 
 // add user ref
@@ -152,22 +123,24 @@ const updateUserRef = ref()
 const updateUser = (userId)=>{
 	// no user id
 	if(!userId){
+		// get selects
+		let selects = gridRef.value.getSelectionRows()
 		// no select
-		if(grid.selects==null||grid.selects.length<=0){
+		if(selects==null||selects.length<=0){
 			// warning
 			ElMessage({ message: '至少选择一个用户。', type: 'warning' })
 			// return
 			return
 		}
 		// select more then 1
-		if(grid.selects.length>1){
+		if(selects.length>1){
 			// warning
 			ElMessage({ message: '只能选择一个用户。', type: 'warning' })
 			// return
 			return
 		}
 		// set user id
-		userId = grid.selects[0].userId
+		userId = selects[0].userId
 	}
 	// update user init
 	updateUserRef.value.init(userId);
@@ -176,34 +149,31 @@ const updateUser = (userId)=>{
 /**
  * delete user
  */
-const deleteUser = (userId)=>{
+const deleteUser = async (userId)=>{
 	// defined user ids
 	let userIds = []
 	// no user id
 	if(!userId){
+		// get selects
+		let selects = gridRef.value.getSelectionRows()
 		// no select
-		if(grid.selects==null||grid.selects.length<=0){
+		if(selects==null||selects.length<=0){
 			// warning
 			ElMessage({ message: '至少选择一个用户。', type: 'warning' })
 			// return
 			return
 		}
 		// set user id
-		userIds = grid.selects.map(select=>select.userId)
+		userIds = selects.map(select=>select.userId)
 	}else{
 		// push user id
 		userIds.push(userId)
 	}
 	// confirm
-	ElMessageBox.confirm('确认删除吗？', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
-		// delete user
-		$deleteUser(userIds).then(handler=>{
-			// message
-			ElMessage.success({ message: '操作成功', duration: 500, onClose: () => {
-				// search
-				search()
-			}})
-		})
-	})
+	await ElMessageBox.confirm('确认删除吗？', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' })
+	// delete user
+	await $deleteUser(userIds)
+	// message
+	ElMessage.success({ message: '操作成功', duration: 500, onClose: load })
 }
 </script>

@@ -33,38 +33,31 @@
 				</el-col>
 			</el-row>
 			<!-- grid -->
-			<el-row ref="gridContainerRef" class="panel-grid">
-				<el-table ref="gridRef" :data="grid.datas" border stripe :height="grid.option.height" @selection-change="gridSelectionChange">
-					<el-table-column type="selection" align="center" width="55" />
-					<el-table-column label="操作" width="120" align="center">
-						<template #default="scope">
-							<el-button link type="warning" @click="updateTown(scope.row.townId)">编辑</el-button>
-							<el-button link type="danger" @click="deleteTown(scope.row.townId)">删除</el-button>
-						</template>
-					</el-table-column>
-					<el-table-column label="所属区域" align="center">
-						<el-table-column label="省" prop="provinceName" width="100" align="center" sortable show-overflow-tooltip />
-						<el-table-column label="市" prop="cityName" width="100" align="center" sortable show-overflow-tooltip />
-						<el-table-column label="区" prop="countyName" width="100" align="center" sortable show-overflow-tooltip />
-					</el-table-column>
-					<el-table-column label="基础信息" align="center">
-						<el-table-column label="街道编号" prop="townId" width="120" align="center" sortable show-overflow-tooltip />
-						<el-table-column label="街道名称" prop="townName" width="120" align="center" sortable show-overflow-tooltip />
-						<el-table-column label="街道全名" prop="townFullName" width="200" align="center" sortable show-overflow-tooltip />
-					</el-table-column>
-					<el-table-column label="街道名称拼音" prop="townNamePinyin" width="140" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="街道名称全拼" prop="townNameFullPinyin" width="140" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="邮政编码" prop="postalCode" width="120" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="排序" prop="sort" width="90" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="备注" prop="remark" width="120" align="center" sortable show-overflow-tooltip />
-					<el-table-column label="创建时间" prop="createTime" width="180" align="center" sortable show-overflow-tooltip />
-				</el-table>
-			</el-row>
-			<!-- pagination -->
-			<el-row class="panel-pagination">
-				<el-pagination v-model:current-page="grid.query.page.current" v-model:page-size="grid.query.page.size" :page-sizes="grid.option.sizes"
-					:layout="grid.option.layout" :total="grid.total" @size-change="search" @current-change="search" />
-			</el-row>
+			<sw-table ref="gridRef" url="/bms/system/town/page" row-key="townId" border stripe @selection-change="gridSelectionChange">
+				<sw-table-column type="selection" align="center" width="55" />
+				<sw-table-column label="操作" width="120" align="center">
+					<template #default="scope">
+						<sw-button link type="warning" @click="updateTown(scope.row.townId)">编辑</sw-button>
+						<sw-button link type="danger" @click="deleteTown(scope.row.townId)">删除</sw-button>
+					</template>
+				</sw-table-column>
+				<sw-table-column label="所属区域" align="center">
+					<sw-table-column label="省" prop="provinceName" width="100" align="center" sortable show-overflow-tooltip />
+					<sw-table-column label="市" prop="cityName" width="100" align="center" sortable show-overflow-tooltip />
+					<sw-table-column label="区" prop="countyName" width="100" align="center" sortable show-overflow-tooltip />
+				</sw-table-column>
+				<sw-table-column label="基础信息" align="center">
+					<sw-table-column label="街道编号" prop="townId" width="120" align="center" sortable show-overflow-tooltip />
+					<sw-table-column label="街道名称" prop="townName" width="120" align="center" sortable show-overflow-tooltip />
+					<sw-table-column label="街道全名" prop="townFullName" width="200" align="center" sortable show-overflow-tooltip />
+				</sw-table-column>
+				<sw-table-column label="街道名称拼音" prop="townNamePinyin" width="140" align="center" sortable show-overflow-tooltip />
+				<sw-table-column label="街道名称全拼" prop="townNameFullPinyin" width="140" align="center" sortable show-overflow-tooltip />
+				<sw-table-column label="邮政编码" prop="postalCode" width="120" align="center" sortable show-overflow-tooltip />
+				<sw-table-column label="排序" prop="sort" width="90" align="center" sortable show-overflow-tooltip />
+				<sw-table-column label="备注" prop="remark" width="120" align="center" sortable show-overflow-tooltip />
+				<sw-table-column label="创建时间" prop="createTime" width="180" align="center" sortable show-overflow-tooltip />
+			</sw-table>
 		</el-card>
 	</el-container>
 	<!-- add town -->
@@ -126,13 +119,6 @@ const grid = reactive({
 onMounted(() => {
 	// search
 	search()
-	// resize height
-	grid.option.height = gridContainerRef.value.$el.clientHeight+ 'px'
-	// resize
-    window.onresize = () => {
-		// resize height
-        grid.option.height = gridContainerRef.value.$el.clientHeight + 'px'
-    }
 })
 
 // const select region props

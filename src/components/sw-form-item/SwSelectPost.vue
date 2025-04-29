@@ -1,6 +1,6 @@
 <template>
 	<el-form-item :prop="props.prop" :label="props.label" v-bind="props.formItemProps"
-		:rules="{ label:props.label, type:props.validType, valid:props.valid, unique:props.validUnique, lang:t, validator:validator, trigger:props.validTrigger }">
+		:rules="{ label:props.label, type:props.validType, valid:props.valid, unique:validUnique, lang:t, validator:validator, trigger:props.validTrigger }">
 		<el-select v-model="model" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请选择'+props.label)" >
 			<el-option v-for="post in postList" :key="post.postId" :label="post.postName" :value="post.postId"></el-option>
 		</el-select>
@@ -52,10 +52,13 @@ const props = defineProps({
 	// valid trigger
 	validTrigger: { required:false, type:String, default: ()=>'change' },
 	// valid unique
-	validUnique: { required:false, type:Object, default: ()=>{} },
+	validUnique: { required:false, type:[String, Object], default: ()=>{} },
 	// form item props
 	formItemProps: { required:false, type:Object, default: ()=>{} },
 })
+
+// get valid unique
+const validUnique = (typeof props.validUnique==='string')?{ code:props.validUnique }:props.validUnique
 
 // const post list
 const postList = ref([])

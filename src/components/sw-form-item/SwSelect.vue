@@ -1,12 +1,18 @@
 <template>
 	<el-form-item :prop="props.prop" :label="props.label" v-bind="props.formItemProps"
 		:rules="{ label:props.label, type:props.validType, valid:props.valid, unique:validUnique, lang:t, validator:validator, trigger:props.validTrigger }">
-		<el-input-number v-if="props.type==='number'" v-model="model" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请输入'+props.label)" />
-		<el-input v-else v-model="model" :type="props.type" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请输入'+props.label)" />
+		<el-select v-model="model" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请选择'+props.label)">
+			<template v-if="props.dict">
+				<el-option v-if="typeof props.dict==='object'" v-for="(value, key) in options" :key="key" :label="key" :value="value" />
+				<el-option v-if="typeof props.dict==='array'" v-for="dict in appStore.dict" :key="dict.value" :label="dict.label" :value="dict.value" />
+				<el-option v-if="typeof props.dict==='string'" v-for="dict in appStore.dict[props.dict].datas" :key="dict.value" :label="dict.label" :value="dict.value" />
+			</template>
+			<slot v-else></slot>
+		</el-select>
 	</el-form-item>
 </template>
 
-<script lang="ts" name="SwInput" setup>
+<script lang="ts" name="SwSelect" setup>
 // cancel inherit attrs
 defineOptions({ inheritAttrs: false })
 
@@ -35,12 +41,12 @@ const userStore = useUserStore()
 
 // define props
 const props = defineProps({
-	// type
-	type: { required:false, type:String, default: ()=>'' },
 	// prop
 	prop: { required:false, type:String, default: ()=>'' },
 	// label
 	label: { required:false, type:String, default: ()=>'' },
+	// dict
+	dict: { required:false, type:[Array, Object, String], default: ()=>'' },
 	// placeholder
 	placeholder: { required:false, type:String, default: ()=>'' },
 	// valid

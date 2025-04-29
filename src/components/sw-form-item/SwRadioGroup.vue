@@ -1,6 +1,6 @@
 <template>
 	<el-form-item :prop="props.prop" :label="props.label" v-bind="props.formItemProps"
-		:rules="{ label:props.label, type:props.validType, valid:props.valid, unique:props.validUnique, lang:t, validator:validator, trigger:props.validTrigger }">
+		:rules="{ label:props.label, type:props.validType, valid:props.valid, unique:validUnique, lang:t, validator:validator, trigger:props.validTrigger }">
 		<el-radio-group v-model="model" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请选择'+props.label)">
 			<template v-if="props.dict">
 				<el-radio-button v-if="typeof props.dict==='object'" v-for="(value, key) in options" :key="key" :label="key" :value="value" />
@@ -56,8 +56,11 @@ const props = defineProps({
 	// valid trigger
 	validTrigger: { required:false, type:String, default: ()=>'change' },
 	// valid unique
-	validUnique: { required:false, type:Object, default: ()=>{} },
+	validUnique: { required:false, type:[String, Object], default: ()=>{} },
 	// form item props
 	formItemProps: { required:false, type:Object, default: ()=>{} },
 })
+
+// get valid unique
+const validUnique = (typeof props.validUnique==='string')?{ code:props.validUnique }:props.validUnique
 </script>

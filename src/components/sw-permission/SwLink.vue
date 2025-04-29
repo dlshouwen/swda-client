@@ -44,7 +44,7 @@ const disabled = ref(false)
 const title = ref(false)
 
 // no permission
-if (props.authority&&!userStore.authorityList.includes[props.authority]){
+if (props.authority&&!userStore.authorityList.includes(props.authority)){
 	// set forbidden
 	forbidden.value = true
 	// set disabled

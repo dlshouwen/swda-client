@@ -9,7 +9,9 @@ import SwSelectOrgan from '@/components/sw-form-item/SwSelectOrgan.vue'
 import SwSelectPost from '@/components/sw-form-item/SwSelectPost.vue'
 import SwSelectRegion from '@/components/sw-form-item/SwSelectRegion.vue'
 import SwInput from '@/components/sw-form-item/SwInput.vue'
+import SwSelect from '@/components/sw-form-item/SwSelect.vue'
 import SwRadioGroup from '@/components/sw-form-item/SwRadioGroup.vue'
+import SwDatePicker from '@/components/sw-form-item/SwDatePicker.vue'
 
 // import table components
 import SwTable from '@/components/sw-table/SwTable.vue'
@@ -25,7 +27,8 @@ import SwIcon from '@/components/sw-icon/SwIcon.vue'
 // const components
 const components = [ 
 	SwSelectSystem, SwSelectMenu, SwSelectRole, SwSelectOrgan, SwSelectPost, SwSelectRegion, 
-	SwInput, SwRadioGroup, SwTable, SwTableColumn, 
+	SwInput, SwSelect, SwRadioGroup, SwDatePicker, 
+	SwTable, SwTableColumn, 
 	SwButton, SwLink, 
 	SwIcon
 ]

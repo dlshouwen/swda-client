@@ -1,12 +1,11 @@
 <template>
 	<el-form-item :prop="props.prop" :label="props.label" v-bind="props.formItemProps"
 		:rules="{ label:props.label, type:props.validType, valid:props.valid, unique:validUnique, lang:t, validator:validator, trigger:props.validTrigger }">
-		<el-input-number v-if="props.type==='number'" v-model="model" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请输入'+props.label)" />
-		<el-input v-else v-model="model" :type="props.type" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请输入'+props.label)" />
+		<el-date-picker v-model="model" v-bind="$attrs" :placeholder="props.placeholder?props.placeholder:('请输入'+props.label)" />
 	</el-form-item>
 </template>
 
-<script lang="ts" name="SwInput" setup>
+<script lang="ts" name="SwDatePicker" setup>
 // cancel inherit attrs
 defineOptions({ inheritAttrs: false })
 
@@ -35,8 +34,6 @@ const userStore = useUserStore()
 
 // define props
 const props = defineProps({
-	// type
-	type: { required:false, type:String, default: ()=>'' },
 	// prop
 	prop: { required:false, type:String, default: ()=>'' },
 	// label

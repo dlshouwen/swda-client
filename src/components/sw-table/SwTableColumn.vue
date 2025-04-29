@@ -130,13 +130,23 @@ const props = defineProps({
 	// printable
 	printable: { type:Boolean, required:false, default: ()=>true },
 	// exportable
-	exportable: { type:Boolean, required:false, default: ()=>true }
+	exportable: { type:Boolean, required:false, default: ()=>true },
+	// element
+	element: { type:Boolean, required:false, default: ()=>false }
 })
 
 // const column from props
 const column = reactive({})
 
+// copy props to column
 Object.assign(column, props)
+
+// reset props
+column.fast = column.element?false:column.fast
+column.advance = column.element?false:column.advance
+column.printable = column.element?false:column.printable
+column.exportable = column.element?false:column.exportable
+column.sortable = column.element?false:column.sortable
 
 // computed width
 const width = computed(()=>{

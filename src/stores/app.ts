@@ -36,13 +36,8 @@ export const useAppStore = defineStore('appStore', {
 				try{
 					// get attr data
 					const { data } = await $getAttrData()
-					// get attrs
-					const attrs: [{attrId:string,content:string}] = data
-					// for each attr
-					attrs.forEach(attr => {
-						// set data
-						this.attr[attr.attrId] = attr.content
-					})
+					// set attr data
+					this.attr = data
 					// reset expired
 					expired.attr = timestamp
 				}catch(e){
@@ -62,36 +57,8 @@ export const useAppStore = defineStore('appStore', {
 				try{
 					// get dict data
 					const { data } = await $getDictData()
-					// get dict types, dicts
-					const dictTypes: [{dictTypeId:number,dictType:string}] = data.dictTypeList
-					const dicts: [{dictTypeId:number,dictType:string,dictId:number,dictName:string,dictLabel:string,dictValue:string,dictStyle:string}] = data.dictList
-					// for each dict type
-					dictTypes.forEach(dictType=>{
-						// reset dict
-						this.dict[dictType.dictType] = {}
-						// defined datas
-						const datas: any = []
-						// for each dict
-						dicts.forEach(_dict=>{
-							// is dict type
-							if(_dict.dictType===dictType.dictType){
-								// construct dict
-								var d = {
-									id: _dict.dictId,
-									name: _dict.dictName,
-									label: _dict.dictLabel,
-									value: _dict.dictValue,
-									style: _dict.dictStyle
-								}
-								// add to datas
-								datas.push(d)
-								// set value
-								this.dict[dictType.dictType][_dict.dictValue] = d
-							}
-						})
-						// set datas to dict
-						this.dict[dictType.dictType].datas = datas
-					})
+					// set dict data
+					this.dict = data
 					// reset expired
 					expired.dict = timestamp
 				}catch(e){

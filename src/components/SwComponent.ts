@@ -1,6 +1,10 @@
 // import vue elements
 import type { App, Plugin } from 'vue'
 
+// import layout components
+import SwContainer from '@/components/sw-layout/SwContainer.vue'
+import SwPanel from '@/components/sw-layout/SwPanel.vue'
+
 // import form item components
 import SwSelectSystem from '@/components/sw-form-item/SwSelectSystem.vue'
 import SwSelectMenu from '@/components/sw-form-item/SwSelectMenu.vue'
@@ -26,6 +30,7 @@ import SwIcon from '@/components/sw-icon/SwIcon.vue'
 
 // const components
 const components = [ 
+	SwContainer, SwPanel, 
 	SwSelectSystem, SwSelectMenu, SwSelectRole, SwSelectOrgan, SwSelectPost, SwSelectRegion, 
 	SwInput, SwSelect, SwRadioGroup, SwDatePicker, 
 	SwTable, SwTableColumn, 

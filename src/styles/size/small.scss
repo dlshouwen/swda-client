@@ -49,5 +49,14 @@
 .layout-container.small .main-container .tab .el-tabs .el-tabs__nav-wrap .el-dropdown {font-size:12px;height:32px;line-height:32px;}
 .layout-container.small .main-container .tab .el-tabs .el-tabs__nav-wrap .el-tabs__item:before {width:8px;height:8px;margin-right:8px;}
 
+/** sw */
+.sw-panel.small{ margin:3px;border-radius:4px; }
+.sw-panel.small .sw-panel-header{ padding:6px; }
+.sw-panel.small .sw-panel-header .sw-panel-title{ font-size:12px;padding:0 6px; }
+.sw-panel.small .sw-panel-header .sw-panel-title .sw-icon{margin-right:6px;}
+.sw-panel.small .sw-panel-header .sw-panel-operation{ padding:0 6px; }
+.sw-panel.small .sw-panel-header .sw-panel-operation .sw-link{padding:0 3px}
+.sw-panel.small .sw-panel-body{ padding:6px 12px; }
+
 /** el menu */
 .el-menu-item .sw-icon{margin-right:12px;}

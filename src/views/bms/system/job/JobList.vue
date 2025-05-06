@@ -1,26 +1,35 @@
 <template>
 	<!-- container -->
-	<el-container class="container" direction="vertical">
-		<!-- search container -->
-		<el-card class="panel">
+	<sw-container>
+		<!-- search panel -->
+		<sw-panel icon="search">
+			<!-- title -->
+			<template #title>查询面板</template>
+			<!-- operation -->
+			<template #operation>
+				<sw-button type="warning" icon="redo" @click="reset">重置</sw-button>
+				<sw-button type="primary" icon="search" @click="load">查询</sw-button>
+			</template>
+			<!-- form -->
 			<el-form :model="search" :inline="true">
 				<sw-input v-model="search.eq_job_id" label="任务编号" clearable style="width:130px" />
 				<sw-input v-model="search.lk_job_name" label="任务名称" clearable style="width:130px" />
 				<sw-select v-model="search.eq_job_status" label="任务状态" dict="job_status" clearable style="width:100px" />
-				<el-form-item>
-					<sw-button type="warning" icon="redo" @click="reset">重置</sw-button>
-					<sw-button type="primary" icon="search" @click="load" divider>查询</sw-button>
-					<sw-button authority="bms:system:job:add" type="primary" icon="plus" @click="addJob">新增</sw-button>
-					<sw-button authority="bms:system:job:update" type="warning" icon="edit" @click="updateJob()">编辑</sw-button>
-					<sw-button authority="bms:system:job:delete" type="danger" icon="delete" @click="deleteJob()">删除</sw-button>
-					<sw-button authority="bms:system:job:pause" type="warning" icon="delete" @click="pauseJob()">暂停</sw-button>
-					<sw-button authority="bms:system:job:resume" type="success" icon="delete" @click="resumeJob()">恢复</sw-button>
-					<sw-button authority="bms:system:job:run" type="danger" icon="delete" @click="runJob()">运行</sw-button>
-				</el-form-item>
 			</el-form>
-		</el-card>
-		<!-- grid container -->
-		<el-card class="panel panel-auto">
+		</sw-panel>
+		<!-- data panel -->
+		<sw-panel icon="field-time" flex>
+			<!-- title -->
+			<template #title>任务列表</template>
+			<!-- operation -->
+			<template #operation>
+				<sw-button authority="bms:system:job:add" type="primary" icon="plus" @click="addJob">新增</sw-button>
+				<sw-button authority="bms:system:job:update" type="warning" icon="edit" @click="updateJob()">编辑</sw-button>
+				<sw-button authority="bms:system:job:delete" type="danger" icon="delete" @click="deleteJob()">删除</sw-button>
+				<sw-button authority="bms:system:job:pause" type="warning" icon="delete" @click="pauseJob()">暂停</sw-button>
+				<sw-button authority="bms:system:job:resume" type="success" icon="delete" @click="resumeJob()">恢复</sw-button>
+				<sw-button authority="bms:system:job:run" type="danger" icon="delete" @click="runJob()">运行</sw-button>
+			</template>
 			<!-- grid -->
 			<sw-table ref="gridRef" url="/bms/system/job/page" row-key="jobId" :search="search">
 				<sw-table-column type="selection" width="55" element />
@@ -48,8 +57,8 @@
 				<sw-table-column data-type="string" prop="remark" label="备注" align="left" width="120" fast="lk" />
 				<sw-table-column data-type="date" prop="createTime" label="创建时间" width="180" fast="range" />
 			</sw-table>
-		</el-card>
-	</el-container>
+		</sw-panel>
+	</sw-container>
 	<!-- add job -->
 	<AddJob ref="addJobRef" @callback="load"></AddJob>
 	<!-- update job -->

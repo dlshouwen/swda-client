@@ -2,7 +2,7 @@
 	<!-- if has permission or no permission but show -->
 	<template v-if="appStore.attr.show_button_when_no_limit=='1'||!forbidden">
 		<!-- el link -->
-		<el-link :disabled="disabled" :title="title" v-bind="$attrs">
+		<el-link class="sw-link" :disabled="disabled" :title="title" v-bind="$attrs" :underline="props.underline">
 			<!-- icon -->
 			<sw-icon v-if="props.icon" :icon="props.icon"></sw-icon>
 			<!-- slot -->
@@ -34,6 +34,7 @@ const userStore = useUserStore();
 const props = defineProps({
 	authority: { default: ()=>'', type:String, required:false },
 	divider: { default: ()=>false, type:Boolean, required:false },
+	underline: { default: ()=>false, type:Boolean, required:false },
 	elIcon: { default: ()=>'', type:String, required:false },
 	icon: { default: ()=>'', type:String, required:false }
 })
@@ -60,3 +61,13 @@ if (props.authority&&!userStore.authorityList.includes(props.authority)){
 	title.value = attrs.title
 }
 </script>
+
+<style lang="scss" scope>
+.sw-link{
+	
+	padding:0 3px;
+	
+	.sw-icon{margin-right:6px;}
+	
+}
+</style>

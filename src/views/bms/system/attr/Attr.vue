@@ -1,6 +1,6 @@
 <template>
 	<!-- container -->
-	<el-container class="container" direction="vertical">
+	<sw-container>
 		<!-- tabs -->
 		<el-tabs type="border-card">
 			<!-- tab -->
@@ -53,7 +53,7 @@
 				</el-scrollbar>
 			</el-tab-pane>
 		</el-tabs>
-	</el-container>
+	</sw-container>
 </template>
 
 <style lang="scss">

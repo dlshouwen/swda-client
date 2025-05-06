@@ -149,7 +149,7 @@ const props = defineProps({
 	// title
 	title: { type:String, required:false, default: ()=>'数据' },
 	// url
-	url: { type:String, required:false },
+	url: { type:String, required:false, default: ()=>'' },
 	// once
 	once: { type:Boolean, required:false, default: ()=>false },
 	// params

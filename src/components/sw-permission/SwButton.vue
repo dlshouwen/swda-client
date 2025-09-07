@@ -5,6 +5,8 @@
 		<el-button :disabled="disabled" :icon="props.elIcon" :title="title" v-bind="$attrs">
 			<!-- icon -->
 			<sw-icon v-if="props.icon" :icon="props.icon"></sw-icon>
+			<!-- label -->
+			{{props.label}}
 			<!-- slot -->
 			<slot></slot>
 		</el-button>
@@ -35,7 +37,8 @@ const props = defineProps({
 	authority: { default: ()=>'', type:String, required:false },
 	divider: { default: ()=>false, type:Boolean, required:false },
 	elIcon: { default: ()=>'', type:String, required:false },
-	icon: { default: ()=>'', type:String, required:false }
+	icon: { default: ()=>'', type:String, required:false },
+	label: { default: ()=>'', type:String, required:false }
 })
 
 // const data

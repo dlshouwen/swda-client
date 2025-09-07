@@ -4,26 +4,10 @@
 		<!-- table -->
 		<div class="table-container" ref="tableContainerRef">
 			<!-- el table -->
-			<el-table ref="tableRef" :height="state.height" :maxHeight="props.maxHeight" 
-				:stripe="props.stripe" :border="props.border" :size="props.size" :fit="props.fit" :showHeader="props.showHeader" 
-				:highlightCurrentRow="props.highlightCurrentRow" :currentRowKey="props.currentRowKey" 
-				:rowClassName="props.rowClassName" :rowStyle="props.rowStyle" :cellClassName="props.cellClassName" :cellStyle="props.cellStyle"
-				:headerRowClassName="props.headerRowClassName" :headerRowStyle="props.headerRowStyle" :headerCellClassName="props.headerCellClassName" :headerCellStyle="props.headerCellStyle"
-				:rowKey="props.rowKey" :emptyText="props.emptyText" :defaultExpandAll="props.defaultExpandAll" :expandRowKeys="props.expandRowKeys"
-				:defaultSort="props.defaultSort" :tooltipEffect="props.tooltipEffect" :tooltipOptions="props.tooltipOptions" :appendFilterPanelTo="props.appendFilterPanelTo"
-				:showSummary="props.showSummary" :sumText="props.sumText" :summaryMethod="props.summaryMethod" :spanMethod="handleSpanMethod"
-				:selectOnIndeterminate="props.selectOnIndeterminate" :indent="props.indent" 
-				:lazy="props.lazy" :load="props.load" :treeProps="props.treeProps" 
-				:tableLayout="props.tableLayout" :scrollbarAlwaysOn="props.scrollbarAlwaysOn" :showOverflowTooltip="props.showOverflowTooltip"
-				:flexible="props.flexible" :scrollbarTabindex="props.scrollbarTabindex" :allowDragLastColumn="props.allowDragLastColumn" 
-				:tooltipFormatter="props.tooltipFormatter" :preserveExpandedContent="props.preserveExpandedContent"
-				:loading="state.loading" :data="state.datas.exhibit"
-				@select="select" @selectAll="selectAll" @selectionChange="selectionChange"
-				@cellMouseEnter="cellMouseEnter" @cellMouseLeave="cellMouseLeave" @cellClick="cellClick" @cellDblclick="cellDblclick" @cellContextmenu="cellContextmenu"
-				@rowClick="rowClick" @rowContextmenu="rowContextmenu" @rowDblclick="rowDblclick"
-				@headerClick="headerClick" @headerContextmenu="headerContextmenu" 
-				@sortChange="sortChange" @filterChange="filterChange" @currentChange="currentChange"
-				@headerDragend="headerDragend" @expandChange="expandChange" @scroll="scroll">
+			<el-table ref="tableRef" v-bind="$attrs" 
+				:height="state.height" :stripe="props.stripe" :border="props.border" 
+				:highlightCurrentRow="props.highlightCurrentRow" :spanMethod="handleSpanMethod" :load="handleTreeLoad" 
+				:data="state.datas.exhibit">
 				<slot></slot>
 			</el-table>
 		</div>
@@ -112,7 +96,7 @@
 defineOptions({ inheritAttrs: false })
 
 // import vue elements
-import { ref, reactive, toRefs, provide, computed, onMounted, getCurrentInstance } from 'vue'
+import { ref, reactive, useAttrs, provide, computed, onMounted, getCurrentInstance } from 'vue'
 
 // import request
 import request from '@/utils/request'
@@ -131,6 +115,9 @@ import { useAppStore } from '@/stores/app'
 
 // get stores
 const appStore = useAppStore()
+
+// const attrs
+const attrs = useAttrs()
 
 // import vue i18n
 import { useI18n } from 'vue-i18n'
@@ -170,88 +157,20 @@ const props = defineProps({
 	data: { type:Array, required:false },
 	// height
 	height: { type:[String, Number], required:false },
-	// max-height
-	maxHeight: { type:[String, Number], required:false },
 	// stripe: false -> true
 	stripe: { type:Boolean, required:false, default: ()=>true },
 	// border: false -> true
 	border: { type:Boolean, required:false, default: ()=>true },
-	// size
-	size: { type:String, required:false },
-	// fit
-	fit: { type:Boolean, required:false, default: ()=>true },
-	// show-header
-	showHeader: { type:Boolean, required:false, default: ()=>true },
 	// highlight-current-row: false -> true
 	highlightCurrentRow: { type:Boolean, required:false, default: ()=>true },
-	// current-row-key
-	currentRowKey: { type:[String, Number], required:false },
-	// row-class-name
-	rowClassName: { type:[Function, String], required:false },
-	// row-style
-	rowStyle: { type:[Function, Object], required:false },
-	// cell-class-name
-	cellClassName: { type:[Function, String], required:false },
-	// cell-style
-	cellStyle: { type:[Function, Object], required:false },
-	// header-row-class-name
-	headerRowClassName: { type:[Function, String], required:false },
-	// header-row-style
-	headerRowStyle: { type:[Function, Object], required:false },
-	// header-cell-class-name
-	headerCellClassName: { type:[Function, String], required:false },
-	// header-cell-style
-	headerCellStyle: { type:[Function, Object], required:false },
-	// row-key
-	rowKey: { type:[Function, String], required:false },
-	// empty-text
-	emptyText: { type:String, required:false },
-	// default-expand-all
-	defaultExpandAll: { type:Boolean, required:false, default: ()=>false },
-	// expand-row-keys
-	expandRowKeys: { type:Array, required:false },
-	// default-sort
-	defaultSort: { type:Object, required:false },
-	// tooltip-effect
-	tooltipEffect: { type:String, required:false, default: ()=>'dark' },
-	// tooltip-options
-	tooltipOptions: { type:Object, required:false, default: ()=>{ return { enterable: true, placement: 'top', showArrow: true, hideAfter: 200, popperOptions: { strategy: 'fixed' } } } },
-	// append-filter-panel-to
-	appendFilterPanelTo: { type:String, required:false },
-	// show-summary
-	showSummary: { type:Boolean, required:false, default: ()=>false },
-	// sum-text
-	sumText: { type:String, required:false },
-	// summary-method
-	summaryMethod: { type:Function, required:false },
 	// span-method
 	spanMethod: { type:Function, required:false },
-	// select-on-indeterminate
-	selectOnIndeterminate: { type:Boolean, required:false, default: ()=>true },
-	// indent
-	indent: { type:Number, required:false, default: ()=>16 },
-	// lazy
-	lazy: { type:Boolean, required:false, default: ()=>false },
-	// load
-	load: { type:Function, required:false },
-	// tree-props
-	treeProps: { type:Object, required:false, default: ()=>{ return { hasChildren: 'hasChildren', children: 'children', checkStrictly: false } } },
-	// table-layout
-	tableLayout: { type:String, required:false, default: ()=>'fixed' },
-	// scrollbar-always-on
-	scrollbarAlwaysOn: { type:Boolean, required:false, default: ()=>false },
-	// show-overflow-tooltip
-	showOverflowTooltip: { type:[Boolean, Object], required:false },
-	// flexible
-	flexible: { type:Boolean, required:false, default: ()=>false },
-	// scrollbar-tabindex
-	scrollbarTabindex: { type:[String, Number], required:false },
-	// allow-drag-last-column
-	allowDragLastColumn: { type:Boolean, required:false, default: ()=>true },
-	// tooltip-formatter
-	tooltipFormatter: { type:Function, required:false },
-	// preserve-expanded-content
-	preserveExpandedContent: { type:Boolean, required:false, default: ()=>false },
+	// tree
+	tree: { type:Boolean, required:false, default: ()=>false },
+	// tree top value
+	treeTopValue: { required:false, default: ()=>null },
+	// tree load
+	treeLoad: { type:Function, required:false },
 	// render datas
 	renderDatas: { type:Function, required:false },
 })
@@ -332,13 +251,18 @@ const load = async () => {
 	// has url
 	if(props.url) {
 		// once & not init
-		if(props.once && !state.init) {
+		if((props.once || props.tree) && !state.init) {
 			// try catch
 			try{
-				// get data
-				let { data } = await request.post(props.url)
+				// defined data
+				let handle = null
+				// tree
+				if(props.tree)
+					handle = await request.post(props.url, { key:props.treeTopValue })
+				else
+					handle = await request.post(props.url)
 				// set origin
-				state.datas.origin = data
+				state.datas.origin = handle.data
 				// set init
 				state.init = true
 			}catch(e){
@@ -347,7 +271,7 @@ const load = async () => {
 			}
 		}
 		// not once
-		if(!props.once) {
+		if(!props.once && !props.tree) {
 			// try catch
 			try{
 				// defined query
@@ -381,6 +305,10 @@ const load = async () => {
 	handleDatas()
 }
 
+/**
+ * handle datas
+ * @param datas
+ */
 const handleDatas = () => {
 	// filter datas
 	if(props.data || props.once) {
@@ -419,7 +347,6 @@ const handleDatas = () => {
 	// exhibit datas
 	 state.datas.exhibit = state.datas.pager;
 }
-
 
 /**
  * filter datas
@@ -487,7 +414,7 @@ const filterDatas = (datas: any[]) => {
 		}
 	}
 	// filter
-	datas = datas.filter(data=>{
+	datas = datas.filter(data => {
 		// get keys
 		const keys = Object.keys(params);
 		// for each key
@@ -932,7 +859,7 @@ const print = (columns) => {
 			});
 			return _datas;
 		}
-		baseDatas = mergeDatas(state.datas.exhibit, props.treeProps.children);
+		baseDatas = mergeDatas(state.datas.exhibit, attrs.treeProps.children);
 	}else{
 		baseDatas = state.datas.exhibit.concat([]);
 	}
@@ -973,8 +900,8 @@ const print = (columns) => {
  */
 const handleSpanMethod = ({ row, column, rowIndex, columnIndex }) => {
 	// custom
-	if(props.spanMethod){
-		props.spanMethod({ row, column, rowIndex, columnIndex })
+	if(attrs.spanMethod){
+		attrs.spanMethod({ row, column, rowIndex, columnIndex })
 		return
 	}
 	// resolve merge
@@ -1047,6 +974,57 @@ const handleSpanMethod = ({ row, column, rowIndex, columnIndex }) => {
 		// return
 		return {rowspan:rowspan, colspan:1}
 	}
+}
+
+/**
+ * handle tree load
+ * @param row
+ * @param node
+ * @param resolve
+ */
+const handleTreeLoad = async (row, node, resolve) => {
+	// custom
+	if(props.treeLoad){
+		props.treeLoad(row, node, resolve);
+		return;
+	}
+	// set key
+	let key = (typeof attrs['row-key']==='function'?attrs['row-key'](row):row[attrs['row-key']]);
+	// load data
+	let { data } = await request.post(props.url, {key:key})
+	// set data
+	let datas = data;
+	// clean datas
+	// datas = cleanDatas(datas);
+	// filter datas
+	datas = filterDatas(datas);
+	// sort datas
+	datas = sortDatas(datas);
+	// datas render
+	if(props.renderDatas)
+		datas = props.renderDatas(datas);
+	// resolve
+	resolve(datas);
+}
+
+/**
+ * update tree node
+ * @param key
+ */
+const updateTreeNode = async (key:any) => {
+	// load data
+	let { data } = await request.post(props.url, key)
+	// set data
+	let datas = data;
+	// filter datas
+	datas = filterDatas(datas);
+	// sort datas
+	datas = sortDatas(datas);
+	// datas render
+	if(props.renderDatas)
+		datas = props.renderDatas(datas);
+	// resolve
+	tableRef.value.updateKeyChildren(key, datas)
 }
 
 /**
@@ -1126,27 +1104,6 @@ const emit = defineEmits([
 	'headerDragend', 'expandChange', 'scroll'
 ])
 
-// mapping event
-const select = (selection: any[], row: any)=>{ emit('select', selection, row) }
-const selectAll = (selection: any[])=>{ emit('selectAll', selection) }
-const selectionChange = (newSelection: any[])=>{ emit('selectionChange', newSelection) }
-const cellMouseEnter = (row: any, column: any, cell: any, event: any)=>{ emit('cellMouseEnter', row, column, cell, event) }
-const cellMouseLeave = (row: any, column: any, cell: any, event: any)=>{ emit('cellMouseLeave', row, column, cell, event) }
-const cellClick = (row: any, column: any, cell: any, event: any)=>{ emit('cellClick', row, column, cell, event) }
-const cellDblclick = (row: any, column: any, cell: any, event: any)=>{ emit('cellDblclick', row, column, cell, event) }
-const cellContextmenu = (row: any, column: any, cell: any, event: any)=>{ emit('cellContextmenu', row, column, cell, event) }
-const rowClick = (row: any, column: any, event: any)=>{ emit('rowClick', row, column, event) }
-const rowContextmenu = (row: any, column: any, event: any)=>{ emit('rowContextmenu', row, column, event) }
-const rowDblclick = (row: any, column: any, event: any)=>{ emit('rowDblclick', row, column, event) }
-const headerClick = (column: any, event: any)=>{ emit('headerClick', column, event) }
-const headerContextmenu = (column: any, event: any)=>{ emit('headerContextmenu', column, event) }
-const sortChange = (data: {column: any, prop: string, order: any })=>{ emit('sortChange', data) }
-const filterChange = (newFilters: any)=>{ emit('filterChange', newFilters) }
-const currentChange = (currentRow: any, oldCurrentRow: any)=>{ emit('currentChange', currentRow, oldCurrentRow) }
-const headerDragend = (newWidth: number, oldWidth: number, column: any, event: any)=>{ emit('headerDragend', newWidth, oldWidth, column, event) }
-const expandChange = (row: any, expandedRows: any)=>{ emit('expandChange', row, expandedRows) }
-const scroll = (data: { scrollLeft: number, scrollTop: number })=>{ emit('scroll', data) }
-
 // const table container
 const tableRef = ref()
 
@@ -1189,5 +1146,6 @@ defineExpose({
 	setScrollLeft, 
 	columns, 
 	updateKeyChildren, 
+	updateTreeNode,
 })
 </script>

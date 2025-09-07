@@ -72,7 +72,7 @@
 		</el-card>
 	</el-container>
 	<!-- view operation log -->
-	<ViewOperationLog ref="viewOperationLogRef"></ViewOperationLog>
+	<ViewJobLog ref="viewOperationLogRef"></ViewJobLog>
 </template>
 
 <script setup lang="ts">
@@ -83,7 +83,7 @@ import { ref, reactive, onMounted, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 // import components
-import ViewOperationLog from './ViewOperationLog.vue'
+import ViewJobLog from './ViewJobLog.vue'
 
 // import apis
 import { $getOperationLogPageResult, $deleteOperationLog } from '@/api/bms/log/operationLog' 

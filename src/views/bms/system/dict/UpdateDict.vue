@@ -30,6 +30,7 @@
 				<el-divider direction="vertical" />
 				<el-button type="danger" @click="close"><sw-icon icon="close"></sw-icon>关闭</el-button>
 			</el-form-item>
+		</el-form>
 	</el-dialog>
 </template>
 
